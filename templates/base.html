@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN'
+  'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" dir="ltr">
+    <head>
+        <title>{% block title %}{% endblock title %} | webPyVirt</title>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+        <meta name="author" content="Martin Jantošovič" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <meta name="robots" content="index, follow" />
+<!--
+        <link rel="Shortcut Icon" type="image/x-icon" href="/img/favicon.ico?2" />
+-->
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.3.2.min.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/base.js"></script>
+        {% block custom_js %}{% endblock custom_js %}
+
+        <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/reset.css" />
+        <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/base.css" />
+        {% block custom_css %}{% endblock custom_css %}
+        
+    </head>
+    <body class="{% block body_class %}{% endblock body_class %}">
+        {% block body %}
+        {% endblock body %}
+    </body>
+</html>
+
+

@@ -1,0 +1,14 @@
+body.login                      { background-color: #eee; }
+.login #page                    { width: 400px; margin: 100px auto 0 auto; }
+.login .container               { background: #fff; border: 1px solid #ccc; }
+.login #header                  { text-align: center; padding: 5px 0; 
+                                  background-color: #4444ff; }
+.login #header h1               { font-weight: bold; font-size: 18pt; }
+.login #content                 { margin: 5px 10px; }
+.login label                    { float: left; text-align: right; }
+.login .form-row                { padding: 6px 3px; float: left; }
+.login .form-row label          { float: left; text-align: right; width: 170px; }
+.login .form-row #id_username,
+ .login .form-row #id_password  { width: 170px; }
+.login form .submit-row         { clear: both; padding: 5px 0 5px 183px;  }
+

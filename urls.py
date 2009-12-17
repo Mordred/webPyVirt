@@ -1,17 +1,29 @@
+# -*- coding: UTF-8 -*-
 from django.conf.urls.defaults import *
-
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
+from django.conf import settings
 
 urlpatterns = patterns('',
-    # Example:
-    # (r'^webPyVirt/', include('webPyVirt.foo.urls')),
-
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs' 
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # (r'^admin/', include(admin.site.urls)),
+    url(
+        r"^$", 
+        "views.home",
+        name="home"
+    ),
+    url(
+        r"^login/$", 
+        "django.contrib.auth.views.login", 
+        { 
+            "template_name":    "login.html"
+        },
+        name="login"
+    ),
+    url(
+        r"^logout/$", 
+        "django.contrib.auth.views.logout_then_login",
+        {
+            "login_url":        "/login/"
+        },
+        name="logout"
+    ),
 )
