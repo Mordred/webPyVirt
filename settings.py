@@ -66,7 +66,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'webPyVirt.urls'
 
 TEMPLATE_DIRS = (
     "/home/mordred/projects/webPyVirt/templates/",

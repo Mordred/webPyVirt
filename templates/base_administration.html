@@ -3,6 +3,13 @@
 
 {% block title %}{% block subtitle %}{% endblock subtitle %} | {% trans "Administration" %}{% endblock title %}
 
+{% block custom_js %}
+{% endblock custom_js %}
+
+{% block custom_css %}
+        <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/administration.css" />
+{% endblock custom_css %}
+
 {% block body %}
 
     <div id="page">
