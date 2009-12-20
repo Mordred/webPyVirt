@@ -1,0 +1,20 @@
+{% load i18n %}
+<div id="logo"></div>
+<div class="menu">
+    <div class="menu-header">
+        {% trans "Menu" %}
+    </div>
+
+    <div class="menu-item">
+        <a href="{% url login %}">{% trans "Users" %}</a>
+    </div>
+    <div class="menu-item">
+        <a href="{% url login %}">{% trans "Groups" %}</a>
+    </div>
+    <div class="menu-item">
+        <a href="{% url login %}">{% trans "Nodes" %}</a>
+    </div>
+    <div class="menu-item">
+        <a href="{% url login %}">{% trans "Domains" %}</a>
+    </div>
+</div>

@@ -10,18 +10,18 @@
         <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/administration.css" />
 {% endblock custom_css %}
 
+{% block body_class %}{% endblock body_class %}
+
 {% block body %}
 
     <div id="page">
         <div id="left-menu">
-            {% block left_menu %}
-            {% endblock left_menu %}
+            {% include "includes/left_menu.html" %}
         </div>
 
         <div id="content">
             <div id="content-header">
-                {% block content_header %}
-                {% endblock content_header %}
+                {% include "includes/content_header.html" %}
             </div>
 
             <div id="content-body">
