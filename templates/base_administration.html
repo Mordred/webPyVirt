@@ -10,24 +10,44 @@
         <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/administration.css" />
 {% endblock custom_css %}
 
-{% block body_class %}{% endblock body_class %}
+{% block body_class %}administration{% endblock body_class %}
 
 {% block body %}
 
     <div id="page">
-        <div id="left-menu">
-            {% include "includes/left_menu.html" %}
+
+        <div id="page-header">
         </div>
 
-        <div id="content">
-            <div id="content-header">
-                {% include "includes/content_header.html" %}
+        <div id="page-body">
+
+            <div id="tabs">
+                {% include "includes/main_menu.html" %}
             </div>
 
-            <div id="content-body">
-                {% block content_body %}
-                {% endblock content_body %}
+            <div id="page-content">
+                <span class="border-top"><span></span></span>
+
+                <div id="content">
+
+                    <div id="left-menu">
+                        {% include "includes/left_menu.html" %}
+                    </div>
+
+                    <div id="content-body">
+                        {% block content_body %}
+                        {% endblock content_body %}
+                    </div>
+
+                </div>
+
+                <span class="border-bottom"><span></span></span>
             </div>
+
+        </div>
+
+        <div id="page-footer">
+            {% trans "Created by Martin Jantošovič" %}
         </div>
     </div>
 

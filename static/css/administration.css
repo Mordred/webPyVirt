@@ -1,20 +1,37 @@
 .debug div                      { border: 1px solid red; }
 
-#logo                           { display: block; width: 200px; height: 80px; background: transparent; }
+#page                           {}
+#page-header                    { height: 50px; }
+#page-body                      { padding: 0 25px 0 16px; }
+#page-footer                    { font-weight: bold; color: #000; text-align: center; }
+#page-content                   { height: 100%; margin: 0 auto; }
 
-#content                        { height: 100%; padding-left: 200px; }
-#content-header                 { padding: 5px; height: 60px; }
+span.border-top                 { background: url("../img/border.png") no-repeat 0 0; display: block; height: 15px; margin-left: -1px; }
+span.border-top span            { background: url("../img/border-right.png") no-repeat 100% 0; display: block; height: 15px; margin-right: -10px; }
 
-#left-menu                      { float: left; 
-                                  width: 200px; height: 100%; }
-.menu                           { }
-.menu-header                    { text-align: center; font-size: 14pt; font-weight: bold; 
-                                  color: #fff; }
-.menu-item                      { -moz-border-radius-topleft: 10px; margin-left: 2px; 
-                                  -moz-border-radius-topright: 10px; -moz-border-radius-bottomleft: 10px;
-                                  -moz-border-radius-bottomright: 10px; border: 1px solid #888; 
-                                  padding: 2px 10px 2px 10px; margin-top: 5px; background-color: #fff; }
-.menu-item a                    { color: #000; text-decoration: none; display: block; }
+span.border-bottom              { background: url("../img/border.png") no-repeat 0 100%; display: block; height: 15px; margin-left: -1px; }
+span.border-bottom span         { background: url("../img/border-right.png") no-repeat 100% 100%; display: block; height: 15px; margin-right: -10px; }
 
-#content-body                   { }
+#content                        { background: #eee url("../img/border-left.png") repeat-y -1px 0;; min-height: 450px; 
+                                  border-right: 1px solid #000; margin-right: -10px; padding-left: 10px; }
 
+#left-menu                      { float: left;
+                                  width: 200px; height: 100%; border-right: 1px solid #ccc; }
+#left-menu li.header            { border-bottom: 1px solid #327aa5; color: #115098; display: block; font-family: Tahoma, Helvetica, sans-serif;
+                                  font-size: 0.75em; font-weight: bold; margin-top: 15px; padding: 4px 0 2px 0; text-transform: uppercase; }
+#left-menu li                   { display: inline; font-size: 0.85em; font-weight: bold; margin: 0; padding: 0; }
+#left-menu li span              { color: #138ecb; display: block; font-weight: normal; margin: 1px 0px; padding: 3px 3px 3px 8px;
+                                  text-decoration: none; }
+
+#tabs                           { padding-left: 20px; margin: 0 0 -7px 7px; height: 1%; overflow: hidden; }
+#tabs ul                        { list-style: none; margin: 0; padding: 0; }
+#tabs li                        { display: inline; font-size: 0.85em; font-weight: bold; }
+#tabs a                         { background: url("../img/bg_tabs-left.png") no-repeat 0 -35px; margin: 0 10px 0 0; padding: 0 0 0 7px; float: left; position: relative;
+                                  text-decoration: none; color: #eee;  }
+#tabs a span                    { display: block; padding: 6px 10px 2px 4px; white-space: nowrap; background: url("../img/bg_tabs-right.png") no-repeat 100% -35px; 
+                                  margin-right: -7px; }
+#tabs #activetab a              { background-position: 0 0; border: 0; }
+#tabs #activetab a span         { background-position: 100% 0; color: #111; padding-bottom: 8px; }
+
+#tabs a:hover                   { background-position: 0 -70px; }
+#tabs a:hover span              { background-position: 100% -70px; }

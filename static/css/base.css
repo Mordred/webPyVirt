@@ -1,4 +1,6 @@
-body                            { background: #5F5F5F url("../img/bg.png") repeat-x 0 0; }
+body                            { background: #a8a8a7 url("../img/bg.png") repeat-x 0 0; font-size: 1em; }
+
+h1                              { font-size: 2em; }
 
 .errornote                      { display: block; padding: 4px 25px 4px 35px; border: 1px solid #ff0000; 
                                   color: #ff0000; margin: 0 0 3px; 0; 
@@ -9,3 +11,6 @@ body                            { background: #5F5F5F url("../img/bg.png") repea
 .w200                           { width: 200px; }
 
 .h80                            { height: 80px; }
+
+/* allings */
+.center                         { margin: 0 auto; text-align: center; }
