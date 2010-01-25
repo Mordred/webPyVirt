@@ -9,7 +9,9 @@
     <li class="header">{{ section.label }}</li>
 
         {% for item in section.items %}
-            <li><a href="{{ item.url }}"><span>{{ item.label }}</span></a></li>
+            <li{% if item.selected %} id="activemenu"{% endif %}>
+                <a href="{{ item.url }}"><span>{{ item.label }}</span></a>
+            </li>
         {% endfor %}
     {% endfor %}
 </ul>

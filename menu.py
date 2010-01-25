@@ -138,10 +138,17 @@ def getMenu(request, moduleMenu, namespace=False):
                     url = reverse(item['url'])
                 #endif
 
+                if "selected" in item:
+                    selected = re.search(item['selected'], request.path)
+                else:
+                    selected = re.search(re.escape(url), request.path) 
+                #endif
+
                 if not itemHide:
                     submenu.append({
                             "label":    item['label'],
-                            "url":      url
+                            "url":      url,
+                            "selected": bool(selected)
                         })
                 #endif
             #endfor

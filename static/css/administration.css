@@ -25,10 +25,14 @@ span.border-bottom span         { background: url("../img/border-right.png") no-
                                   display: block; font-family: Tahoma, Helvetica, sans-serif;
                                   font-size: 0.75em; font-weight: bold; margin-top: 15px; 
                                   padding: 4px 0 2px 0; text-transform: uppercase; }
-#left-menu li                   { display: inline; font-size: 0.85em; font-weight: bold; margin: 0; padding: 0; }
+#left-menu li                   { display: inline; font-size: 0.75em; font-weight: bold; margin: 0; padding: 0; }
 #left-menu li a                 { color: #138ecb; display: block; font-weight: normal; 
                                   margin: 1px 0px; padding: 3px 3px 3px 8px;
                                   text-decoration: none; }
+#left-menu #activemenu a        { background-image: url("../img/arrow-left.gif");
+                                  background-position: 2px 8px;
+                                  background-repeat: no-repeat; 
+                                  font-weight: bold; }
 #left-menu li a:hover           { color: #a34e1b; background-color: #fff; }
 
 #tabs                           { padding-left: 20px; margin: 0 0 -7px 7px; height: 1%; overflow: hidden; }
