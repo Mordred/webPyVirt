@@ -26,4 +26,20 @@ urlpatterns = patterns('',
         },
         name="logout"
     ),
+    url(
+        r"^accounts/",
+        include("webPyVirt.accounts.urls", namespace="accounts"),
+    ),
+    url(
+        r"^groups/",
+        include("webPyVirt.groups.urls", namespace="groups")
+    ),
+    url(
+        r"^servers/",
+        include("webPyVirt.servers.urls", namespace="servers")
+    ),
+    url(
+        r"^domains/",
+        include("webPyVirt.domains.urls", namespace="domains")
+    ),
 )

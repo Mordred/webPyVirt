@@ -26,6 +26,10 @@
     <body class="{% block body_class %}body{% endblock body_class %}">
         {% block body %}
         {% endblock body %}
+
+        <div id="debug">
+            {{ sql_queries }}
+        </div>
     </body>
 </html>
 

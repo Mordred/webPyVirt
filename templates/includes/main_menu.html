@@ -1,7 +1,6 @@
 {% load i18n %}
 <ul>
-    <li><a href=""><span>Užívatelia</span></a></li>
-    <li id="activetab"><a href=""><span>Skupiny</span></a></li>
-    <li><a href=""><span>Servery</span></a></li>
-    <li><a href=""><span>Domény</span></a></li>
+    {% for item in main_menu %}
+    <li{% if item.selected %} id="activetab"{% endif %}><a href="{{ item.url }}"><span>{{ item.label }}</span></a></li>
+    {% endfor %}
 </ul>

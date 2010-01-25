@@ -1,27 +1,15 @@
 {% load i18n %}
-<p>{% trans "Logged in as:" %} <b>{{ user.username }}</b> [&nbsp;<a href="{% url logout %}">{% trans "Logout" %}</a>&nbsp;]</p>
+<p>
+    {% trans "Logged in as:" %} <b>{{ user.username }}</b> 
+    [&nbsp;<a href="{% url logout %}">{% trans "Logout" %}</a>&nbsp;]
+</p>
 
+<ul>
+    {% for section in left_menu %}
+    <li class="header">{{ section.label }}</li>
 
-<!--
-
-<div id="logo"></div>
-<div class="menu">
-    <div class="menu-header">
-        {% trans "Menu" %}
-    </div>
-
-    <div class="menu-item ovale">
-        <a href="{% url login %}">{% trans "Users" %}</a>
-    </div>
-    <div class="menu-item ovale">
-        <a href="{% url login %}">{% trans "Groups" %}</a>
-    </div>
-    <div class="menu-item ovale">
-        <a href="{% url login %}">{% trans "Nodes" %}</a>
-    </div>
-    <div class="menu-item ovale">
-        <a href="{% url login %}">{% trans "Domains" %}</a>
-    </div>
-</div>
-
--->
+        {% for item in section.items %}
+            <li><a href="{{ item.url }}"><span>{{ item.label }}</span></a></li>
+        {% endfor %}
+    {% endfor %}
+</ul>
