@@ -5,22 +5,22 @@ from django.utils.translation import ugettext as _
 urlpatterns = patterns('',
     url(
         r"^$", 
-        "views.home",
+        "webPyVirt.views.home",
         name="home"
     ),
     url(
         r"^addUser/$",
-        "views.home",
+        "webPyVirt.views.home",
         name="add_group"
     ),
     url(
         r"^editUser/$",
-        "views.home",
+        "webPyVirt.views.home",
         name="edit_group"
     ),
     url(
         r"^deleteUser/$",
-        "views.home",
+        "webPyVirt.views.home",
         name="delete_group"
     ),
 )

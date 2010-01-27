@@ -38,13 +38,13 @@ MENU = [
         "url":          "home",
         "selected":     r"^/groups/"
     },
-    {   # SERVERS
+    {   # NODES
         "hide":         False,
-        "label":        _("Servers"),
-        "module":       "servers",
-        "namespace":    "servers",
-        "url":          "home",
-        "selected":     r"^/servers/"
+        "label":        _("Nodes"),
+        "module":       "nodes",
+        "namespace":    "nodes",
+        "url":          "index",
+        "selected":     r"^/nodes/"
     },
     {   # DOMAINS
         "hide":         False,

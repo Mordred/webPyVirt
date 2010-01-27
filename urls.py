@@ -4,6 +4,11 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 from django.conf import settings
 
+import accounts.urls
+import groups.urls
+import nodes.urls
+import domains.urls
+
 urlpatterns = patterns('',
     url(
         r"^$", 
@@ -28,18 +33,18 @@ urlpatterns = patterns('',
     ),
     url(
         r"^accounts/",
-        include("webPyVirt.accounts.urls", namespace="accounts"),
+        include(accounts.urls, namespace="accounts"),
     ),
     url(
         r"^groups/",
-        include("webPyVirt.groups.urls", namespace="groups")
+        include(groups.urls, namespace="groups")
     ),
     url(
-        r"^servers/",
-        include("webPyVirt.servers.urls", namespace="servers")
+        r"^nodes/",
+        include(nodes.urls, namespace="nodes")
     ),
     url(
         r"^domains/",
-        include("webPyVirt.domains.urls", namespace="domains")
+        include(domains.urls, namespace="domains")
     ),
 )

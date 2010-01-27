@@ -1,0 +1,93 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Add Node" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Add Node" %}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        Before you can administrate a node, you need connect to it first. Libvirt remote URI general form
+        (<a href="http://libvirt.org/remote.html#Remote_URI_reference">detail information</a>):
+        <br />
+        {% endblocktrans %}
+    </p>
+    <pre>
+        <code>driver</code>[<code>+transport</code>]<code>://</code>[<code>username@</code>][<code>hostname</code>][<code>:port</code>]<code>/</code>[<code>path</code>][<code>?extraparameters</code>]
+    </pre>
+
+    <form action="" method="post">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br />
+            {% endif %}
+
+            <div class="field{% if form.name.errors %} field-error{% endif %}">
+                {{ form.name.errors }}
+                <label for="id_name">{% trans form.name.label %}:</label>
+                {{ form.name }}
+                <span class="description">{% trans "only for better identification" %}</span>
+            </div>
+
+            <br />
+
+            <h3>Remote URI</h3>
+
+            <div class="field{% if form.driver.errors %} field-error{% endif %}">
+                {{ form.driver.errors }}
+                <label for="id_driver">
+                    {% trans form.driver.label %}:
+                </label>
+                {{ form.driver }}
+            </div>
+            <div class="field{% if form.transport.errors %} field-error{% endif %}">
+                {{ form.transport.errors }}
+                <label for="id_transport">{% trans form.transport.label %}:</label>
+                {{ form.transport }}
+            </div>
+            <div class="field{% if form.username.errors %} field-error{% endif %}">
+                {{ form.username.errors }}
+                <label for="id_username">{% trans form.username.label %}:</label>
+                {{ form.username }}
+            </div>
+            <div class="field{% if form.address.errors %} field-error{% endif %}">
+                {{ form.address.errors }}
+                <label for="id_address">{% trans form.address.label %}:</label>
+                {{ form.address }}
+            </div>
+            <div class="field{% if form.port.errors %} field-error{% endif %}">
+                {{ form.port.errors }}
+                <label for="id_port">{% trans form.port.label %}:</label>
+                {{ form.port }}
+                <span class="description">{% trans "if different from default" %}</span>
+            </div>
+            <div class="field{% if form.path.errors %} field-error{% endif %}">
+                {{ form.path.errors }}
+                <label for="id_path">{% trans form.path.label %}:</label>
+                {{ form.path }}
+            </div>
+            <div class="field{% if form.extra_paramters.errors %} field-error{% endif %}">
+                {{ form.extra_parameters.errors }}
+                <label for="id_extra_parameters">{% trans form.extra_parameters.label %}:</label>
+                {{ form.extra_parameters }}
+            </div>
+
+            <br />
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Add node" %}" />
+                <input type="reset" value="{% trans "Reset" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}
