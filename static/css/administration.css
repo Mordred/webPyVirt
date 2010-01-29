@@ -55,3 +55,10 @@ form div.field label            { width: 200px; display: block; float: left; }
 form div.field input,            
  form div.field select          { width: 300px; }
 form div.submit                 { margin-right: 80px; }
+
+#testConnection                 {  }
+#testConnection img             { vertical-align: middle; margin: 0 3px; }
+#testConnection .status         { float: right; }
+#testConnection table,
+ #testConnection div.error      { font-size: 0.7em; margin: 1px 10px; }
+

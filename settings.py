@@ -96,4 +96,5 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     "webPyVirt.nodes",
+    "webPyVirt.conf"
 )

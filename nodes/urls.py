@@ -15,6 +15,11 @@ urlpatterns = patterns('',
         views.addNode,
         name="add_node"
     ),
+    url(
+        r"^testConnection/$", 
+        views.testConnection,
+        name="testConnection"
+    ),
     url(    # TODO
         r"^$", 
         views.index,

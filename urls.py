@@ -47,4 +47,10 @@ urlpatterns = patterns('',
         r"^domains/",
         include(domains.urls, namespace="domains")
     ),
+    url(
+        r'^jsi18n/$', 
+        'django.views.i18n.javascript_catalog',
+        { "packages":   ("webPyVirt.conf",), },
+        name="jsi18n"
+    ),
 )

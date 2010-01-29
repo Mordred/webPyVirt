@@ -3,6 +3,10 @@
 
 {% block subtitle %}{% trans "Add Node" %}{% endblock subtitle %}
 
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.test_connection.js"></script>
+{% endblock custom_js %}
+
 {% block content_body %}
     <h1 class="center">{% trans "Add Node" %}</h1>
 
@@ -17,7 +21,7 @@
         <code>driver</code>[<code>+transport</code>]<code>://</code>[<code>username@</code>][<code>hostname</code>][<code>:port</code>]<code>/</code>[<code>path</code>][<code>?extraparameters</code>]
     </pre>
 
-    <form action="" method="post">
+    <form action="" method="post" id="frmAddNode">
         <div class="form">
             {% csrf_token %}
 
@@ -33,6 +37,7 @@
                 {{ form.name.errors }}
                 <label for="id_name">{% trans form.name.label %}:</label>
                 {{ form.name }}
+                <span class="required">*</span>
                 <span class="description">{% trans "only for better identification" %}</span>
             </div>
 
@@ -46,6 +51,7 @@
                     {% trans form.driver.label %}:
                 </label>
                 {{ form.driver }}
+                <span class="required">*</span>
             </div>
             <div class="field{% if form.transport.errors %} field-error{% endif %}">
                 {{ form.transport.errors }}
@@ -81,7 +87,12 @@
 
             <br />
 
+            <div id="testConnection"></div>
+
+            <br />
+
             <div class="submit right">
+                <input id="btnTestConnection" type="button" value="{% trans "Test connection" %}" />
                 <input type="submit" value="{% trans "Add node" %}" />
                 <input type="reset" value="{% trans "Reset" %}" />
             </div>

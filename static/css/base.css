@@ -7,6 +7,8 @@ h3                              { font-size: 1.2em; font-weight: bold; }
 pre                             { margin: 8px 0; font-family: Monaco, "Courier New", Courier, monospace;
                                   font-size: 0.85em; }
 
+table td                        { padding-right: 5px; }
+
 .errornote                      { display: block; padding: 4px 25px 4px 35px; border: 1px solid #ff0000; 
                                   color: #ff0000; margin: 0 0 3px; 0; 
                                   background: #ffc url("../img/icons/error_small.png") 5px 5px no-repeat; }
@@ -14,6 +16,7 @@ pre                             { margin: 8px 0; font-family: Monaco, "Courier N
 .errorlist li                   { list-style: none; }
 .description                    { font-style: italic; font-size: 0.6em; cursor: help; 
                                   border-bottom: 1px dotted #000; }
+.required                       { color: #ff0000; }
 .error                          { color: #ff0000; }
 .field-error label              { color: #ff0000; }
 .field-error input              { background-color: #ffaaaa; border-color: #ff0000; }
@@ -26,6 +29,9 @@ pre                             { margin: 8px 0; font-family: Monaco, "Courier N
 
 .indent                         { text-indent: 25px; }
 
+.hide                           { display: none; }
+
 /* allings */
 .center                         { margin: 0 auto; text-align: center; }
 .right                          { text-align: right; }
+.left                           { text-align: left; }

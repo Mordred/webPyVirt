@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-01-28 22:00+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: menu.py:11 templates/home.html:4
+msgid "Home"
+msgstr ""
+
+#: menu.py:17
+msgid "Quick Access"
+msgstr ""
+
+#: menu.py:26 accounts/menu.py:9 domains/menu.py:9
+msgid "Users"
+msgstr ""
+
+#: menu.py:35 groups/menu.py:9
+msgid "Groups"
+msgstr ""
+
+#: menu.py:43 nodes/menu.py:9 templates/nodes/index.html:4
+#: templates/nodes/index.html.py:7
+msgid "Nodes"
+msgstr ""
+
+#: menu.py:51
+msgid "Domains"
+msgstr ""
+
+#: settings.py:89
+msgid "Slovak"
+msgstr ""
+
+#: settings.py:90
+msgid "English"
+msgstr ""
+
+#: accounts/menu.py:13 domains/menu.py:13
+msgid "Add user"
+msgstr ""
+
+#: accounts/menu.py:18 domains/menu.py:18
+msgid "Edit user"
+msgstr ""
+
+#: accounts/menu.py:23 domains/menu.py:23
+msgid "Delete user"
+msgstr ""
+
+#: accounts/menu.py:30 domains/menu.py:30 groups/menu.py:30 nodes/menu.py:20
+msgid "Permissions"
+msgstr ""
+
+#: groups/menu.py:13
+msgid "Add group"
+msgstr ""
+
+#: groups/menu.py:18
+msgid "Edit group"
+msgstr ""
+
+#: groups/menu.py:23
+msgid "Delete group"
+msgstr ""
+
+#: nodes/menu.py:13 templates/nodes/addNode_Form.html:94
+msgid "Add node"
+msgstr ""
+
+#: templates/base_administration.html:4
+msgid "Administration"
+msgstr ""
+
+#: templates/base_administration.html:50
+msgid "Created by Martin Jantošovič"
+msgstr ""
+
+#: templates/home.html:7
+msgid "Welcome to webPyVirt Administration"
+msgstr ""
+
+#: templates/login.html:4 templates/login.html.py:45
+msgid "Log in"
+msgstr ""
+
+#: templates/login.html:22
+msgid "webPyVirt Administration"
+msgstr ""
+
+#: templates/login.html:29
+msgid ""
+"Please enter a correct username and password. Note that both fields are case-"
+"sensitive."
+msgstr ""
+
+#: templates/includes/left_menu.html:3
+msgid "Logged in as:"
+msgstr ""
+
+#: templates/includes/left_menu.html:4
+#, fuzzy
+msgid "Logout"
+msgstr "login/"
+
+#: templates/nodes/addNode_Form.html:4 templates/nodes/addNode_Form.html:11
+msgid "Add Node"
+msgstr ""
+
+#: templates/nodes/addNode_Form.html:14
+msgid ""
+"\n"
+"        Before you can administrate a node, you need connect to it first. "
+"Libvirt remote URI general form\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
+"\">detail information</a>):\n"
+"        <br />\n"
+"        "
+msgstr ""
+
+#: templates/nodes/addNode_Form.html:30
+msgid "There are errors in the form."
+msgstr ""
+
+#: templates/nodes/addNode_Form.html:40
+msgid "only for better identification"
+msgstr ""
+
+#: templates/nodes/addNode_Form.html:73
+msgid "if different from default"
+msgstr ""
+
+#: templates/nodes/addNode_Form.html:93
+msgid "Test connection"
+msgstr ""
+
+#: templates/nodes/addNode_Form.html:95
+msgid "Reset"
+msgstr ""
+
+#: templates/nodes/index.html:10
+msgid ""
+"\n"
+"        A <b>node</b> is a single physical machine.\n"
+"        <!-- \n"
+"        An <b>hypervisor</b> \n"
+"        is a layer of software allowing to virtualize a node in a set of "
+"virtual machines with possibly\n"
+"        different configurations than the node itself.\n"
+"        -->\n"
+"        "
+msgstr ""
+
+#~ msgid "url_login"
+#~ msgstr "login/"
+
+#~ msgid "url_accounts"
+#~ msgstr "accounts/"

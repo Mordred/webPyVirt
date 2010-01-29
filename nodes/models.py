@@ -37,5 +37,42 @@ class Node(models.Model):
     path = models.CharField(max_length = 1024, null = True, blank = True, verbose_name = "Path")
     extra_parameters = models.CharField(max_length = 1024, null = True, blank = True, 
         verbose_name = "Extra Parameters")
+
+    def __unicode__(self):
+        return self.name
+    #enddef
+
+    def getURI(self):
+        """
+        Generate Libvirt URI format from data
+        """
+        # Driver
+        uri = u"%s" % (self.driver)
+
+        # Transport
+        if self.transport: uri += u"+%s" % (self.transport)
+
+        uri += u"://"
+
+        # Username
+        if self.username: uri += u"%s@" % (self.username)
+
+        # Hostname / IP address
+        if self.address: uri += u"%s" % (self.address)
+
+        # Port
+        if self.port: uri += u":%s" % (self.port)
+
+        uri += u"/"
+
+        # Path
+        if self.path: uri += u"%s" % (self.path)
+
+        # Extra parameters
+        if self.extra_parameters: uri += u"?%s" % (self.extra_parameters)
+
+        return uri
+        
+    #enddef
     
 #endclass
