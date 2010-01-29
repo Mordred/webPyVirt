@@ -168,6 +168,8 @@
             } else {
                 var field = $(settings.formTag).find(":input[name='name']").parent();
                 field.removeClass("field-error");
+
+                field.find(".errorlist").remove();
             }
 
             if (data['driver'].length == 0) {
@@ -178,7 +180,12 @@
             } else {
                 var field = $(settings.formTag).find(":input[name='driver']").parent();
                 field.removeClass("field-error");
+
+                field.find(".errorlist").remove();
             }
+
+            if (valid)
+                $(settings.formTag).find("div.errornote").slideUp(500);
 
             return valid;
         };
