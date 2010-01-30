@@ -43,7 +43,7 @@ MENU = [
         "label":        _("Nodes"),
         "module":       "nodes",
         "namespace":    "nodes",
-        "url":          "index",
+        "url":          "list_nodes",
         "selected":     r"^/nodes/"
     },
     {   # DOMAINS
@@ -102,12 +102,12 @@ def getLeftMenu(request):
             module = __import__("%s" % item['module'], globals(), locals(), ["menu"])
 
             if hasattr(module, "menu"):
-                return getMenu(request, module.menu.MENU, "namespace" in item and item['namespace'])
+                return getMenu(request, module.menu.MENU, item['selected'], "namespace" in item and item['namespace'])
             else:
                 return []
             #endif
         elif "menu" in item:
-            return getMenu(request, item['menu'])
+            return getMenu(request, item['menu'], item['selected'])
         else:
             return []
         #endif
@@ -115,7 +115,7 @@ def getLeftMenu(request):
 
 #enddef
 
-def getMenu(request, moduleMenu, namespace=False):
+def getMenu(request, moduleMenu, urlPrefixPattern = "", namespace=False, ):
     """
     Return menu for groups module
     """
@@ -139,7 +139,7 @@ def getMenu(request, moduleMenu, namespace=False):
                 #endif
 
                 if "selected" in item:
-                    selected = re.search(item['selected'], request.path)
+                    selected = re.search(urlPrefixPattern + item['selected'], request.path)
                 else:
                     selected = re.search(re.escape(url), request.path) 
                 #endif

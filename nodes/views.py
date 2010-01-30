@@ -9,18 +9,26 @@ from django.utils.translation   import ugettext as _
 
 from forms                      import NodeForm
 
+from webPyVirt.decorators       import secure
 from webPyVirt.libs             import virtualization
 
+@secure
 def index(request):
     return render_to_response("nodes/index.html", {}, context_instance=RequestContext(request)) 
 #enddef
 
+@secure
+def listNodes(request):
+    return render_to_response("nodes/listNodes.html", {}, context_instance=RequestContext(request)) 
+#enddef
+
+@secure
 def addNode(request):
     if request.method == "POST":
         form = NodeForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse("nodes:add_node_success"))
+            return HttpResponseRedirect(reverse("nodes:list_nodes"))
         #endif
     else:
         form = NodeForm()
@@ -29,13 +37,13 @@ def addNode(request):
     return render_to_response(
         "nodes/addNode_Form.html", 
         {
-            "form":     form,
-            "preview":  False
+            "form":     form
         }, 
         context_instance=RequestContext(request)
     ) 
 #enddef
 
+@secure
 def testConnection(request):
     if request.method == "POST":
         form = NodeForm(request.POST)

@@ -8,9 +8,16 @@ MENU = [
         "hide":         False,
         "label":        _("Nodes"),
         "items":        [
+            {   # List nodes
+                "hide":     False,
+                "label":    _("List nodes"),
+                "selected": r"$",
+                "url":      "list_nodes"
+            },
             {   # Add node
                 "hide":     False,
                 "label":    _("Add node"),
+                "selected": r"addNode/",
                 "url":      "add_node"
             },
         ]

@@ -14,8 +14,11 @@ table td                        { padding-right: 5px; }
                                   background: #ffc url("../img/icons/error_small.png") 5px 5px no-repeat; }
 .errorlist                      { color: #ff0000; font-size: 0.7em; margin-left: 20px; }
 .errorlist li                   { list-style: none; }
-.description                    { font-style: italic; font-size: 0.6em; cursor: help; 
-                                  border-bottom: 1px dotted #000; }
+span.description                { font-style: italic; font-size: 0.6em; cursor: help; 
+                                  border-bottom: 1px dotted #000; margin: 0 20px; 
+                                  color: #888; }
+div.description                 { font-style: italic; font-size: 0.6em; cursor: help; 
+                                  margin: 5px 20px 15px 20px; color: #888; }
 .required                       { color: #ff0000; }
 .error                          { color: #ff0000; }
 .field-error label              { color: #ff0000; }
@@ -30,6 +33,8 @@ table td                        { padding-right: 5px; }
 .indent                         { text-indent: 25px; }
 
 .hide                           { display: none; }
+
+.accordion .field               { margin-bottom: 5px; }
 
 /* allings */
 .center                         { margin: 0 auto; text-align: center; }

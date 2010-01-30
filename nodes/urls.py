@@ -2,27 +2,20 @@
 from django.conf.urls.defaults import *
 from django.utils.translation import ugettext as _
 
-import views        # Import local view (webPyVirt.nodes.views)
-
-urlpatterns = patterns('',
+urlpatterns = patterns("webPyVirt.nodes",
     url(    # TODO
         r"^$", 
-        views.index,
-        name="index"
+        "views.listNodes",
+        name="list_nodes"
     ),
     url(
         r"^addNode/$",
-        views.addNode,
+        "views.addNode",
         name="add_node"
     ),
     url(
         r"^testConnection/$", 
-        views.testConnection,
+        "views.testConnection",
         name="testConnection"
-    ),
-    url(    # TODO
-        r"^$", 
-        views.index,
-        name="add_node_success"
     ),
 )

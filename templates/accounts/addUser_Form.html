@@ -1,0 +1,64 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Add User" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Add User" %}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        You can add user here.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmAddUser">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br />
+            {% endif %}
+
+            <div class="field{% if form.username.errors %} field-error{% endif %}">
+                {{ form.username.errors }}
+                <label for="id_username">{% trans form.username.label %}:</label>
+                {{ form.username }}
+                <span class="required">*</span>
+                <span class="description">
+                    {% trans "only letters, digits and underscores" %}
+                </span>
+            </div>
+
+            <div class="field{% if form.password1.errors %} field-error{% endif %}">
+                {{ form.password1.errors }}
+                <label for="id_password1">{% trans form.password1.label %}:</label>
+                {{ form.password1 }}
+                <span class="required">*</span>
+            </div>
+
+            <div class="field{% if form.password2.errors %} field-error{% endif %}">
+                {{ form.password2.errors }}
+                <label for="id_password2">{% trans form.password2.label %}:</label>
+                {{ form.password2 }}
+                <span class="required">*</span>
+            </div>
+
+            <br />
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Add user" %}" />
+                <input type="reset" value="{% trans "Reset" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

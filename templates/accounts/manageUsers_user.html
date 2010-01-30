@@ -1,0 +1,101 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Manage Users" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Manage Users" %} :: {{ managedUser.username }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        Manage user informations.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmManageUser">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if overviewForm.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br/>
+            {% endif %}
+
+            <div id="userData" class="accordion">
+
+                <h3><a href="#section1">{% trans "Overview" %}</a></h3>
+                <div>
+                    <div class="field{% if overviewForm.username.errors %} field-error{% endif %}">
+                        {{ overviewForm.username.errors }}
+                        <label for="id_username">{% trans overviewForm.username.label %}:</label>
+                        {{ overviewForm.username }}
+                        <span class="required">*</span>
+                        <br />
+                        <div class="description">
+                            {% trans "30 characters or fewer. Alphanumeric characters only (letters, digits and underscores)." %}
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>{% trans "Date Joined" %}:</label>
+                        <span>{{ managedUser.date_joined|date:"d. m. Y, H:i" }}</span>
+                    </div>
+
+                    <div class="field">
+                        <label>{% trans "Last Login" %}:</label>
+                        <span>{{ managedUser.last_login|date:"d. m. Y, H:i" }}</span>
+                    </div>
+
+                    <div class="field{% if overviewForm.first_name.errors %} field-error{% endif %}">
+                        {{ overviewForm.first_name.errors }}
+                        <label for="id_first_name">{% trans overviewForm.first_name.label %}:</label>
+                        {{ overviewForm.first_name }}
+                    </div>
+
+                    <div class="field{% if overviewForm.last_name.errors %} field-error{% endif %}">
+                        {{ overviewForm.last_name.errors }}
+                        <label for="id_last_name">{% trans overviewForm.last_name.label %}:</label>
+                        {{ overviewForm.last_name }}
+                    </div>
+
+                    <div class="field{% if overviewForm.email.errors %} field-error{% endif %}">
+                        {{ overviewForm.email.errors }}
+                        <label for="id_email">{% trans overviewForm.email.label %}:</label>
+                        {{ overviewForm.email }}
+                    </div>
+
+                    <div class="field{% if overviewForm.password1.errors %} field-error{% endif %}">
+                        {{ overviewForm.password1.errors }}
+                        <label for="id_password1">{% trans overviewForm.password1.label %}:</label>
+                        {{ overviewForm.password1 }}
+                    </div>
+
+                    <div class="field{% if overviewForm.password2.errors %} field-error{% endif %}">
+                        {{ overviewForm.password2.errors }}
+                        <label for="id_password2">{% trans overviewForm.password2.label %}:</label>
+                        {{ overviewForm.password2 }}
+                    </div>
+                </div>
+
+                <h3><a href="#section1">{% trans "Groups" %}</a></h3>
+                <div>
+                    TEST
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Save" %}" />
+            </div>
+        </div>
+
+    </form>
+
+{% endblock content_body %}

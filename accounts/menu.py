@@ -11,17 +11,14 @@ MENU = [
             {   # Add user
                 "hide":     False,
                 "label":    _("Add user"),
+                "selected": r"addUser/$",
                 "url":      "add_user"
             },
-            {   # Edit user
+            {   # Manage users
                 "hide":     False,
-                "label":    _("Edit user"),
-                "url":      "edit_user"
-            },
-            {   # Edit user
-                "hide":     False,
-                "label":    _("Delete user"),
-                "url":      "delete_user"
+                "label":    _("Manage users"),
+                "selected": r"manageUsers/",
+                "url":      "manage_users__selectUser"
             },
         ]
     },

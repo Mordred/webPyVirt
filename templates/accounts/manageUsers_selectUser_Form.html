@@ -1,0 +1,49 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Manage Users" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Manage Users" %}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        First select a user which you want to manage.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmSelectUser">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br />
+            {% endif %}
+
+            <div class="field{% if form.username.errors %} field-error{% endif %}">
+                {{ form.username.errors }}
+                <label for="id_username">{% trans form.username.label %}:</label>
+                {{ form.username }}
+                <span class="required">*</span>
+                <span class="description">
+                    {% trans "only letters, digits and underscores" %}
+                </span>
+            </div>
+
+            <br />
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Select User" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}
