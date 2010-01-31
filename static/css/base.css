@@ -27,6 +27,8 @@ div.description                 { font-style: italic; font-size: 0.6em; cursor: 
 .placeholder                    { display: block; }
 
 .w200                           { width: 200px; }
+.w500                           { width: 500px; }
+.w100p                          { width: 100%; }
 
 .h80                            { height: 80px; }
 
@@ -40,3 +42,21 @@ div.description                 { font-style: italic; font-size: 0.6em; cursor: 
 .center                         { margin: 0 auto; text-align: center; }
 .right                          { text-align: right; }
 .left                           { text-align: left; }
+
+/* tables */
+table.stripe                    { border: 1px solid #777; background-color: #fff; }
+table.stripe th                 { color: #111; background-color: #ccc; padding-left: 10px; }
+table.stripe tr:nth-child(even) { background-color: #444; }
+table.stripe tr:nth-child(odd)  { background-color: #111; }
+th.last, td.last                { padding-right: 10px; }
+
+/* DEBUG */
+#debug                          { position: absolute; right: 0; top: 0; width: 20px; max-height: 700px;
+                                  text-align: left; color: #a0a0a0; background-color: #3a3a3a;
+                                  border-left: 1px solid #202020; border-bottom: 1px solid #202020;
+                                  font: 8pt courier; padding: 3px; opacity: .2; z-index: 0;
+                                  overflow: auto; }
+#debug:hover                    { z-index: 1000; opacity: .75; width: auto; max-width: 400px; 
+                                  color: #fff; background-color: #000; }
+#debug div.sql-query            { margin-bottom: 10px; }
+/* DEBUG */

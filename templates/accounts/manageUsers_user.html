@@ -29,7 +29,7 @@
             <div id="userData" class="accordion">
 
                 <h3><a href="#section1">{% trans "Overview" %}</a></h3>
-                <div>
+                <div{% ifequal selected 0 %} class="selected"{% endifequal %}>
                     <div class="field{% if overviewForm.username.errors %} field-error{% endif %}">
                         {{ overviewForm.username.errors }}
                         <label for="id_username">{% trans overviewForm.username.label %}:</label>
@@ -80,20 +80,52 @@
                         <label for="id_password2">{% trans overviewForm.password2.label %}:</label>
                         {{ overviewForm.password2 }}
                     </div>
+
+                    <br />
+
+                    <div class="submit right">
+                        <input type="submit" name="overviewForm" value="{% trans "Save" %}" />
+                    </div>
+
                 </div>
 
                 <h3><a href="#section1">{% trans "Groups" %}</a></h3>
-                <div>
-                    TEST
+                <div{% ifequal selected 1 %} class="selected"{% endifequal %}>
+                    <table class="stripe w100p">
+                        <col width="85%" />
+                        <col width="15%" />
+                        <tr>
+                            <th>{% trans "Group" %}</th>
+                            <th class="last">{% trans "Remove" %}</th>
+                        </tr>
+                        {% for group in managedUser.groups.all %}
+                        <tr>
+                            <td>{{ group.name }}</td>
+                            <td class="last"><input type="checkbox" name="group_{{ group.id }}" /></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="center">{% trans "User is not member of any group." %}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                    <br />
+
+                    <div class="submit right">
+                        {% trans "Add user to group" %}:
+                        <select name="addGroup">
+                            <option value="" selected="selected">-----</option>
+                            {% for group in availableGroups %}
+                            <option value="{{ group.id }}">{{ group.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" name="groupsForm" value="{% trans "Save" %}" />
+                    </div>
                 </div>
 
             </div>
 
-            <br />
-
-            <div class="submit right">
-                <input type="submit" value="{% trans "Save" %}" />
-            </div>
         </div>
 
     </form>

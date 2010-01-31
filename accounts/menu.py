@@ -18,7 +18,7 @@ MENU = [
                 "hide":     False,
                 "label":    _("Manage users"),
                 "selected": r"manageUsers/",
-                "url":      "manage_users__selectUser"
+                "url":      "manage_users__select_user"
             },
         ]
     },

@@ -9,9 +9,7 @@
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <meta name="robots" content="index, follow" />
-<!--
-        <link rel="Shortcut Icon" type="image/x-icon" href="/img/favicon.ico?2" />
--->
+
         <script type="text/javascript">var MEDIA_URL = "{{ MEDIA_URL }}";</script>
         <script type="text/javascript" src="{% url jsi18n %}"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.1.min.js"></script>
@@ -22,6 +20,7 @@
         <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/reset.css" />
         <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/base.css" />
         <link rel="stylesheet" type="text/css" media="all" href="{{ MEDIA_URL }}css/ui-darkness/jquery-ui-1.8rc1.custom.css" />
+
         {% block custom_css %}{% endblock custom_css %}
         
     </head>
@@ -29,10 +28,16 @@
         {% block body %}
         {% endblock body %}
 
+        {% if debug %}
         <div id="debug">
-            {{ sql_queries }}
+            {% for sql in sql_queries %}
+                <div class="sql-query">
+                    <div class="sql">{{ sql.sql }}</div>
+                    <div class="time">{{ sql.time }}s</div>
+                </div>
+            {% endfor %}
         </div>
+        {% endif %}
+
     </body>
 </html>
-
-

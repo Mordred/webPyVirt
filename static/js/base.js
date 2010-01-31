@@ -8,10 +8,16 @@ $(function() {
     $("div.accordion").each(function() {
         var sections = $(this).children("div");
         var index = sections.index(sections.has("div.field-error"));
+
+        if (index == -1) {
+            index = sections.index(sections.filter("div.selected"));
+        }
+
         $(this).accordion({
             autoHeight:     false,
             navigation:     true,
             active:         (index == -1) ? 0 : index
         });
     });
+
 });

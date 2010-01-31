@@ -98,3 +98,5 @@ INSTALLED_APPS = (
     "webPyVirt.nodes",
     "webPyVirt.conf"
 )
+
+INTERNAL_IPS = ("127.0.0.1", "127.0.1.1", )

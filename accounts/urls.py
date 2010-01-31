@@ -10,8 +10,11 @@ urlpatterns = patterns("webPyVirt.accounts",
     ),
     url(
         r"^manageUsers/$",
-        "views.manageUsers_selectUser",
-        name="manage_users__selectUser"
+        "views.selectUser",
+        {
+            "next":     "accounts:manage_users__user"
+        },
+        name="manage_users__select_user"
     ),
     url(
         r"^manageUsers/(?P<userId>\d+)/$",
