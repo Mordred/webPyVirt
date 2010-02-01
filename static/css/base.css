@@ -44,10 +44,17 @@ div.description                 { font-style: italic; font-size: 0.6em; cursor: 
 .left                           { text-align: left; }
 
 /* tables */
-table.stripe                    { border: 1px solid #777; background-color: #fff; }
-table.stripe th                 { color: #111; background-color: #ccc; padding-left: 10px; }
+table.stripe, 
+ table.white-stripe             { border: 1px solid #777; }
+table.stripe th                 { color: #111; background-color: #ccc; }
 table.stripe tr:nth-child(even) { background-color: #444; }
 table.stripe tr:nth-child(odd)  { background-color: #111; }
+table.white-stripe th           { color: #eee; background-color: #222; }
+table.white-stripe 
+ tr:nth-child(even)             { background-color: #bbb; }
+table.white-stripe 
+ tr:nth-child(odd)              { background-color: #eee; }
+th, td                          { padding-left: 10px; }
 th.last, td.last                { padding-right: 10px; }
 
 /* DEBUG */

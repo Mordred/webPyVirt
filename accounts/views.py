@@ -7,10 +7,11 @@ from django.template            import RequestContext
 from django.http                import HttpResponseRedirect, HttpResponse
 from django.utils               import simplejson
 from django.core.urlresolvers   import reverse
+from django.core.paginator      import Paginator, InvalidPage, EmptyPage
 
 from webPyVirt.decorators       import secure
 
-from forms                      import SelectUserForm, UserOverviewForm
+from forms                      import SelectUserForm, UserOverviewForm, AddGroupForm
 
 @secure
 def addUser(request):
@@ -36,6 +37,21 @@ def addUser(request):
 
 @secure
 def selectUser(request, next):
+    users = User.objects.all().order_by("username")
+    paginator = Paginator(users, 25)
+
+    try:
+        page = int(request.GET.get("page", "1"))
+    except ValueError:
+        page = 1
+    #endtry
+
+    try:
+        users = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        users = paginator.page(paginator.num_pages)
+    #endtry
+
     if request.method == "POST":
         form = SelectUserForm(request.POST)
         if form.is_valid():
@@ -53,6 +69,7 @@ def selectUser(request, next):
     return render_to_response(
         "accounts/selectUser_Form.html", 
         {
+            "users":    users,
             "form":     form,
             "next":     next
         }, 
@@ -78,7 +95,21 @@ def manageUsers_user(request, userId):
             request.session['selected'] = 0
         elif "groupsForm" in request.POST:
 
-            # TODO: Pridaj skupinu a odstran vybrate
+            # Add group
+            groupId = request.POST['addGroup']
+            if len(groupId):
+                group = Group.objects.get(id=int(groupId))
+                user.groups.add(group)
+            #endif
+
+            # Remove selected groups
+            groupsToRemove = []
+            for userGroup in user.groups.all():
+                if "group_%s" % userGroup.id in request.POST:
+                    groupsToRemove.append(userGroup)
+                #endif
+            #endif
+            if len(groupsToRemove): user.groups.remove(*groupsToRemove)
 
             request.session['selected'] = 1             # JS - nastav aktivnu zalozku
         #endif
@@ -116,5 +147,22 @@ def selectUser_autocomplete(request):
 
 @secure
 def addGroup(request):
-    pass
+    if request.method == "POST":
+        form = AddGroupForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse("accounts:home"))
+        #endif
+    else:
+        form = AddGroupForm()
+    #endif
+
+    return render_to_response(
+        "accounts/addGroup_Form.html", 
+        {
+            "form":     form
+        }, 
+        context_instance=RequestContext(request)
+    ) 
 #enddef

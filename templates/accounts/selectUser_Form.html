@@ -1,5 +1,5 @@
 {% extends "base_administration.html" %}
-{% load i18n %}
+{% load i18n webPyVirt_extras %}
 
 {% block subtitle %}{% trans "Manage Users" %}{% endblock subtitle %}
 
@@ -8,9 +8,30 @@
 
     <p class="indent">
         {% blocktrans %}
-        First select a user which you want to manage.
+        Select a user from list or type name.
         {% endblocktrans %}
     </p>
+
+    <br />
+
+    {% with users as pagination %}
+        {% include "includes/pagination.html" %}
+    {% endwith %}
+
+    <table class="white-stripe w100p">
+        <tr>
+            <th>{% trans "Username" %}</th>
+        </tr>
+        {% for user in users.object_list %}
+        <tr>
+            <td><a href="{% urlWithVar next userId=user.id %}">{{ user.username }}</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% with users as pagination %}
+        {% include "includes/pagination.html" %}
+    {% endwith %}
 
     <br />
 
@@ -40,7 +61,7 @@
 
             <div class="submit right">
                 <input type="hidden" name="next" value="{{ next }}" />
-                <input type="submit" value="{% trans "Select User" %}" />
+                <input type="submit" value="{% trans "Select user" %}" />
             </div>
 
         </div>

@@ -1,0 +1,34 @@
+<div class="pagination center">
+
+    {% ifnotequal pagination.paginator.num_pages 1 %}
+
+    {% if pagination.has_previous %}
+
+    {% ifnotequal pagination.previous_page_number 1 %}
+    <span class="first"><a href="?page=1">1</a></span>
+    {% endifnotequal %}
+
+    <span class="previous">
+        <a href="?page={{ pagination.previous_page_number }}">{{ pagination.previous_page_number }}</a>
+    </span>
+    {% endif %}
+
+    <span class="current">
+        {{ pagination.number }}
+    </span>
+
+    {% if pagination.has_next %}
+    <span class="next">
+        <a href="?page={{ pagination.next_page_number }}">{{ pagination.next_page_number }}</a>
+    </span>
+
+    {% ifnotequal pagination.next_page_number pagination.paginator.num_pages %}
+    <span class="last">
+        <a href="?page={{ pagination.paginator.num_pages }}">{{ pagination.paginator.num_pages }}</a>
+    </span>
+    {% endifnotequal %}
+
+    {% endif %}
+
+    {% endifnotequal %}
+</div>

@@ -1,0 +1,46 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Add Group" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Add Group" %}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        You can add group here.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmAddGroup">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br />
+            {% endif %}
+
+            <div class="field{% if form.name.errors %} field-error{% endif %}">
+                {{ form.name.errors }}
+                <label for="id_name">{% trans form.name.label %}:</label>
+                {{ form.name }}
+                <span class="required">*</span>
+            </div>
+
+            <br />
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Add group" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

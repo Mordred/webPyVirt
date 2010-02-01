@@ -101,7 +101,7 @@
                         {% for group in managedUser.groups.all %}
                         <tr>
                             <td>{{ group.name }}</td>
-                            <td class="last"><input type="checkbox" name="group_{{ group.id }}" /></td>
+                            <td class="last center"><input type="checkbox" name="group_{{ group.id }}" /></td>
                         </tr>
                         {% empty %}
                         <tr>

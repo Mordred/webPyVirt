@@ -26,6 +26,11 @@ urlpatterns = patterns("webPyVirt.accounts",
         "views.selectUser_autocomplete",
         name="select_user_autocomplete"
     ),
+    url(
+        r"^addGroup/$", 
+        "views.addGroup",
+        name="add_group"
+    ),
 )
 
 #TEMPORARY
@@ -34,11 +39,6 @@ urlpatterns += patterns("",
         r"^$", 
         "webPyVirt.views.home",
         name="home"
-    ),
-    url(
-        r"^addGroup/$", 
-        "webPyVirt.views.home",
-        name="add_group"
     ),
 )
 

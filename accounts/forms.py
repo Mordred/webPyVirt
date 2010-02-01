@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.utils.translation   import ugettext_lazy as _
 from django                     import forms
 
@@ -68,6 +68,30 @@ class UserOverviewForm(forms.ModelForm):
             user.save()
         #endif
         return user
+    #enddef
+
+#endclass
+
+class AddGroupForm(forms.ModelForm):
+
+    name = forms.RegexField(label = _("Group name"), max_length = 30, regex = r"^\w+$",
+        help_text = _("Only letters, digits and underscores"),
+        error_message = _("This value must contain only letters, numbers and underscores."))
+
+    class Meta:
+        model = Group
+        fields = ("name", )
+    #endclass
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+
+        try:
+            Group.objects.get(name=name)
+        except Group.DoesNotExist:
+            return name
+        #endtry
+        raise forms.ValidationError(_("A group with that name already exists."))
     #enddef
 
 #endclass
