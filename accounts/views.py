@@ -113,3 +113,8 @@ def selectUser_autocomplete(request):
     
     return HttpResponse(simplejson.dumps(data))
 #enddef
+
+@secure
+def addGroup(request):
+    pass
+#enddef

@@ -3,30 +3,44 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
-MENU = [
-    {   # Section edit user
-        "hide":         False,
-        "label":        _("Users"),
-        "items":        [
-            {   # Add user
-                "hide":     False,
-                "label":    _("Add user"),
-                "selected": r"addUser/$",
-                "url":      "add_user"
-            },
-            {   # Manage users
-                "hide":     False,
-                "label":    _("Manage users"),
-                "selected": r"manageUsers/",
-                "url":      "manage_users__select_user"
-            },
-        ]
-    },
-    {   # Section permissions
-        "hide":         False,
-        "label":        _("Permissions"),
-        "items":        [
-            # TODO: Pridat opravnenia
-        ]
-    }
-]
+def MENU(request):
+    return [
+        {   # Section Users
+            "hide":         False,
+            "label":        _("Users"),
+            "items":        [
+                {   # Add user
+                    "hide":     not request.user.has_perm("auth.add_user"),
+                    "label":    _("Add user"),
+                    "selected": r"addUser/$",
+                    "url":      "add_user"
+                },
+                {   # Manage users
+                    "hide":     not request.user.has_perm("auth.change_user"),
+                    "label":    _("Manage users"),
+                    "selected": r"manageUsers/",
+                    "url":      "manage_users__select_user"
+                },
+            ]
+        },
+        {   # Section Groups
+            "hide":         False,
+            "label":        _("Groups"),
+            "items":        [
+                {   # Add group
+                    "hide":     False,
+                    "label":    _("Add group"),
+                    "selected": r"addGroup/$",
+                    "url":      "add_group"
+                },
+            ]
+        },
+        {   # Section permissions
+            "hide":         False,
+            "label":        _("Permissions"),
+            "items":        [
+                # TODO: Pridat opravnenia
+            ]
+        }
+    ]
+#enddef

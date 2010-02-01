@@ -5,56 +5,62 @@ from django.core.urlresolvers import reverse
 
 import re
 
-MENU = [
-    {   # HOME
-        "hide":         False,
-        "label":        _("Home"),
-        "url":          "home",
-        "selected":     r"^/$",
-        "menu":         [
-            {   # Section quick navigation
-                "hide":     False,
-                "label":    _("Quick Access"),
-                "items":    [
-                    # TODO pridaj najpouzivanejsie odkazy
-                ]
-            }
-        ]
-    },
-    {   # USERS
-        "hide":         False,
-        "label":        _("Users"),
-        "module":       "accounts",
-        "namespace":    "accounts",
-        "url":          "home",
-        "selected":     r"^/accounts/"
-    },
-    {
-        # GROUPS
-        "hide":         False,
-        "label":        _("Groups"),
-        "module":       "groups",
-        "namespace":    "groups",
-        "url":          "home",
-        "selected":     r"^/groups/"
-    },
-    {   # NODES
-        "hide":         False,
-        "label":        _("Nodes"),
-        "module":       "nodes",
-        "namespace":    "nodes",
-        "url":          "list_nodes",
-        "selected":     r"^/nodes/"
-    },
-    {   # DOMAINS
-        "hide":         False,
-        "label":        _("Domains"),
-        "module":       "domains",
-        "namespace":    "domains",
-        "url":          "home",
-        "selected":     r"^/domains/"
+def MENU(request):
+    return [
+        {   # HOME
+            #"hide":         False,         # if "hide" is not present => always display
+                                            # if "hide" is present and False => hide if submenu is empty
+            "label":        _("Home"),
+            "url":          "home",
+            "selected":     r"^/$",
+            "menu":         [
+                {   # Section quick navigation
+                    "hide":     False,
+                    "label":    _("Quick Access"),
+                    "items":    [
+                        # TODO pridaj najpouzivanejsie odkazy
+                    ]
+                }
+            ]
+        },
+        {   # USERS
+            "hide":         False,
+            "label":        _("Users & Groups"),
+            "module":       "accounts",
+            "namespace":    "accounts",
+            "url":          "home",
+            "selected":     r"^/accounts/"
+        },
+        {   # NODES
+            "hide":         False,
+            "label":        _("Nodes"),
+            "module":       "nodes",
+            "namespace":    "nodes",
+            "url":          "list_nodes",
+            "selected":     r"^/nodes/"
+        },
+        {   # DOMAINS
+            "hide":         False,
+            "label":        _("Domains"),
+            "module":       "domains",
+            "namespace":    "domains",
+            "url":          "home",
+            "selected":     r"^/domains/"
+        }
+    ]
+#enddef
+
+def generateMenu(request):
+
+    mainMenu, selectedMainMenuItem = getMainMenu(request)
+    leftMenu = getLeftMenu(request, selectedMainMenuItem)
+
+    return {
+        "main_menu":    mainMenu,
+        "left_menu":    leftMenu
     }
-]
+
+#enddef
 
 def getMainMenu(request):
     """
@@ -62,11 +68,14 @@ def getMainMenu(request):
     """
 
     mainMenu = []
+    selectedMainMenuItem = None
 
-    for item in MENU:
+    for item in MENU(request):
 
-        hide = bool("hide" in item and item['hide'])
+        hide = bool("hide" in item and (item['hide'] or len(getLeftMenu(request, item)) == 0))
         selected = bool("selected" in item and re.search(item['selected'], request.path))
+
+        if selected: selectedMainMenuItem = item
 
         if not hide:
 
@@ -84,34 +93,32 @@ def getMainMenu(request):
         #endif
     #endfor
 
-    return mainMenu
+    return mainMenu, selectedMainMenuItem
 
 #enddef
 
-def getLeftMenu(request):
+def getLeftMenu(request, item):
     """
     Return data for left menu
     """
+    if not item: return []
 
-    for item in MENU:
-        selected = bool("selected" in item and re.search(item['selected'], request.path))
+    selected = bool("selected" in item and re.search(item['selected'], request.path))
 
-        if not selected: continue
+    if "module" in item:
+        module = __import__("%s" % item['module'], globals(), locals(), ["menu"])
 
-        if "module" in item:
-            module = __import__("%s" % item['module'], globals(), locals(), ["menu"])
-
-            if hasattr(module, "menu"):
-                return getMenu(request, module.menu.MENU, item['selected'], "namespace" in item and item['namespace'])
-            else:
-                return []
-            #endif
-        elif "menu" in item:
-            return getMenu(request, item['menu'], item['selected'])
+        if hasattr(module, "menu"):
+            return getMenu(request, module.menu.MENU(request), 
+                item['selected'], "namespace" in item and item['namespace'])
         else:
             return []
         #endif
-    #endfor
+    elif "menu" in item:
+        return getMenu(request, item['menu'], item['selected'])
+    else:
+        return []
+    #endif
 
 #enddef
 
@@ -153,10 +160,12 @@ def getMenu(request, moduleMenu, urlPrefixPattern = "", namespace=False, ):
                 #endif
             #endfor
 
-            menu.append({
-                    "label":    section['label'],
-                    "items":    submenu
-                })
+            if len(submenu):
+                menu.append({
+                        "label":    section['label'],
+                        "items":    submenu
+                    })
+            #endif
         #endif
 
     #endfor

@@ -35,5 +35,10 @@ urlpatterns += patterns("",
         "webPyVirt.views.home",
         name="home"
     ),
+    url(
+        r"^addGroup/$", 
+        "webPyVirt.views.home",
+        name="add_group"
+    ),
 )
 
