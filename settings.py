@@ -64,6 +64,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "webPyVirt.middleware.DebugSQLMiddleware"
 )
 
 ROOT_URLCONF = 'webPyVirt.urls'
@@ -100,3 +101,15 @@ INSTALLED_APPS = (
 )
 
 INTERNAL_IPS = ("127.0.0.1", "127.0.1.1", )
+
+DEFAULT_CHARSET = "utf-8"
+
+LOG_FILENAME = "/tmp/webPyVirt-server.log"
+
+import logging
+logging.basicConfig(
+    level       = logging.DEBUG,
+    format      = "%(asctime)s [ %(levelname)s ]: %(message)s",
+    filename    = LOG_FILENAME,
+    filemode    = "w"
+)
