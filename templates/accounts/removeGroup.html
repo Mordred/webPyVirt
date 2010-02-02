@@ -1,0 +1,39 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Remove Group" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Remove Group" %} :: {{ managedGroup.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans count managedGroup.user_set.count as counter %}
+        This group has only one member.
+        {% plural %}
+        This group has {{ counter }} members.
+        {% endblocktrans %}
+    </p>
+
+    <p class="indent">
+        {% blocktrans %}
+        Do you really want to remove this group?
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmRemoveGroup">
+        <div class="form">
+            {% csrf_token %}
+
+            <div class="submit right">
+                <input type="hidden" name="groupId" value="{{ managedGroup.id }}" />
+                <input type="submit" name="yes" value="{% trans "Yes" %}" />
+                <input type="submit" name="no" value="{% trans "No" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

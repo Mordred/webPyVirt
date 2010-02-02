@@ -41,6 +41,16 @@
                         </div>
                     </div>
 
+                    <div class="field{% if overviewForm.is_active.errors %} field-error{% endif %}">
+                        {{ overviewForm.is_active.errors }}
+                        <label for="id_is_active">{% trans overviewForm.is_active.label %}:</label>
+                        {{ overviewForm.is_active }}
+                        <br />
+                        <div class="description">
+                            {% trans "Unselect this instead of deleting accounts." %}
+                        </div>
+                    </div>
+
                     <div class="field">
                         <label>{% trans "Date Joined" %}:</label>
                         <span>{{ managedUser.date_joined|date:"d. m. Y, H:i" }}</span>
@@ -89,7 +99,7 @@
 
                 </div>
 
-                <h3><a href="#section1">{% trans "Groups" %}</a></h3>
+                <h3><a href="#section2">{% trans "Groups" %}</a></h3>
                 <div{% ifequal selected 1 %} class="selected"{% endifequal %}>
                     <table class="stripe w100p">
                         <col width="85%" />

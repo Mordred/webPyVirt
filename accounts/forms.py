@@ -33,7 +33,7 @@ class UserOverviewForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username", "first_name", "last_name", "email", )
+        fields = ("username", "first_name", "last_name", "email", "is_active", )
     #endclass
 
     def clean_username(self):
@@ -95,3 +95,23 @@ class AddGroupForm(forms.ModelForm):
     #enddef
 
 #endclass
+
+class SelectGroupForm(forms.Form):
+
+    name = forms.RegexField(label = _("Select group"), max_length = 30, regex = r"^\w+$",
+        help_text = _("Only letters, digits and underscores"),
+        error_message = _("This value must contain only letters, numbers and underscores."))
+
+    def clean_name(self):
+        name = self.cleaned_data['name']
+
+        try:
+            Group.objects.get(name=name)
+        except Group.DoesNotExist:
+            raise forms.ValidationError(_("A group with that name does not exist."))
+        #endtry
+
+        return name
+    #enddef
+#endclass
+

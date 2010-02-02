@@ -1,45 +1,45 @@
 {% extends "base_administration.html" %}
 {% load i18n webPyVirt_extras %}
 
-{% block subtitle %}{% trans "Select User" %}{% endblock subtitle %}
+{% block subtitle %}{% trans "Select Group" %}{% endblock subtitle %}
 
 {% block content_body %}
-    <h1 class="center">{% trans "Select User" %}</h1>
+    <h1 class="center">{% trans "Select Group" %}</h1>
 
     <p class="indent">
         {% blocktrans %}
-        Select a user from list or type name.
+        Select a group from list or type name.
         {% endblocktrans %}
     </p>
 
     <br />
 
-    {% with users as pagination %}
+    {% with groups as pagination %}
         {% include "includes/pagination.html" %}
     {% endwith %}
 
     <table class="white-stripe w100p">
         <col width="80%" />
-        <col width="10%" />
+        <col width="20%" />
         <tr>
-            <th>{% trans "Username" %}</th>
-            <th class="center">{% trans "Active" %}</td>
+            <th>{% trans "Group name" %}</th>
+            <th class="center">{% trans "Members" %}</th>
         </tr>
-        {% for user in users.object_list %}
+        {% for group in groups.object_list %}
         <tr>
-            <td><a href="{% urlWithVar next userId=user.id %}">{{ user.username }}</a></td>
-            <td class="center">{{ user.is_active|yesno:_("yes,no") }}</td>
+            <td><a href="{% urlWithVar next groupId=group.id %}">{{ group.name }}</a></td>
+            <td class="center">{{ group.user_set.count }}</td>
         </tr>
         {% endfor %}
     </table>
 
-    {% with users as pagination %}
+    {% with groups as pagination %}
         {% include "includes/pagination.html" %}
     {% endwith %}
 
     <br />
 
-    <form action="" method="post" id="frmSelectUser">
+    <form action="" method="post" id="frmSelectGroup">
         <div class="form">
             {% csrf_token %}
 
@@ -51,10 +51,10 @@
             <br />
             {% endif %}
 
-            <div class="field{% if form.username.errors %} field-error{% endif %}">
-                {{ form.username.errors }}
-                <label for="id_username">{% trans form.username.label %}:</label>
-                {{ form.username }}
+            <div class="field{% if form.name.errors %} field-error{% endif %}">
+                {{ form.name.errors }}
+                <label for="id_name">{% trans form.name.label %}:</label>
+                {{ form.name }}
                 <span class="required">*</span>
                 <span class="description">
                     {% trans "only letters, digits and underscores" %}
@@ -65,7 +65,7 @@
 
             <div class="submit right">
                 <input type="hidden" name="next" value="{{ next }}" />
-                <input type="submit" value="{% trans "Select user" %}" />
+                <input type="submit" value="{% trans "Select group" %}" />
             </div>
 
         </div>

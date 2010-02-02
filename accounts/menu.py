@@ -33,6 +33,18 @@ def MENU(request):
                     "selected": r"addGroup/$",
                     "url":      "add_group"
                 },
+                {   # Manage groups
+                    "hide":     False,
+                    "label":    _("Manage groups"),
+                    "selected": r"manageGroups/",
+                    "url":      "manage_groups__select_group"
+                },
+                {   # Delete group
+                    "hide":     False,
+                    "label":    _("Remove group"),
+                    "selected": r"removeGroup/",
+                    "url":      "remove_group__select_group"
+                },
             ]
         },
         {   # Section permissions

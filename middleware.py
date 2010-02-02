@@ -11,7 +11,7 @@ class DebugSQLMiddleware(object):
         if settings.DEBUG and request.META.get("REMOTE_ADDR") in settings.INTERNAL_IPS:
             from django.db import connection
 
-            logging.debug(request.path)
+            logging.debug("\"%s\" %s" % (request.method, request.path))
 
             for sql in connection.queries:
                 logging.debug("%s (time %ss)" % (sql['sql'], sql['time']))

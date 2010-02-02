@@ -31,6 +31,37 @@ urlpatterns = patterns("webPyVirt.accounts",
         "views.addGroup",
         name="add_group"
     ),
+    url(
+        r"^manageGroups/$",
+        "views.selectGroup",
+        {
+            "next":     "accounts:manage_groups__group"
+        },
+        name="manage_groups__select_group"
+    ),
+    url(
+        r"^manageGroups/(?P<groupId>\d+)/$",
+        "views.manageGroups_group",
+        name="manage_groups__group"
+    ),
+    url(
+        r"^selectGroup/autocomplete/$",
+        "views.selectGroup_autocomplete",
+        name="select_group_autocomplete"
+    ),
+    url(
+        r"^removeGroup/$",
+        "views.selectGroup",
+        {
+            "next":     "accounts:remove_group"
+        },
+        name="remove_group__select_group"
+    ),
+    url(
+        r"^removeGroup/(?P<groupId>\d+)/$",
+        "views.removeGroup",
+        name="remove_group"
+    ),
 )
 
 #TEMPORARY

@@ -5,6 +5,11 @@ $(function() {
         minLength:  2
     });
 
+    $("#frmSelectGroup #id_name").autocomplete({
+        source:     "/accounts/selectGroup/autocomplete/",
+        minLength:  2
+    });
+
     $("div.accordion").each(function() {
         var sections = $(this).children("div");
         var index = sections.index(sections.has("div.field-error"));

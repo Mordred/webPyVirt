@@ -1,0 +1,72 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Manage Groups" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Manage Groups" %} :: {{ managedGroup.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        Manage group members.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmManageGroup">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if overviewForm.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br/>
+            {% endif %}
+
+            <div id="groupData" class="accordion">
+
+                <h3><a href="#section1">{% trans "Members" %}</a></h3>
+                <div{% ifequal selected 0 %} class="selected"{% endifequal %}>
+                    <table class="stripe w100p">
+                        <col width="85%" />
+                        <col width="15%" />
+                        <tr>
+                            <th>{% trans "Member" %}</th>
+                            <th class="last">{% trans "Remove" %}</th>
+                        </tr>
+                        {% for user in managedGroup.user_set.all|dictsort:"username" %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td class="last center"><input type="checkbox" name="user_{{ user.id }}" /></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="center">{% trans "Group is empty." %}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                    <br />
+
+                    <div class="submit right">
+                        {% trans "Add user to group" %}:
+                        <select name="addUser">
+                            <option value="" selected="selected">-----</option>
+                            {% for user in availableUsers %}
+                            <option value="{{ user.id }}">{{ user.username }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" name="membersForm" value="{% trans "Save" %}" />
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}
