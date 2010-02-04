@@ -5,7 +5,6 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 import accounts.urls
-import groups.urls
 import nodes.urls
 import domains.urls
 
@@ -34,10 +33,6 @@ urlpatterns = patterns('',
     url(
         r"^accounts/",
         include(accounts.urls, namespace="accounts"),
-    ),
-    url(
-        r"^groups/",
-        include(groups.urls, namespace="groups")
     ),
     url(
         r"^nodes/",

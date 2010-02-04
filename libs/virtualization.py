@@ -2,10 +2,11 @@
 
 import libvirt
 import socket
+import logging
 
 from misc   import TimeoutFunction, TimeoutException
 
-TIMEOUT = 1
+TIMEOUT = 5
 
 def testConnection(uri, timeout = TIMEOUT):
     """
@@ -40,6 +41,7 @@ def testConnection(uri, timeout = TIMEOUT):
     #endif
 
     if error:
+        logging.error("libvirt: %s" % error)
         return {
             "success":      False,
             "error":        error
