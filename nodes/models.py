@@ -1,9 +1,16 @@
 # -*- coding: UTF-8 -*-
 
-from django.db  import models
+from django.db      import models
 
-from urlparse   import parse_qs
-from socket     import AF_INET, AF_UNIX
+try:
+    # Python 2.6
+    from urlparse   import parse_qs
+except ImportError:
+    # Python 2.5
+    from cgi        import parse_qs
+#endtry
+
+from socket         import AF_INET, AF_UNIX
 
 class Node(models.Model):
     DRIVERS = (
