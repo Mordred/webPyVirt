@@ -1,37 +1,24 @@
 # -*- coding: UTF-8 -*-
 
-import signal
+import socket
 
-class TimeoutException(Exception):
-    pass
-#endclass
+TIMEOUT = 2
 
-class TimeoutFunction(Exception):
+def ping(address, family = socket.AF_INET, timeout = TIMEOUT):
+    """
+    Ping host:port
+    """
+    sock = socket.socket(family, socket.SOCK_STREAM)
+    sock.settimeout(timeout)
 
-    def __init__(self, function, timeout):
-        self.function = function
-        self.timeout = timeout
-    #enddef
+    try:
+        sock.connect(address)
+    except Exception, e:
+        return False
+    else:
+        sock.close()
+    #endtry
 
-    def handle_timeout(self, signum, frame):
-        raise TimeoutException()
-    #enddef
-
-    def __call__(self, *args):
-
-        old = signal.signal(signal.SIGALRM, self.handle_timeout)
-
-        signal.alarm(self.timeout)
-
-        try:
-            result = self.function(*args)
-        finally:
-            signal.signal(signal.SIGALRM, old)
-        #endtry
-
-        signal.alarm(0)
-
-        return result
-    #enddef
-#endclass
+    return True
+#enddef
 

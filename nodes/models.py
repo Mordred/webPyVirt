@@ -1,5 +1,9 @@
 # -*- coding: UTF-8 -*-
-from django.db import models
+
+from django.db  import models
+
+from urlparse   import parse_qs
+from socket     import AF_INET, AF_UNIX
 
 class Node(models.Model):
     DRIVERS = (
@@ -74,5 +78,38 @@ class Node(models.Model):
         return uri
         
     #enddef
+
+    def getHost(self):
+        return self.address
+    #enddef
     
+    def getPort(self):
+        if self.port:
+            return self.port
+        else:
+            if not self.transport or self.transport == "tls":
+                return 16514
+            elif self.transport == "tcp":
+                return 16509
+            elif self.transport == "ssh":
+                return 23
+            #endif
+        #endif
+
+        return None
+    #enddef
+
+    def getAddressForSocket(self):
+        if self.transport == "unix":
+            qs = parse_qs(self.extra_parameters)
+            if "socket" in qs:
+                return AF_UNIX, qs['socket'][0]
+            else:
+                return AF_UNIX, "/var/run/libvirt/libvirt-sock"
+            #endif
+        else:
+            return AF_INET, (self.getHost(), self.getPort())
+        #endif
+    #enddef
+
 #endclass

@@ -32,7 +32,7 @@
             uri += data['address'];
 
             // port
-            uri += data['port'].length ? data['port'] + ":" : "";
+            uri += data['port'].length ?  ":" + data['port'] : "";
 
             // path
             uri += "/" + data['path']

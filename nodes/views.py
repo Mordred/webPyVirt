@@ -51,7 +51,7 @@ def testConnection(request):
 
             testNode = form.save(commit = False)
 
-            result = virtualization.testConnection(testNode.getURI())
+            result = virtualization.testConnection(testNode)
 
             data = {
                 "status":           200,

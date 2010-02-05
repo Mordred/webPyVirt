@@ -4,11 +4,11 @@ import libvirt
 import socket
 import logging
 
-from misc   import TimeoutFunction, TimeoutException
+from misc   import ping
 
 TIMEOUT = 5
 
-def testConnection(uri, timeout = TIMEOUT):
+def testConnection(node, timeout = TIMEOUT):
     """
     @param uri      Node URI
     @returns dict result
@@ -27,17 +27,29 @@ def testConnection(uri, timeout = TIMEOUT):
     error = None
     connection = None
 
-    try:
-        timedOpenReadOnly = TimeoutFunction(libvirt.openReadOnly, timeout)
-        connection = timedOpenReadOnly(uri)
-    except TimeoutException, e:
-        error = "Connection timeouted!"
-    except libvirt.libvirtError, e:
-        error = unicode(e)
-    #endtry
+    if node.driver == "test":
+        # To test driver we have always connection
+        canConnect = True
+    else:
+        # PING before try to connect, because ping has implemented timeout
+        family, address = node.getAddressForSocket()
+        canConnect = ping(address, family)
+    #endif
+
+    if canConnect:
+        uri = node.getURI()
+
+        try:
+            connection = libvirt.openReadOnly(uri)
+        except libvirt.libvirtError, e:
+            error = unicode(e)
+        #endtry
+    else:
+        error = "Cannot connect to host"
+    #endif
 
     if not connection and not error:
-        error = "Failed to open connection to the hypervisor!"
+        error = "Failed to open connection to the hypervisor"
     #endif
 
     if error:
