@@ -146,6 +146,29 @@ def selectUser_autocomplete(request):
 #enddef
 
 @secure
+def removeUser(request, userId):
+    user = User.objects.get(id=userId)
+
+    if request.method == "POST":
+        if "yes" in request.POST and user.id == int(request.POST['userId']):
+            user.delete()
+        #endif
+
+        return HttpResponseRedirect(
+            reverse("accounts:remove_user__select_user")
+        )
+    #endif
+
+    return render_to_response(
+        "accounts/removeUser.html",
+        {
+            "managedUser":     user
+        },
+        context_instance=RequestContext(request)
+    )
+#enddef
+
+@secure
 def addGroup(request):
     if request.method == "POST":
         form = AddGroupForm(request.POST)

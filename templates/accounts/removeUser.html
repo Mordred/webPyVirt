@@ -1,0 +1,39 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Remove User" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Remove User" %} :: {{ managedUser.username }}</h1>
+
+    <p class="indent">
+        {% blocktrans count managedUser.groups.count as counter %}
+        This user is member of one group.
+        {% plural %}
+        This user is member of {{ counter }} groups.
+        {% endblocktrans %}
+    </p>
+
+    <p class="indent">
+        {% blocktrans %}
+        Do you really want to remove this user?
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmRemoveUser">
+        <div class="form">
+            {% csrf_token %}
+
+            <div class="submit right">
+                <input type="hidden" name="userId" value="{{ managedUser.id }}" />
+                <input type="submit" name="yes" value="{% trans "Yes" %}" />
+                <input type="submit" name="no" value="{% trans "No" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

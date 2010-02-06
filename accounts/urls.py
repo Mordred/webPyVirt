@@ -27,6 +27,19 @@ urlpatterns = patterns("webPyVirt.accounts",
         name="select_user_autocomplete"
     ),
     url(
+        r"^removeUser/$",
+        "views.selectUser",
+        {
+            "next":     "accounts:remove_user"
+        },
+        name="remove_user__select_user"
+    ),
+    url(
+        r"^removeUser/(?P<userId>\d+)/$",
+        "views.removeUser",
+        name="remove_user"
+    ),
+    url(
         r"^addGroup/$", 
         "views.addGroup",
         name="add_group"

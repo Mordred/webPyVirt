@@ -33,7 +33,7 @@ class Node(models.Model):
         (u"tcp", u"Unencrypted TCP/IP socket")
     )
 
-    name = models.CharField(max_length = 255, verbose_name = "Node Name")
+    name = models.CharField(max_length = 255, verbose_name = "Node Name", unique = True)
 
     # Node connection
     driver = models.CharField(max_length = 6, choices = DRIVERS,

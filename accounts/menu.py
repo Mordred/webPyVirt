@@ -21,6 +21,12 @@ def MENU(request):
                     "selected": r"manageUsers/",
                     "url":      "manage_users__select_user"
                 },
+                {   # Manage users
+                    "hide":     not request.user.has_perm("auth.delete_user"),
+                    "label":    _("Remove user"),
+                    "selected": r"removeUser/",
+                    "url":      "remove_user__select_user"
+                },
             ]
         },
         {   # Section Groups
