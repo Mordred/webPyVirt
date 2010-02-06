@@ -12,20 +12,20 @@ def MENU(request):
                 {   # Add user
                     "hide":     not request.user.has_perm("auth.add_user"),
                     "label":    _("Add user"),
-                    "selected": r"addUser/$",
-                    "url":      "add_user"
+                    "selected": r"user/add/$",
+                    "url":      "user_add"
                 },
                 {   # Manage users
                     "hide":     not request.user.has_perm("auth.change_user"),
                     "label":    _("Manage users"),
-                    "selected": r"manageUsers/",
-                    "url":      "manage_users__select_user"
+                    "selected": r"user/manage/",
+                    "url":      "user_manage__select"
                 },
                 {   # Manage users
                     "hide":     not request.user.has_perm("auth.delete_user"),
                     "label":    _("Remove user"),
-                    "selected": r"removeUser/",
-                    "url":      "remove_user__select_user"
+                    "selected": r"user/remove/",
+                    "url":      "user_remove__select"
                 },
             ]
         },
@@ -36,20 +36,20 @@ def MENU(request):
                 {   # Add group
                     "hide":     False,
                     "label":    _("Add group"),
-                    "selected": r"addGroup/$",
-                    "url":      "add_group"
+                    "selected": r"group/add/$",
+                    "url":      "group_add"
                 },
                 {   # Manage groups
                     "hide":     False,
                     "label":    _("Manage groups"),
-                    "selected": r"manageGroups/",
-                    "url":      "manage_groups__select_group"
+                    "selected": r"group/manage/",
+                    "url":      "group_manage__select"
                 },
                 {   # Delete group
                     "hide":     False,
                     "label":    _("Remove group"),
-                    "selected": r"removeGroup/",
-                    "url":      "remove_group__select_group"
+                    "selected": r"group/remove/",
+                    "url":      "group_remove__select"
                 },
             ]
         },
@@ -57,7 +57,12 @@ def MENU(request):
             "hide":         False,
             "label":        _("Permissions"),
             "items":        [
-                # TODO: Pridat opravnenia
+#                {   # User permissions
+#                    "hide":     False,
+#                    "label":    _("User permissions"),
+#                    "selected": r"permissions/user/",
+#                    "url":      "permissions__select_user"
+#                },
             ]
         }
     ]

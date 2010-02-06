@@ -1,12 +1,12 @@
 $(function() {
 
     $("#frmSelectUser #id_username").autocomplete({
-        source:     "/accounts/selectUser/autocomplete/",
+        source:     "/accounts/user/select/autocomplete/",
         minLength:  2
     });
 
     $("#frmSelectGroup #id_name").autocomplete({
-        source:     "/accounts/selectGroup/autocomplete/",
+        source:     "/accounts/group/select/autocomplete/",
         minLength:  2
     });
 

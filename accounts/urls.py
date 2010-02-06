@@ -3,78 +3,95 @@ from django.conf.urls.defaults import *
 from django.utils.translation import ugettext as _
 
 urlpatterns = patterns("webPyVirt.accounts",
+    # USERS
     url(
-        r"^addUser/$",
-        "views.addUser",
-        name="add_user"
+        r"^user/add/$",
+        "views.user.add",
+        name="user_add"
     ),
     url(
-        r"^manageUsers/$",
-        "views.selectUser",
+        r"^user/manage/$",
+        "views.user.select",
         {
-            "next":     "accounts:manage_users__user"
+            "next":     "accounts:user_manage"
         },
-        name="manage_users__select_user"
+        name="user_manage__select"
     ),
     url(
-        r"^manageUsers/(?P<userId>\d+)/$",
-        "views.manageUsers_user",
-        name="manage_users__user"
+        r"^user/manage/(?P<userId>\d+)/$",
+        "views.user.manage",
+        name="user_manage"
     ),
     url(
-        r"^selectUser/autocomplete/$",
-        "views.selectUser_autocomplete",
-        name="select_user_autocomplete"
+        r"^user/select/autocomplete/$",
+        "views.user.select_autocomplete",
+        name="user_select_autocomplete"
     ),
     url(
-        r"^removeUser/$",
-        "views.selectUser",
+        r"^user/remove/$",
+        "views.user.select",
         {
-            "next":     "accounts:remove_user"
+            "next":     "accounts:user_remove"
         },
-        name="remove_user__select_user"
+        name="user_remove__select"
     ),
     url(
-        r"^removeUser/(?P<userId>\d+)/$",
-        "views.removeUser",
-        name="remove_user"
+        r"^user/remove/(?P<userId>\d+)/$",
+        "views.user.remove",
+        name="user_remove"
+    ),
+
+    # GROUPS
+    url(
+        r"^group/add/$", 
+        "views.group.add",
+        name="group_add"
     ),
     url(
-        r"^addGroup/$", 
-        "views.addGroup",
-        name="add_group"
-    ),
-    url(
-        r"^manageGroups/$",
-        "views.selectGroup",
+        r"^group/manage/$",
+        "views.group.select",
         {
-            "next":     "accounts:manage_groups__group"
+            "next":     "accounts:group_manage"
         },
-        name="manage_groups__select_group"
+        name="group_manage__select"
     ),
     url(
-        r"^manageGroups/(?P<groupId>\d+)/$",
-        "views.manageGroups_group",
-        name="manage_groups__group"
+        r"^group/manage/(?P<groupId>\d+)/$",
+        "views.group.manage",
+        name="group_manage"
     ),
     url(
-        r"^selectGroup/autocomplete/$",
-        "views.selectGroup_autocomplete",
-        name="select_group_autocomplete"
+        r"^group/select/autocomplete/$",
+        "views.group.select_autocomplete",
+        name="group_select_autocomplete"
     ),
     url(
-        r"^removeGroup/$",
-        "views.selectGroup",
+        r"^group/remove/$",
+        "views.group.select",
         {
-            "next":     "accounts:remove_group"
+            "next":     "accounts:group_remove"
         },
-        name="remove_group__select_group"
+        name="group_remove__select"
     ),
     url(
-        r"^removeGroup/(?P<groupId>\d+)/$",
-        "views.removeGroup",
-        name="remove_group"
+        r"^group/remove/(?P<groupId>\d+)/$",
+        "views.group.remove",
+        name="group_remove"
     ),
+
+#    url(
+#        r"^permissions/user/$",
+#        "views.selectUser",
+#        {
+#            "next":     "accounts:permissions_user"
+#        },
+#        name="permissions__select_user"
+#    ),
+#    url(
+#        r"^permissions/user/(?P<userId>\d+)/$",
+#        "views.permissions_user",
+#        name="permissions__user"
+#    ),
 )
 
 #TEMPORARY
