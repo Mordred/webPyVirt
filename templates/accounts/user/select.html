@@ -30,6 +30,10 @@
             <td><a href="{% urlWithVar next userId=user.id %}">{{ user.username }}</a></td>
             <td class="center">{{ user.is_active|yesno:_("yes,no") }}</td>
         </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" class="center">{% trans "There is no users." %}</td>
+        </tr>
         {% endfor %}
     </table>
 
