@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from django.shortcuts           import render_to_response
+from django.shortcuts           import render_to_response, get_object_or_404
 from django.contrib.auth.forms  import UserCreationForm
 from django.contrib.auth.models import User, Group
 from django.template            import RequestContext
@@ -12,7 +12,6 @@ from django.utils               import simplejson
 from webPyVirt.decorators       import secure
 
 from webPyVirt.accounts.forms   import SelectUserForm, UserOverviewForm
-
 
 @secure
 def add(request):
@@ -57,7 +56,7 @@ def select(request, next):
         form = SelectUserForm(request.POST)
         if form.is_valid():
 
-            user = User.objects.get(username=form.cleaned_data['username'])
+            user = get_object_or_404(User, username=form.cleaned_data['username'])
 
             return HttpResponseRedirect(
                 reverse(next, kwargs={ "userId": user.id })
@@ -91,7 +90,7 @@ def select_autocomplete(request):
 
 @secure
 def manage(request, userId):
-    user = User.objects.get(id=userId)
+    user = get_object_or_404(User, id=userId)
     availableGroups = Group.objects.all()
 
     selected = request.session.get("selected", 0)
@@ -110,7 +109,7 @@ def manage(request, userId):
             # Add group
             groupId = request.POST['addGroup']
             if len(groupId):
-                group = Group.objects.get(id=int(groupId))
+                group = get_object_or_404(Group, id=int(groupId))
                 user.groups.add(group)
             #endif
 
@@ -148,7 +147,7 @@ def manage(request, userId):
 
 @secure
 def remove(request, userId):
-    user = User.objects.get(id=userId)
+    user = get_object_or_404(User, id=userId)
 
     if request.method == "POST":
         if "yes" in request.POST and user.id == int(request.POST['userId']):
@@ -167,4 +166,4 @@ def remove(request, userId):
         },
         context_instance=RequestContext(request)
     )
-
+#enddef

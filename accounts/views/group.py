@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-from django.shortcuts           import render_to_response
+from django.shortcuts           import render_to_response, get_object_or_404
 from django.contrib.auth.models import Group, User
 from django.template            import RequestContext
 from django.http                import HttpResponseRedirect, HttpResponse
@@ -57,7 +57,7 @@ def select(request, next):
         form = SelectGroupForm(request.POST)
         if form.is_valid():
 
-            group = Group.objects.get(name=form.cleaned_data['name'])
+            group = get_object_or_404(Group, name=form.cleaned_data['name'])
 
             return HttpResponseRedirect(
                 reverse(next, kwargs={ "groupId": group.id })
@@ -91,7 +91,7 @@ def select_autocomplete(request):
 
 @secure
 def manage(request, groupId):
-    group = Group.objects.get(id=groupId)
+    group = get_object_or_404(Group, id=groupId)
     availableUsers = User.objects.all().order_by("username")
 
     selected = request.session.get("selected", 0)
@@ -101,7 +101,7 @@ def manage(request, groupId):
         if "membersForm" in request.POST:
 
             if "addUser" in request.POST and len(request.POST['addUser']):
-                user = User.objects.get(id=int(request.POST['addUser']))
+                user = get_object_or_404(User, id=int(request.POST['addUser']))
                 group.user_set.add(user)
             #endif
 
@@ -139,7 +139,7 @@ def manage(request, groupId):
 
 @secure
 def remove(request, groupId):
-    group = Group.objects.get(id=groupId)
+    group = get_object_or_404(Group, id=groupId)
 
     if request.method == "POST":
         if "yes" in request.POST and group.id == int(request.POST['groupId']):
@@ -159,4 +159,3 @@ def remove(request, groupId):
         context_instance=RequestContext(request)
     )
 #enddef
-

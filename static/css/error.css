@@ -1,0 +1,7 @@
+#page                           { width: 400px; margin: 100px auto 0 auto; }
+.container                      { background: #fff; border: 1px solid #000; }
+#header                         { text-align: center; padding: 5px 0; 
+                                  background-color: #aaa; }
+#header h1                      { font-weight: bold; font-size: 2em; }
+#content                        { margin: 5px 10px; text-align: center; }
+
