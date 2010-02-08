@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 22:00+0100\n"
+"POT-Creation-Date: 2010-02-08 20:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,84 +16,239 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: menu.py:11 templates/home.html:4
+#: menu.py:13 templates/403.html:23 templates/404.html:23
+#: templates/home.html:4
 msgid "Home"
-msgstr ""
+msgstr "Domov"
 
-#: menu.py:17
+#: menu.py:19
 msgid "Quick Access"
-msgstr ""
+msgstr "Rýchly prístup"
 
-#: menu.py:26 accounts/menu.py:9 domains/menu.py:9
-msgid "Users"
-msgstr ""
+#: menu.py:28
+msgid "Users & Groups"
+msgstr "Užívatelia & Skupiny"
 
-#: menu.py:35 groups/menu.py:9
-msgid "Groups"
-msgstr ""
-
-#: menu.py:43 nodes/menu.py:9 templates/nodes/index.html:4
+#: menu.py:36 nodes/menu.py:10 templates/nodes/index.html:4
 #: templates/nodes/index.html.py:7
 msgid "Nodes"
-msgstr ""
+msgstr "Uzly"
 
-#: menu.py:51
+#: menu.py:44
 msgid "Domains"
-msgstr ""
+msgstr "Domény"
 
-#: settings.py:89
+#: settings.py:90
 msgid "Slovak"
 msgstr "Slovensky"
 
-#: settings.py:90
+#: settings.py:91
 msgid "English"
 msgstr "Anglicky"
 
-#: accounts/menu.py:13 domains/menu.py:13
+#: accounts/forms.py:9 templates/accounts/user/select.html:68
+msgid "Select user"
+msgstr "Výber užívateľa"
+
+#: accounts/forms.py:10 accounts/forms.py:29 accounts/forms.py:78
+#: accounts/forms.py:102
+msgid "Only letters, digits and underscores"
+msgstr "Iba písmená, číslice a podtržítka"
+
+#: accounts/forms.py:11 accounts/forms.py:30 accounts/forms.py:79
+#: accounts/forms.py:103
+msgid "This value must contain only letters, numbers and underscores."
+msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
+
+#: accounts/forms.py:19
+msgid "A user with that username does not exist."
+msgstr "Užívateľ s týmto menom neexistuje."
+
+#: accounts/forms.py:28 templates/accounts/user/select.html:25
+msgid "Username"
+msgstr "Užívateľské meno"
+
+#: accounts/forms.py:31
+msgid "Password"
+msgstr "Heslo"
+
+#: accounts/forms.py:32
+msgid "Password confirmation"
+msgstr "Heslo (potvrdenie)"
+
+#: accounts/forms.py:48
+msgid "A user with that username already exists."
+msgstr "Užívateľ s týmto menom už existuje."
+
+#: accounts/forms.py:58
+msgid "The two password fields didn't match."
+msgstr "Heslá sa nezhodujú."
+
+#: accounts/forms.py:77 templates/accounts/group/select.html:25
+msgid "Group name"
+msgstr "Názov skupiny"
+
+#: accounts/forms.py:94
+msgid "A group with that name already exists."
+msgstr "Skupina s týmto menom už existuje."
+
+#: accounts/forms.py:101 templates/accounts/group/select.html:68
+msgid "Select group"
+msgstr "Výber skupiny"
+
+#: accounts/forms.py:111
+msgid "A group with that name does not exist."
+msgstr "Skupina s týmto menom neexistuje."
+
+#: accounts/forms.py:120
+msgid "Superuser"
+msgstr "Superužívateľ"
+
+#: accounts/forms.py:121
+msgid "User is a superuser. Only superuser can change this"
+msgstr "Užívateľ je superužívateľ. Môže zmeniť iba superužívateľ"
+
+#: accounts/forms.py:123
+msgid "Change permissions"
+msgstr "Zmeniť oprávnenia"
+
+#: accounts/forms.py:124
+msgid "User can change global permissions of another users"
+msgstr "Užívateľ môže zmeniť globálne práva iného užívateľa"
+
+#: accounts/forms.py:126 accounts/menu.py:14 domains/menu.py:14
+#: templates/accounts/user/add.html:56
 msgid "Add user"
-msgstr ""
+msgstr "Pridať užívateľa"
 
-#: accounts/menu.py:18 domains/menu.py:18
-msgid "Edit user"
-msgstr ""
+#: accounts/forms.py:127
+msgid "User can add new user"
+msgstr "Užívateľ môže pridať nového užívateľa"
 
-#: accounts/menu.py:23 domains/menu.py:23
-msgid "Delete user"
-msgstr ""
+#: accounts/forms.py:128
+msgid "Change user"
+msgstr "Zmeniť užívateľa"
 
-#: accounts/menu.py:30 domains/menu.py:30 groups/menu.py:30 nodes/menu.py:20
-msgid "Permissions"
-msgstr ""
+#: accounts/forms.py:129
+msgid "User can change information about users"
+msgstr "Užívateľ môže zmeniť informácie o užívateľoch"
 
-#: groups/menu.py:13
+#: accounts/forms.py:130 accounts/menu.py:26
+msgid "Remove user"
+msgstr "Odstrániť užívateľa"
+
+#: accounts/forms.py:131
+msgid "User can remove users"
+msgstr "Užívateľ môže odstrániť užívateľov"
+
+#: accounts/forms.py:133 accounts/menu.py:38
+#: templates/accounts/group/add.html:39
 msgid "Add group"
-msgstr ""
+msgstr "Pridať skupinu"
 
-#: groups/menu.py:18
-msgid "Edit group"
-msgstr ""
+#: accounts/forms.py:134
+msgid "User can add new group"
+msgstr "Užívateľ môže pridať novú skupinu"
 
-#: groups/menu.py:23
-msgid "Delete group"
-msgstr ""
+#: accounts/forms.py:135
+msgid "Change group"
+msgstr "Zmeniť skupinu"
 
-#: nodes/menu.py:13 templates/nodes/addNode_Form.html:94
+#: accounts/forms.py:136
+msgid "User can change group members"
+msgstr "Užívateľ môže zmeniť členov skupiny"
+
+#: accounts/forms.py:137 accounts/menu.py:50
+msgid "Remove group"
+msgstr "Odstrániť skupinu"
+
+#: accounts/forms.py:138
+msgid "User can remove groups"
+msgstr "Užívateľ môže odstrániť skupinu"
+
+#: accounts/forms.py:140 nodes/menu.py:20 templates/nodes/addNode_Form.html:98
 msgid "Add node"
-msgstr ""
+msgstr "Pridať uzol"
+
+#: accounts/forms.py:141
+msgid "User can add new node"
+msgstr "Užívateľ môže pridať nový uzol"
+
+#: accounts/menu.py:10 domains/menu.py:10
+msgid "Users"
+msgstr "Užívatelia"
+
+#: accounts/menu.py:20
+msgid "Manage users"
+msgstr "Správa užívateľov"
+
+#: accounts/menu.py:34 templates/accounts/user/manage.html:103
+msgid "Groups"
+msgstr "Skupiny"
+
+#: accounts/menu.py:44
+msgid "Manage groups"
+msgstr "Správa skupín"
+
+#: accounts/menu.py:58
+msgid "Global Permissions"
+msgstr "Globálne práva"
+
+#: accounts/menu.py:62
+msgid "User permissions"
+msgstr "Práva užívateľa"
+
+#: accounts/menu.py:68
+msgid "Group permissions"
+msgstr "Práva skupiny"
+
+#: domains/menu.py:19
+msgid "Edit user"
+msgstr "Upraviť užívateľa"
+
+#: domains/menu.py:24
+msgid "Delete user"
+msgstr "Zmazať užívateľa"
+
+#: domains/menu.py:31 nodes/menu.py:28
+msgid "Permissions"
+msgstr "Práva"
+
+#: nodes/menu.py:14
+msgid "List nodes"
+msgstr "Zoznam uzlov"
+
+#: templates/403.html:4 templates/403.html.py:16
+msgid "Forbidden"
+msgstr "Zakázané"
+
+#: templates/403.html:20
+msgid "You don't have permissions for this."
+msgstr "Nemáte opravánenia na túto operáciu"
+
+#: templates/404.html:4 templates/404.html.py:16
+msgid "Page not found"
+msgstr "Stránka nenájdená"
+
+#: templates/404.html:20
+msgid "You requested page which doesn't exist."
+msgstr "Vyžiadali ste si stránku, ktorá neexistuje."
+
+#: templates/500.html:20
+msgid "We apologize. Our administrators were e-mailed."
+msgstr "Ospravedlňujeme sa. Administrátori boli informovaní e-mailom."
 
 #: templates/base_administration.html:4
-#, fuzzy
 msgid "Administration"
 msgstr "webPyVirt Administrácia"
 
 #: templates/base_administration.html:50
 msgid "Created by Martin Jantošovič"
-msgstr ""
+msgstr "Vytvoril Martin Jantošovič"
 
 #: templates/home.html:7
-#, fuzzy
 msgid "Welcome to webPyVirt Administration"
-msgstr "webPyVirt Administrácia"
+msgstr "Vitajte v webPyVirt Administrácii"
 
 #: templates/login.html:4 templates/login.html.py:45
 msgid "Log in"
@@ -111,19 +266,368 @@ msgstr ""
 "Prosím, zadajte správne používateľské meno a heslo. Rešpektujte malé a veľké "
 "písmená."
 
+#: templates/accounts/group/add.html:4 templates/accounts/group/add.html:7
+msgid "Add Group"
+msgstr "Pridať skupinu"
+
+#: templates/accounts/group/add.html:10
+msgid ""
+"\n"
+"        You can add group here.\n"
+"        "
+msgstr ""
+"\n"
+"        Tu môžete pridať skupinu.\n"
+"        "
+
+#: templates/accounts/group/add.html:23
+#: templates/accounts/group/manage.html:23
+#: templates/accounts/group/select.html:52
+#: templates/accounts/permissions/group.html:27
+#: templates/accounts/permissions/user.html:27
+#: templates/accounts/user/add.html:23 templates/accounts/user/manage.html:23
+#: templates/accounts/user/select.html:52 templates/nodes/addNode_Form.html:32
+msgid "There are errors in the form."
+msgstr "Vo formulári sa nachádzajú chyby."
+
+#: templates/accounts/group/manage.html:4
+#: templates/accounts/group/manage.html:7
+msgid "Manage Groups"
+msgstr "Správa skupín"
+
+#: templates/accounts/group/manage.html:10
+msgid ""
+"\n"
+"        Manage group members.\n"
+"        "
+msgstr ""
+"\n"
+"        Správa členov skupiny.\n"
+"        "
+
+#: templates/accounts/group/manage.html:31
+#: templates/accounts/group/select.html:26
+msgid "Members"
+msgstr "Členov"
+
+#: templates/accounts/group/manage.html:37
+msgid "Member"
+msgstr "Člen"
+
+#: templates/accounts/group/manage.html:38
+#: templates/accounts/user/manage.html:110
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: templates/accounts/group/manage.html:47
+msgid "Group is empty."
+msgstr "Skupina je prázdna."
+
+#: templates/accounts/group/manage.html:55
+#: templates/accounts/user/manage.html:127
+msgid "Add user to group"
+msgstr "Pridať užívateľa do skupiny"
+
+#: templates/accounts/group/manage.html:62
+#: templates/accounts/permissions/group.html:56
+#: templates/accounts/permissions/user.html:56
+#: templates/accounts/user/manage.html:97
+#: templates/accounts/user/manage.html:134
+msgid "Save"
+msgstr "Uložiť"
+
+#: templates/accounts/group/remove.html:4
+#: templates/accounts/group/remove.html:7
+msgid "Remove Group"
+msgstr "Odstrániť skupinu"
+
+#: templates/accounts/group/remove.html:10
+#, python-format
+msgid ""
+"\n"
+"        This group has only one member.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This group has %(counter)s members.\n"
+"        "
+msgstr[0] ""
+"\n"
+"        Táto skupina nemá žiadnych členov.\n"
+"        "
+msgstr[1] ""
+"\n"
+"        Táto skupina má jedného člena.\n"
+"        "
+msgstr[2] ""
+"\n"
+"        Táto skupina má %(counter)s členov.\n"
+"        "
+
+#: templates/accounts/group/remove.html:18
+msgid ""
+"\n"
+"        Do you really want to remove this group?\n"
+"        "
+msgstr ""
+"\n"
+"        Naozaj chcete odstrániť túto skupinu?\n"
+"        "
+
+#: templates/accounts/group/remove.html:31
+#: templates/accounts/user/remove.html:38
+msgid "Yes"
+msgstr "Áno"
+
+#: templates/accounts/group/remove.html:32
+#: templates/accounts/user/remove.html:39
+msgid "No"
+msgstr "Nie"
+
+#: templates/accounts/group/select.html:4
+#: templates/accounts/group/select.html:7
+msgid "Select Group"
+msgstr "Výber skupiny"
+
+#: templates/accounts/group/select.html:10
+msgid ""
+"\n"
+"        Select a group from list or type name.\n"
+"        "
+msgstr ""
+"\n"
+"        Vyberte skupinu zo zoznamu skupín alebo napíšte názov.\n"
+"        "
+
+#: templates/accounts/group/select.html:35
+msgid "There is no groups."
+msgstr "Neexistuje žiadna skupina"
+
+#: templates/accounts/permissions/group.html:4
+#: templates/accounts/permissions/group.html:7
+msgid "Group Permissions"
+msgstr "Práva skupiny"
+
+#: templates/accounts/permissions/group.html:10
+msgid ""
+"\n"
+"        Set global permissions to group. All these permissions are per "
+"table, not per object.\n"
+"        If you want to set permissions per object, select in main menu "
+"object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we "
+"want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main "
+"menu, \"Group permission\"\n"
+"        in the left menu and select Node \"node1\".)\n"
+"        "
+msgstr ""
+"\n"
+"        Nastavte globálne práva skupiny. Všetky tieto práva sú na tabuľku, "
+"nie na objekt.\n"
+"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ "
+"objektu\n"
+"        a v ľavom menu vyberte sekciu \"Práva\". (Napríklad: ak chcete \n"
+"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v "
+"hlavnom menu, \"Práva skupiny\"\n"
+"        v ľavom menu a vyberte uzol \"node1\".)\n"
+"        "
+
+#: templates/accounts/permissions/group.html:38
+#: templates/accounts/permissions/user.html:38
+msgid "Permission"
+msgstr "Právo"
+
+#: templates/accounts/permissions/group.html:39
+#: templates/accounts/permissions/user.html:39
+msgid "Description"
+msgstr "Popis"
+
+#: templates/accounts/permissions/user.html:4
+#: templates/accounts/permissions/user.html:7
+msgid "User Permissions"
+msgstr "Práva užívateľa"
+
+#: templates/accounts/permissions/user.html:10
+msgid ""
+"\n"
+"        Set global permissions to user. All these permissions are per table, "
+"not per object.\n"
+"        If you want to set permissions per object, select in main menu "
+"object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we "
+"want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main "
+"menu, \"User permission\"\n"
+"        in the left menu and select Node \"node1\".)\n"
+"        "
+msgstr ""
+"\n"
+"        Nastavte globálne práva užívateľa. Všetky tieto práva sú na tabuľku, "
+"nie na objekt.\n"
+"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ "
+"objektu\n"
+"        a v ľavom menu vyberte sekciu \"Práva\". (Napríklad: ak chcete \n"
+"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v "
+"hlavnom menu, \"Práva skupiny\"\n"
+"        v ľavom menu a vyberte uzol \"node1\".)\n"
+"        "
+
+#: templates/accounts/user/add.html:4 templates/accounts/user/add.html.py:7
+msgid "Add User"
+msgstr "Pridať užívateľa"
+
+#: templates/accounts/user/add.html:10
+msgid ""
+"\n"
+"        You can add user here.\n"
+"        "
+msgstr ""
+"\n"
+"        Tu môžete pridať nového užívateľa.\n"
+"        "
+
+#: templates/accounts/user/add.html:35
+msgid "only letters, digits and underscores"
+msgstr "iba písmená, číslice a podtržítka"
+
+#: templates/accounts/user/add.html:57 templates/nodes/addNode_Form.html:99
+msgid "Reset"
+msgstr "Resetovať"
+
+#: templates/accounts/user/manage.html:4 templates/accounts/user/manage.html:7
+msgid "Manage Users"
+msgstr "Správa užívateľov"
+
+#: templates/accounts/user/manage.html:10
+msgid ""
+"\n"
+"        Manage user informations.\n"
+"        "
+msgstr ""
+"\n"
+"        Správa informácií o užívateľovi.\n"
+"        "
+
+#: templates/accounts/user/manage.html:31
+msgid "Overview"
+msgstr "Prehľad"
+
+#: templates/accounts/user/manage.html:40
+msgid ""
+"30 characters or fewer. Alphanumeric characters only (letters, digits and "
+"underscores)."
+msgstr ""
+"30 alebo menej znakov. Iba alfanumerické znaky (písmená, číslice a "
+"podtržítka)."
+
+#: templates/accounts/user/manage.html:50
+msgid "Unselect this instead of deleting accounts."
+msgstr "Namiesto mazania účtov zrušte túto hodnotu."
+
+#: templates/accounts/user/manage.html:55
+msgid "Date Joined"
+msgstr "Dátum vytvorenia"
+
+#: templates/accounts/user/manage.html:60
+msgid "Last Login"
+msgstr "Posledné prihlásenie"
+
+#: templates/accounts/user/manage.html:109
+msgid "Group"
+msgstr "Skupina"
+
+#: templates/accounts/user/manage.html:119
+msgid "User is not member of any group."
+msgstr "Užívateľ nie je členom žiadnej skupiny."
+
+#: templates/accounts/user/remove.html:4 templates/accounts/user/remove.html:7
+msgid "Remove User"
+msgstr "Odstrániť užívateľa"
+
+#: templates/accounts/user/remove.html:10
+#, python-format
+msgid ""
+"\n"
+"        This user is member of one group.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This user is member of %(counter)s groups.\n"
+"        "
+msgstr[0] ""
+"\n"
+"        Tento užívateľ nie je členom žiadnej skupiny.\n"
+"        "
+msgstr[1] ""
+"\n"
+"        Tento užívateľ je členom jednej skupiny.\n"
+"        "
+msgstr[2] ""
+"\n"
+"        Tento užívateľ je členom %(counter)s skupín.\n"
+"        "
+
+#: templates/accounts/user/remove.html:19
+msgid ""
+"\n"
+"        This user is superuser. You cannot remove him if you are not "
+"superuser too!\n"
+"        "
+msgstr ""
+"\n"
+"        Tento užívateľ je superužívateľ. Nemôžete odstrániť tohto užívateľa, "
+"pretože nie ste superužívateľom!\n"
+"        "
+
+#: templates/accounts/user/remove.html:25
+msgid ""
+"\n"
+"        Do you really want to remove this user?\n"
+"        "
+msgstr ""
+"\n"
+"        Naozaj chcete odstrániť tohto užívateľa?\n"
+"        "
+
+#: templates/accounts/user/select.html:4 templates/accounts/user/select.html:7
+msgid "Select User"
+msgstr "Výber užívateľa"
+
+#: templates/accounts/user/select.html:10
+msgid ""
+"\n"
+"        Select a user from list or type name.\n"
+"        "
+msgstr ""
+"\n"
+"        Vyberte užívateľa zo zoznamu alebo napíšte jeho meno.\n"
+"        "
+
+#: templates/accounts/user/select.html:26
+msgid "Active"
+msgstr "Aktívny"
+
+#: templates/accounts/user/select.html:31
+msgid "yes,no"
+msgstr "áno,nie"
+
+#: templates/accounts/user/select.html:35
+msgid "There is no users."
+msgstr "Neexistujú žiadny užívatelia."
+
 #: templates/includes/left_menu.html:3
-#, fuzzy
 msgid "Logged in as:"
-msgstr "Prihlásenie"
+msgstr "Prihlásený ako:"
 
 #: templates/includes/left_menu.html:4
-#, fuzzy
 msgid "Logout"
-msgstr "odhlasenie/"
+msgstr "Odhlásiť"
 
 #: templates/nodes/addNode_Form.html:4 templates/nodes/addNode_Form.html:11
+#: templates/nodes/listNodes.html:4
 msgid "Add Node"
-msgstr ""
+msgstr "Pridať uzol"
 
 #: templates/nodes/addNode_Form.html:14
 msgid ""
@@ -132,29 +636,26 @@ msgid ""
 "Libvirt remote URI general form\n"
 "        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
 "\">detail information</a>):\n"
-"        <br />\n"
 "        "
 msgstr ""
+"\n"
+"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním "
+"najskôr pripojiť.Libvirt obecný tvar URI\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
+"\">podrobné informácie</a>):\n"
+"        "
 
-#: templates/nodes/addNode_Form.html:30
-msgid "There are errors in the form."
-msgstr ""
-
-#: templates/nodes/addNode_Form.html:40
+#: templates/nodes/addNode_Form.html:43
 msgid "only for better identification"
-msgstr ""
+msgstr "kvôli lepšej identifikácii"
 
-#: templates/nodes/addNode_Form.html:73
+#: templates/nodes/addNode_Form.html:77
 msgid "if different from default"
-msgstr ""
+msgstr "ak sa líši od pôvodného"
 
-#: templates/nodes/addNode_Form.html:93
+#: templates/nodes/addNode_Form.html:97
 msgid "Test connection"
-msgstr ""
-
-#: templates/nodes/addNode_Form.html:95
-msgid "Reset"
-msgstr ""
+msgstr "Otestovať spojenie"
 
 #: templates/nodes/index.html:10
 msgid ""
@@ -168,9 +669,22 @@ msgid ""
 "        -->\n"
 "        "
 msgstr ""
+"\n"
+"        <b>Uzol</b> je fyzický stroj.\n"
+"        <!-- \n"
+"        An <b>hypervisor</b> \n"
+"        is a layer of software allowing to virtualize a node in a set of "
+"virtual machines with possibly\n"
+"        different configurations than the node itself.\n"
+"        -->\n"
+"        "
 
-#~ msgid "url_login"
-#~ msgstr "prihlasenie/"
+#: templates/nodes/listNodes.html:11
+msgid "List Nodes"
+msgstr "Zoznam uzlov"
 
-#~ msgid "url_accounts"
-#~ msgstr "ucty/"
+#: templates/nodes/listNodes.html:14
+msgid ""
+"\n"
+"        "
+msgstr ""

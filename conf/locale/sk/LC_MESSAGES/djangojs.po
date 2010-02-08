@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 22:02+0100\n"
+"POT-Creation-Date: 2010-02-08 20:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,52 +16,59 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: static/js/plugins/jq.test_connection.js:55
-#: static/js/plugins/jq.test_connection.js:112
+#: static/js/plugins/jq.test_connection.js:47
 msgid "OK"
 msgstr "OK"
 
-#: static/js/plugins/jq.test_connection.js:61
+#: static/js/plugins/jq.test_connection.js:50
 msgid "CPU Model"
-msgstr ""
+msgstr "CPU Model"
 
-#: static/js/plugins/jq.test_connection.js:63
+#: static/js/plugins/jq.test_connection.js:52
 msgid "Memory Size"
-msgstr ""
+msgstr "Veľkosť pamäte"
 
-#: static/js/plugins/jq.test_connection.js:65
+#: static/js/plugins/jq.test_connection.js:54
 msgid "Active CPUs"
-msgstr ""
+msgstr "Aktivne CPU"
 
-#: static/js/plugins/jq.test_connection.js:67
+#: static/js/plugins/jq.test_connection.js:56
 msgid "CPU frequency"
-msgstr ""
+msgstr "CPU frekvencia"
 
-#: static/js/plugins/jq.test_connection.js:69
+#: static/js/plugins/jq.test_connection.js:58
 msgid "NUMA Cells"
-msgstr ""
+msgstr "NUMA buniek"
 
-#: static/js/plugins/jq.test_connection.js:71
+#: static/js/plugins/jq.test_connection.js:60
 msgid "CPU socket per node"
-msgstr ""
+msgstr "CPU soket na uzol"
 
-#: static/js/plugins/jq.test_connection.js:73
+#: static/js/plugins/jq.test_connection.js:62
 msgid "Core per socket"
-msgstr ""
+msgstr "Jadier na uzol"
+
+#: static/js/plugins/jq.test_connection.js:64
+msgid "Threads per core"
+msgstr "Vlakien na uzol"
 
 #: static/js/plugins/jq.test_connection.js:75
-msgid "Threads per core"
-msgstr ""
-
-#: static/js/plugins/jq.test_connection.js:88
 msgid "Failed"
 msgstr "Zlyhalo"
 
-#: static/js/plugins/jq.test_connection.js:105
+#: static/js/plugins/jq.test_connection.js:78
+msgid "Error message: "
+msgstr "Chybová správa: "
+
+#: static/js/plugins/jq.test_connection.js:113
 #, perl-format
 msgid "Connecting to '<i>%s</i>'..."
 msgstr "Pripájam k '<i>%s</i>'..."
 
-#: static/js/plugins/jq.test_connection.js:118
+#: static/js/plugins/jq.test_connection.js:129
+msgid "Close"
+msgstr "Zavrieť"
+
+#: static/js/plugins/jq.test_connection.js:135
 msgid "Connection Test"
 msgstr "Test pripojenia"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-28 22:00+0100\n"
+"POT-Creation-Date: 2010-02-08 20:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,69 +16,226 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: menu.py:11 templates/home.html:4
+#: menu.py:13 templates/403.html:23 templates/404.html:23
+#: templates/home.html:4
 msgid "Home"
 msgstr ""
 
-#: menu.py:17
+#: menu.py:19
 msgid "Quick Access"
 msgstr ""
 
-#: menu.py:26 accounts/menu.py:9 domains/menu.py:9
-msgid "Users"
+#: menu.py:28
+msgid "Users & Groups"
 msgstr ""
 
-#: menu.py:35 groups/menu.py:9
-msgid "Groups"
-msgstr ""
-
-#: menu.py:43 nodes/menu.py:9 templates/nodes/index.html:4
+#: menu.py:36 nodes/menu.py:10 templates/nodes/index.html:4
 #: templates/nodes/index.html.py:7
 msgid "Nodes"
 msgstr ""
 
-#: menu.py:51
+#: menu.py:44
 msgid "Domains"
 msgstr ""
 
-#: settings.py:89
+#: settings.py:90
 msgid "Slovak"
 msgstr ""
 
-#: settings.py:90
+#: settings.py:91
 msgid "English"
 msgstr ""
 
-#: accounts/menu.py:13 domains/menu.py:13
+#: accounts/forms.py:9 templates/accounts/user/select.html:68
+msgid "Select user"
+msgstr ""
+
+#: accounts/forms.py:10 accounts/forms.py:29 accounts/forms.py:78
+#: accounts/forms.py:102
+msgid "Only letters, digits and underscores"
+msgstr ""
+
+#: accounts/forms.py:11 accounts/forms.py:30 accounts/forms.py:79
+#: accounts/forms.py:103
+msgid "This value must contain only letters, numbers and underscores."
+msgstr ""
+
+#: accounts/forms.py:19
+msgid "A user with that username does not exist."
+msgstr ""
+
+#: accounts/forms.py:28 templates/accounts/user/select.html:25
+msgid "Username"
+msgstr ""
+
+#: accounts/forms.py:31
+msgid "Password"
+msgstr ""
+
+#: accounts/forms.py:32
+msgid "Password confirmation"
+msgstr ""
+
+#: accounts/forms.py:48
+msgid "A user with that username already exists."
+msgstr ""
+
+#: accounts/forms.py:58
+msgid "The two password fields didn't match."
+msgstr ""
+
+#: accounts/forms.py:77 templates/accounts/group/select.html:25
+msgid "Group name"
+msgstr ""
+
+#: accounts/forms.py:94
+msgid "A group with that name already exists."
+msgstr ""
+
+#: accounts/forms.py:101 templates/accounts/group/select.html:68
+msgid "Select group"
+msgstr ""
+
+#: accounts/forms.py:111
+msgid "A group with that name does not exist."
+msgstr ""
+
+#: accounts/forms.py:120
+msgid "Superuser"
+msgstr ""
+
+#: accounts/forms.py:121
+msgid "User is a superuser. Only superuser can change this"
+msgstr ""
+
+#: accounts/forms.py:123
+msgid "Change permissions"
+msgstr ""
+
+#: accounts/forms.py:124
+msgid "User can change global permissions of another users"
+msgstr ""
+
+#: accounts/forms.py:126 accounts/menu.py:14 domains/menu.py:14
+#: templates/accounts/user/add.html:56
 msgid "Add user"
 msgstr ""
 
-#: accounts/menu.py:18 domains/menu.py:18
-msgid "Edit user"
+#: accounts/forms.py:127
+msgid "User can add new user"
 msgstr ""
 
-#: accounts/menu.py:23 domains/menu.py:23
-msgid "Delete user"
+#: accounts/forms.py:128
+msgid "Change user"
 msgstr ""
 
-#: accounts/menu.py:30 domains/menu.py:30 groups/menu.py:30 nodes/menu.py:20
-msgid "Permissions"
+#: accounts/forms.py:129
+msgid "User can change information about users"
 msgstr ""
 
-#: groups/menu.py:13
+#: accounts/forms.py:130 accounts/menu.py:26
+msgid "Remove user"
+msgstr ""
+
+#: accounts/forms.py:131
+msgid "User can remove users"
+msgstr ""
+
+#: accounts/forms.py:133 accounts/menu.py:38
+#: templates/accounts/group/add.html:39
 msgid "Add group"
 msgstr ""
 
-#: groups/menu.py:18
-msgid "Edit group"
+#: accounts/forms.py:134
+msgid "User can add new group"
 msgstr ""
 
-#: groups/menu.py:23
-msgid "Delete group"
+#: accounts/forms.py:135
+msgid "Change group"
 msgstr ""
 
-#: nodes/menu.py:13 templates/nodes/addNode_Form.html:94
+#: accounts/forms.py:136
+msgid "User can change group members"
+msgstr ""
+
+#: accounts/forms.py:137 accounts/menu.py:50
+msgid "Remove group"
+msgstr ""
+
+#: accounts/forms.py:138
+msgid "User can remove groups"
+msgstr ""
+
+#: accounts/forms.py:140 nodes/menu.py:20 templates/nodes/addNode_Form.html:98
 msgid "Add node"
+msgstr ""
+
+#: accounts/forms.py:141
+msgid "User can add new node"
+msgstr ""
+
+#: accounts/menu.py:10 domains/menu.py:10
+msgid "Users"
+msgstr ""
+
+#: accounts/menu.py:20
+msgid "Manage users"
+msgstr ""
+
+#: accounts/menu.py:34 templates/accounts/user/manage.html:103
+msgid "Groups"
+msgstr ""
+
+#: accounts/menu.py:44
+msgid "Manage groups"
+msgstr ""
+
+#: accounts/menu.py:58
+msgid "Global Permissions"
+msgstr ""
+
+#: accounts/menu.py:62
+msgid "User permissions"
+msgstr ""
+
+#: accounts/menu.py:68
+msgid "Group permissions"
+msgstr ""
+
+#: domains/menu.py:19
+msgid "Edit user"
+msgstr ""
+
+#: domains/menu.py:24
+msgid "Delete user"
+msgstr ""
+
+#: domains/menu.py:31 nodes/menu.py:28
+msgid "Permissions"
+msgstr ""
+
+#: nodes/menu.py:14
+msgid "List nodes"
+msgstr ""
+
+#: templates/403.html:4 templates/403.html.py:16
+msgid "Forbidden"
+msgstr ""
+
+#: templates/403.html:20
+msgid "You don't have permissions for this."
+msgstr ""
+
+#: templates/404.html:4 templates/404.html.py:16
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:20
+msgid "You requested page which doesn't exist."
+msgstr ""
+
+#: templates/500.html:20
+msgid "We apologize. Our administrators were e-mailed."
 msgstr ""
 
 #: templates/base_administration.html:4
@@ -107,6 +264,286 @@ msgid ""
 "sensitive."
 msgstr ""
 
+#: templates/accounts/group/add.html:4 templates/accounts/group/add.html:7
+msgid "Add Group"
+msgstr ""
+
+#: templates/accounts/group/add.html:10
+msgid ""
+"\n"
+"        You can add group here.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/group/add.html:23
+#: templates/accounts/group/manage.html:23
+#: templates/accounts/group/select.html:52
+#: templates/accounts/permissions/group.html:27
+#: templates/accounts/permissions/user.html:27
+#: templates/accounts/user/add.html:23 templates/accounts/user/manage.html:23
+#: templates/accounts/user/select.html:52 templates/nodes/addNode_Form.html:32
+msgid "There are errors in the form."
+msgstr ""
+
+#: templates/accounts/group/manage.html:4
+#: templates/accounts/group/manage.html:7
+msgid "Manage Groups"
+msgstr ""
+
+#: templates/accounts/group/manage.html:10
+msgid ""
+"\n"
+"        Manage group members.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/group/manage.html:31
+#: templates/accounts/group/select.html:26
+msgid "Members"
+msgstr ""
+
+#: templates/accounts/group/manage.html:37
+msgid "Member"
+msgstr ""
+
+#: templates/accounts/group/manage.html:38
+#: templates/accounts/user/manage.html:110
+msgid "Remove"
+msgstr ""
+
+#: templates/accounts/group/manage.html:47
+msgid "Group is empty."
+msgstr ""
+
+#: templates/accounts/group/manage.html:55
+#: templates/accounts/user/manage.html:127
+msgid "Add user to group"
+msgstr ""
+
+#: templates/accounts/group/manage.html:62
+#: templates/accounts/permissions/group.html:56
+#: templates/accounts/permissions/user.html:56
+#: templates/accounts/user/manage.html:97
+#: templates/accounts/user/manage.html:134
+msgid "Save"
+msgstr ""
+
+#: templates/accounts/group/remove.html:4
+#: templates/accounts/group/remove.html:7
+msgid "Remove Group"
+msgstr ""
+
+#: templates/accounts/group/remove.html:10
+#, python-format
+msgid ""
+"\n"
+"        This group has only one member.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This group has %(counter)s members.\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/accounts/group/remove.html:18
+msgid ""
+"\n"
+"        Do you really want to remove this group?\n"
+"        "
+msgstr ""
+
+#: templates/accounts/group/remove.html:31
+#: templates/accounts/user/remove.html:38
+msgid "Yes"
+msgstr ""
+
+#: templates/accounts/group/remove.html:32
+#: templates/accounts/user/remove.html:39
+msgid "No"
+msgstr ""
+
+#: templates/accounts/group/select.html:4
+#: templates/accounts/group/select.html:7
+msgid "Select Group"
+msgstr ""
+
+#: templates/accounts/group/select.html:10
+msgid ""
+"\n"
+"        Select a group from list or type name.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/group/select.html:35
+msgid "There is no groups."
+msgstr ""
+
+#: templates/accounts/permissions/group.html:4
+#: templates/accounts/permissions/group.html:7
+msgid "Group Permissions"
+msgstr ""
+
+#: templates/accounts/permissions/group.html:10
+msgid ""
+"\n"
+"        Set global permissions to group. All these permissions are per "
+"table, not per object.\n"
+"        If you want to set permissions per object, select in main menu "
+"object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we "
+"want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main "
+"menu, \"Group permission\"\n"
+"        in the left menu and select Node \"node1\".)\n"
+"        "
+msgstr ""
+
+#: templates/accounts/permissions/group.html:38
+#: templates/accounts/permissions/user.html:38
+msgid "Permission"
+msgstr ""
+
+#: templates/accounts/permissions/group.html:39
+#: templates/accounts/permissions/user.html:39
+msgid "Description"
+msgstr ""
+
+#: templates/accounts/permissions/user.html:4
+#: templates/accounts/permissions/user.html:7
+msgid "User Permissions"
+msgstr ""
+
+#: templates/accounts/permissions/user.html:10
+msgid ""
+"\n"
+"        Set global permissions to user. All these permissions are per table, "
+"not per object.\n"
+"        If you want to set permissions per object, select in main menu "
+"object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we "
+"want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main "
+"menu, \"User permission\"\n"
+"        in the left menu and select Node \"node1\".)\n"
+"        "
+msgstr ""
+
+#: templates/accounts/user/add.html:4 templates/accounts/user/add.html.py:7
+msgid "Add User"
+msgstr ""
+
+#: templates/accounts/user/add.html:10
+msgid ""
+"\n"
+"        You can add user here.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/user/add.html:35
+msgid "only letters, digits and underscores"
+msgstr ""
+
+#: templates/accounts/user/add.html:57 templates/nodes/addNode_Form.html:99
+msgid "Reset"
+msgstr ""
+
+#: templates/accounts/user/manage.html:4 templates/accounts/user/manage.html:7
+msgid "Manage Users"
+msgstr ""
+
+#: templates/accounts/user/manage.html:10
+msgid ""
+"\n"
+"        Manage user informations.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/user/manage.html:31
+msgid "Overview"
+msgstr ""
+
+#: templates/accounts/user/manage.html:40
+msgid ""
+"30 characters or fewer. Alphanumeric characters only (letters, digits and "
+"underscores)."
+msgstr ""
+
+#: templates/accounts/user/manage.html:50
+msgid "Unselect this instead of deleting accounts."
+msgstr ""
+
+#: templates/accounts/user/manage.html:55
+msgid "Date Joined"
+msgstr ""
+
+#: templates/accounts/user/manage.html:60
+msgid "Last Login"
+msgstr ""
+
+#: templates/accounts/user/manage.html:109
+msgid "Group"
+msgstr ""
+
+#: templates/accounts/user/manage.html:119
+msgid "User is not member of any group."
+msgstr ""
+
+#: templates/accounts/user/remove.html:4 templates/accounts/user/remove.html:7
+msgid "Remove User"
+msgstr ""
+
+#: templates/accounts/user/remove.html:10
+#, python-format
+msgid ""
+"\n"
+"        This user is member of one group.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This user is member of %(counter)s groups.\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/accounts/user/remove.html:19
+msgid ""
+"\n"
+"        This user is superuser. You cannot remove him if you are not "
+"superuser too!\n"
+"        "
+msgstr ""
+
+#: templates/accounts/user/remove.html:25
+msgid ""
+"\n"
+"        Do you really want to remove this user?\n"
+"        "
+msgstr ""
+
+#: templates/accounts/user/select.html:4 templates/accounts/user/select.html:7
+msgid "Select User"
+msgstr ""
+
+#: templates/accounts/user/select.html:10
+msgid ""
+"\n"
+"        Select a user from list or type name.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/user/select.html:26
+msgid "Active"
+msgstr ""
+
+#: templates/accounts/user/select.html:31
+msgid "yes,no"
+msgstr ""
+
+#: templates/accounts/user/select.html:35
+msgid "There is no users."
+msgstr ""
+
 #: templates/includes/left_menu.html:3
 msgid "Logged in as:"
 msgstr ""
@@ -117,6 +554,7 @@ msgid "Logout"
 msgstr "login/"
 
 #: templates/nodes/addNode_Form.html:4 templates/nodes/addNode_Form.html:11
+#: templates/nodes/listNodes.html:4
 msgid "Add Node"
 msgstr ""
 
@@ -127,28 +565,19 @@ msgid ""
 "Libvirt remote URI general form\n"
 "        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
 "\">detail information</a>):\n"
-"        <br />\n"
 "        "
 msgstr ""
 
-#: templates/nodes/addNode_Form.html:30
-msgid "There are errors in the form."
-msgstr ""
-
-#: templates/nodes/addNode_Form.html:40
+#: templates/nodes/addNode_Form.html:43
 msgid "only for better identification"
 msgstr ""
 
-#: templates/nodes/addNode_Form.html:73
+#: templates/nodes/addNode_Form.html:77
 msgid "if different from default"
 msgstr ""
 
-#: templates/nodes/addNode_Form.html:93
+#: templates/nodes/addNode_Form.html:97
 msgid "Test connection"
-msgstr ""
-
-#: templates/nodes/addNode_Form.html:95
-msgid "Reset"
 msgstr ""
 
 #: templates/nodes/index.html:10
@@ -161,6 +590,16 @@ msgid ""
 "virtual machines with possibly\n"
 "        different configurations than the node itself.\n"
 "        -->\n"
+"        "
+msgstr ""
+
+#: templates/nodes/listNodes.html:11
+msgid "List Nodes"
+msgstr ""
+
+#: templates/nodes/listNodes.html:14
+msgid ""
+"\n"
 "        "
 msgstr ""
 
