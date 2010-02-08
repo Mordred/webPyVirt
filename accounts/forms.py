@@ -115,3 +115,29 @@ class SelectGroupForm(forms.Form):
     #enddef
 #endclass
 
+class GlobalPermissionsForm(forms.Form):
+
+    is_superuser = forms.BooleanField(label = _("Superuser"), required = False,
+        help_text = _("User is a superuser. Only superuser can change this"))
+
+    change_permission = forms.BooleanField(label = _("Change permissions"), required = False,
+        help_text = _("User can change global permissions of another users"))
+
+    add_user = forms.BooleanField(label = _("Add user"), required = False,
+        help_text = _("User can add new user"))
+    change_user = forms.BooleanField(label = _("Change user"), required = False,
+        help_text = _("User can change information about users"))
+    delete_user = forms.BooleanField(label = _("Remove user"), required = False,
+        help_text = _("User can remove users"))
+
+    add_group = forms.BooleanField(label = _("Add group"), required = False,
+        help_text = _("User can add new group"))
+    change_group = forms.BooleanField(label = _("Change group"), required = False,
+        help_text = _("User can change group members"))
+    delete_group = forms.BooleanField(label = _("Remove group"), required = False,
+        help_text = _("User can remove groups"))
+
+    add_node = forms.BooleanField(label = _("Add node"), required = False,
+        help_text = _("User can add new node"))
+
+#endclass

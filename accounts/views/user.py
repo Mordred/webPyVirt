@@ -9,11 +9,12 @@ from django.core.urlresolvers   import reverse
 from django.core.paginator      import Paginator, InvalidPage, EmptyPage
 from django.utils               import simplejson
 
-from webPyVirt.decorators       import secure
+from webPyVirt.decorators       import secure, permissions
 
 from webPyVirt.accounts.forms   import SelectUserForm, UserOverviewForm
 
 @secure
+@permissions("auth.add_user")
 def add(request):
     if request.method == "POST":
         form = UserCreationForm(request.POST)
@@ -36,6 +37,7 @@ def add(request):
 #enddef
 
 @secure
+@permissions(["auth.change_user", "auth.delete_user"])
 def select(request, next):
     users = User.objects.all().order_by("username")
     paginator = Paginator(users, 25)
@@ -78,6 +80,7 @@ def select(request, next):
 #enddef
 
 @secure
+@permissions(["auth.change_user", "auth.delete_user"])
 def select_autocomplete(request):
     search = request.GET['term']
 
@@ -89,6 +92,7 @@ def select_autocomplete(request):
 #enddef#enddef
 
 @secure
+@permissions("auth.change_user")
 def manage(request, userId):
     user = get_object_or_404(User, id=userId)
     availableGroups = Group.objects.all()
@@ -146,12 +150,16 @@ def manage(request, userId):
 #enddef
 
 @secure
+@permissions("auth.delete_user")
 def remove(request, userId):
     user = get_object_or_404(User, id=userId)
 
     if request.method == "POST":
         if "yes" in request.POST and user.id == int(request.POST['userId']):
-            user.delete()
+            # Only superuser can delete superuser
+            if (user.is_superuser and request.user.is_superuser) or not user.is_superuser:
+                user.delete()
+            #endif
         #endif
 
         return HttpResponseRedirect(

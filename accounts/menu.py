@@ -34,19 +34,19 @@ def MENU(request):
             "label":        _("Groups"),
             "items":        [
                 {   # Add group
-                    "hide":     False,
+                    "hide":     not request.user.has_perm("auth.add_group"),
                     "label":    _("Add group"),
                     "selected": r"group/add/$",
                     "url":      "group_add"
                 },
                 {   # Manage groups
-                    "hide":     False,
+                    "hide":     not request.user.has_perm("auth.change_group"),
                     "label":    _("Manage groups"),
                     "selected": r"group/manage/",
                     "url":      "group_manage__select"
                 },
                 {   # Delete group
-                    "hide":     False,
+                    "hide":     not request.user.has_perm("auth.delete_group"),
                     "label":    _("Remove group"),
                     "selected": r"group/remove/",
                     "url":      "group_remove__select"
@@ -55,14 +55,20 @@ def MENU(request):
         },
         {   # Section permissions
             "hide":         False,
-            "label":        _("Permissions"),
+            "label":        _("Global Permissions"),
             "items":        [
-#                {   # User permissions
-#                    "hide":     False,
-#                    "label":    _("User permissions"),
-#                    "selected": r"permissions/user/",
-#                    "url":      "permissions__select_user"
-#                },
+                {   # User permissions
+                    "hide":     not request.user.has_perm("auth.change_permission"),
+                    "label":    _("User permissions"),
+                    "selected": r"permissions/user/",
+                    "url":      "permissions_user__select"
+                },
+                {   # Group permissions
+                    "hide":     not request.user.has_perm("auth.change_permission"),
+                    "label":    _("Group permissions"),
+                    "selected": r"permissions/group/",
+                    "url":      "permissions_group__select"
+                },
             ]
         }
     ]

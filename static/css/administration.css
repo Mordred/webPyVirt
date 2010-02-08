@@ -15,7 +15,7 @@ span.border-bottom              { background: url("../img/border.png") no-repeat
 span.border-bottom span         { background: url("../img/border-right.png") no-repeat 100% 100%; 
                                   display: block; height: 15px; margin-right: -10px; }
 
-#content                        { background: #eee url("../img/border-left.png") repeat-y -1px 0;; min-height: 450px; 
+#content                        { background: #eee url("../img/border-left.png") repeat-y -1px 0;; min-height: 600px;
                                   border-right: 1px solid #000; margin-right: -10px; padding-left: 10px; }
 #content-body                   { padding: 0 10px 0 210px; }
 #content-body p                 { text-align: justify; }

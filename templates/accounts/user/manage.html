@@ -99,6 +99,7 @@
 
                 </div>
 
+                {% if perms.auth.change_group %}
                 <h3><a href="#section2">{% trans "Groups" %}</a></h3>
                 <div{% ifequal selected 1 %} class="selected"{% endifequal %}>
                     <table class="stripe w100p">
@@ -133,6 +134,7 @@
                         <input type="submit" name="groupsForm" value="{% trans "Save" %}" />
                     </div>
                 </div>
+                {% endif %}
 
             </div>
 

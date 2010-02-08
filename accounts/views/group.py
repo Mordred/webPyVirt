@@ -8,12 +8,12 @@ from django.core.urlresolvers   import reverse
 from django.core.paginator      import Paginator, InvalidPage, EmptyPage
 from django.utils               import simplejson
 
-from webPyVirt.decorators       import secure
+from webPyVirt.decorators       import secure, permissions
 
 from webPyVirt.accounts.forms   import AddGroupForm, SelectGroupForm
 
-
 @secure
+@permissions("auth.add_group")
 def add(request):
     if request.method == "POST":
         form = AddGroupForm(request.POST)
@@ -35,8 +35,8 @@ def add(request):
     ) 
 #enddef
 
-
 @secure
+@permissions(["auth.change_group", "auth.delete_group"])
 def select(request, next):
     groups = Group.objects.all().order_by("name")
     paginator = Paginator(groups, 25)
@@ -79,6 +79,7 @@ def select(request, next):
 #enddef
 
 @secure
+@permissions(["auth.change_group", "auth.delete_group"])
 def select_autocomplete(request):
     search = request.GET['term']
 
@@ -90,6 +91,7 @@ def select_autocomplete(request):
 #enddef
 
 @secure
+@permissions("auth.change_group")
 def manage(request, groupId):
     group = get_object_or_404(Group, id=groupId)
     availableUsers = User.objects.all().order_by("username")
@@ -138,6 +140,7 @@ def manage(request, groupId):
 #enddef
 
 @secure
+@permissions("auth.delete_group")
 def remove(request, groupId):
     group = get_object_or_404(Group, id=groupId)
 

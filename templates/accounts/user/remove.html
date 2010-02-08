@@ -14,6 +14,13 @@
         {% endblocktrans %}
     </p>
 
+    {% if managedUser.is_superuser and not user.is_superuser %}
+    <p class="indent">
+        {% blocktrans %}
+        This user is superuser. You cannot remove him if you are not superuser too!
+        {% endblocktrans %}
+    </p>
+    {% else %}
     <p class="indent">
         {% blocktrans %}
         Do you really want to remove this user?
@@ -35,5 +42,6 @@
         </div>
 
     </form>
+    {% endif %}
 
 {% endblock content_body %}

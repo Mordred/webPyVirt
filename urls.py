@@ -31,6 +31,11 @@ urlpatterns = patterns('',
         name="logout"
     ),
     url(
+        r"^403/$",
+        "webPyVirt.views.forbidden",
+        name="403"
+    ),
+    url(
         r"^accounts/",
         include(accounts.urls, namespace="accounts"),
     ),

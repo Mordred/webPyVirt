@@ -79,19 +79,33 @@ urlpatterns = patterns("webPyVirt.accounts",
         name="group_remove"
     ),
 
-#    url(
-#        r"^permissions/user/$",
-#        "views.selectUser",
-#        {
-#            "next":     "accounts:permissions_user"
-#        },
-#        name="permissions__select_user"
-#    ),
-#    url(
-#        r"^permissions/user/(?P<userId>\d+)/$",
-#        "views.permissions_user",
-#        name="permissions__user"
-#    ),
+    # PERMISSIONS
+    url(
+        r"^permissions/user/$",
+        "views.user.select",
+        {
+            "next":     "accounts:permissions_user"
+        },
+        name="permissions_user__select"
+    ),
+    url(
+        r"^permissions/user/(?P<userId>\d+)/$",
+        "views.permissions.user",
+        name="permissions_user"
+    ),
+    url(
+        r"^permissions/group/$",
+        "views.group.select",
+        {
+            "next":     "accounts:permissions_group"
+        },
+        name="permissions_group__select"
+    ),
+    url(
+        r"^permissions/group/(?P<groupId>\d+)/$",
+        "views.permissions.group",
+        name="permissions_group"
+    ),
 )
 
 #TEMPORARY
