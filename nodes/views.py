@@ -27,7 +27,9 @@ def addNode(request):
     if request.method == "POST":
         form = NodeForm(request.POST)
         if form.is_valid():
-            form.save()
+            newNode = form.save(commit=False)
+            newNode.owner = request.user
+            newNode.save()
             return HttpResponseRedirect(reverse("nodes:list_nodes"))
         #endif
     else:

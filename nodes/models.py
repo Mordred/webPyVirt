@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
 
-from django.db      import models
+from django.db                      import models
+from django.contrib.auth.models     import User
 
 try:
     # Python 2.6
@@ -34,6 +35,7 @@ class Node(models.Model):
     )
 
     name = models.CharField(max_length = 255, verbose_name = "Node Name", unique = True)
+    owner = models.ForeignKey(User)
 
     # Node connection
     driver = models.CharField(max_length = 6, choices = DRIVERS,

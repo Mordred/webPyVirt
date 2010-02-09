@@ -8,5 +8,6 @@ class NodeForm(ModelForm):
 
     class Meta:
         model = models.Node
+        exclude = [ "owner" ]
 
 #endclass

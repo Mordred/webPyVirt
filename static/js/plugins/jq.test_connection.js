@@ -57,7 +57,7 @@
                             .append("<tr><td>" + gettext("CPU Model") 
                                 + ":</td><td>" + data['info']['model'] + "</td></tr>")
                             .append("<tr><td>" + gettext("Memory Size") 
-                                + ":</td><td>" + data['info']['memory'] + " KB</td></tr>")
+                                + ":</td><td>" + data['info']['memory'] + " MB</td></tr>")
                             .append("<tr><td>" + gettext("Active CPUs") 
                                 + ":</td><td>" + data['info']['cpus'] + "</td></tr>")
                             .append("<tr><td>" + gettext("CPU frequency") 
