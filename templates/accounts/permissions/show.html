@@ -1,0 +1,43 @@
+{% extends "base_administration.html" %}
+{% load i18n webPyVirt_extras %}
+
+{% block subtitle %}{% trans "Show Permissions" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Show Permissions" %} :: {{ managedUser.username }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        This table shows wich permissions user have through user permissions or
+        group permissions. Also display which groups give this permission to user.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <table class="w100p white-stripe">
+        <col width="30%" />
+        <col width="15%" />
+        <col width="15%" />
+        <col width="40%" />
+        <tr>
+            <th>{% trans "Permission" %}</th>
+            <th class="center">{% trans "Has Permission" %}</th>
+            <th class="center">{% trans "User Permission" %}</th>
+            <th class="center">{% trans "Groups" %}</th>
+        </tr>
+        {% for permis in permissions %}
+        <tr>
+            <td>{{ permis.label }}</td>
+            <td class="center">{{ permis.has|yesno:_("Yes,No") }}</td>
+            <td class="center">
+                <a href="{% url accounts:permissions_user userId=managedUser.id %}">
+                    {{ permis.user|yesno:_("Yes,No") }}
+                </a>
+            </td>
+            <td class="center">{{ permis.groups|safeseq|join:", " }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock content_body %}

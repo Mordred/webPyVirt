@@ -106,6 +106,19 @@ urlpatterns = patterns("webPyVirt.accounts",
         "views.permissions.group",
         name="permissions_group"
     ),
+    url(
+        r"^permissions/show/$",
+        "views.user.select",
+        {
+            "next":     "accounts:permissions_show"
+        },
+        name="permissions_show__select"
+    ),
+    url(
+        r"^permissions/show/(?P<userId>\d+)/$",
+        "views.permissions.show",
+        name="permissions_show"
+    ),
 )
 
 #TEMPORARY

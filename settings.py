@@ -106,10 +106,12 @@ DEFAULT_CHARSET = "utf-8"
 
 LOG_FILENAME = "/tmp/webPyVirt-server.log"
 
-import logging
-logging.basicConfig(
-    level       = logging.DEBUG,
-    format      = "%(asctime)s [ %(levelname)s ]: %(message)s",
-    filename    = LOG_FILENAME,
-    filemode    = "w"
-)
+if DEBUG:
+    import logging
+    logging.basicConfig(
+        level       = logging.DEBUG,
+        format      = "%(asctime)s [ %(levelname)s ]: %(message)s",
+        filename    = LOG_FILENAME,
+        filemode    = "w"
+    )
+#endif

@@ -69,6 +69,12 @@ def MENU(request):
                     "selected": r"permissions/group/",
                     "url":      "permissions_group__select"
                 },
+                {   # Group permissions
+                    "hide":     not request.user.has_perm("auth.change_permission"),
+                    "label":    _("Show permissions"),
+                    "selected": r"permissions/show/",
+                    "url":      "permissions_show__select"
+                },
             ]
         }
     ]

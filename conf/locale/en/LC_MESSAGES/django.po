@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-08 20:36+0100\n"
+"POT-Creation-Date: 2010-02-09 11:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,7 +182,8 @@ msgstr ""
 msgid "Manage users"
 msgstr ""
 
-#: accounts/menu.py:34 templates/accounts/user/manage.html:103
+#: accounts/menu.py:34 templates/accounts/permissions/show.html:27
+#: templates/accounts/user/manage.html:103
 msgid "Groups"
 msgstr ""
 
@@ -200,6 +201,10 @@ msgstr ""
 
 #: accounts/menu.py:68
 msgid "Group permissions"
+msgstr ""
+
+#: accounts/menu.py:74
+msgid "Show permissions"
 msgstr ""
 
 #: domains/menu.py:19
@@ -400,6 +405,7 @@ msgid ""
 msgstr ""
 
 #: templates/accounts/permissions/group.html:38
+#: templates/accounts/permissions/show.html:24
 #: templates/accounts/permissions/user.html:38
 msgid "Permission"
 msgstr ""
@@ -407,6 +413,35 @@ msgstr ""
 #: templates/accounts/permissions/group.html:39
 #: templates/accounts/permissions/user.html:39
 msgid "Description"
+msgstr ""
+
+#: templates/accounts/permissions/show.html:4
+#: templates/accounts/permissions/show.html:7
+msgid "Show Permissions"
+msgstr ""
+
+#: templates/accounts/permissions/show.html:10
+msgid ""
+"\n"
+"        This table shows wich permissions user have through user permissions "
+"or\n"
+"        group permissions. Also display which groups give this permission to "
+"user.\n"
+"        "
+msgstr ""
+
+#: templates/accounts/permissions/show.html:25
+msgid "Has Permission"
+msgstr ""
+
+#: templates/accounts/permissions/show.html:26
+msgid "User Permission"
+msgstr ""
+
+#: templates/accounts/permissions/show.html:32
+#: templates/accounts/permissions/show.html:35
+#: templates/accounts/user/select.html:31
+msgid "Yes,No"
 msgstr ""
 
 #: templates/accounts/permissions/user.html:4
@@ -534,10 +569,6 @@ msgstr ""
 
 #: templates/accounts/user/select.html:26
 msgid "Active"
-msgstr ""
-
-#: templates/accounts/user/select.html:31
-msgid "yes,no"
 msgstr ""
 
 #: templates/accounts/user/select.html:35

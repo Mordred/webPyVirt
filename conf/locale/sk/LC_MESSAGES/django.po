@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-08 20:36+0100\n"
+"POT-Creation-Date: 2010-02-09 11:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Martin Jantošovič <mordred@inmail.sk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -182,7 +182,8 @@ msgstr "Užívatelia"
 msgid "Manage users"
 msgstr "Správa užívateľov"
 
-#: accounts/menu.py:34 templates/accounts/user/manage.html:103
+#: accounts/menu.py:34 templates/accounts/permissions/show.html:27
+#: templates/accounts/user/manage.html:103
 msgid "Groups"
 msgstr "Skupiny"
 
@@ -201,6 +202,10 @@ msgstr "Práva užívateľa"
 #: accounts/menu.py:68
 msgid "Group permissions"
 msgstr "Práva skupiny"
+
+#: accounts/menu.py:74
+msgid "Show permissions"
+msgstr "Zobraziť práva"
 
 #: domains/menu.py:19
 msgid "Edit user"
@@ -434,6 +439,7 @@ msgstr ""
 "        "
 
 #: templates/accounts/permissions/group.html:38
+#: templates/accounts/permissions/show.html:24
 #: templates/accounts/permissions/user.html:38
 msgid "Permission"
 msgstr "Právo"
@@ -442,6 +448,41 @@ msgstr "Právo"
 #: templates/accounts/permissions/user.html:39
 msgid "Description"
 msgstr "Popis"
+
+#: templates/accounts/permissions/show.html:4
+#: templates/accounts/permissions/show.html:7
+msgid "Show Permissions"
+msgstr "Zobraziť práva"
+
+#: templates/accounts/permissions/show.html:10
+msgid ""
+"\n"
+"        This table shows wich permissions user have through user permissions "
+"or\n"
+"        group permissions. Also display which groups give this permission to "
+"user.\n"
+"        "
+msgstr ""
+"\n"
+"        Táto tabuľka zobrazuje, ktoré oprávnenia užívateľ má. Zároveň "
+"zobrazuje, či\n"
+"        toto právo má z užívateľských práv alebo ho zdedil z nejakej "
+"skupiny. Názvy týchto skupín vypíše.\n"
+"        "
+
+#: templates/accounts/permissions/show.html:25
+msgid "Has Permission"
+msgstr "Má právo"
+
+#: templates/accounts/permissions/show.html:26
+msgid "User Permission"
+msgstr "Práva užívateľa"
+
+#: templates/accounts/permissions/show.html:32
+#: templates/accounts/permissions/show.html:35
+#: templates/accounts/user/select.html:31
+msgid "Yes,No"
+msgstr "Áno,Nie"
 
 #: templates/accounts/permissions/user.html:4
 #: templates/accounts/permissions/user.html:7
@@ -608,10 +649,6 @@ msgstr ""
 msgid "Active"
 msgstr "Aktívny"
 
-#: templates/accounts/user/select.html:31
-msgid "yes,no"
-msgstr "áno,nie"
-
 #: templates/accounts/user/select.html:35
 msgid "There is no users."
 msgstr "Neexistujú žiadny užívatelia."
@@ -640,7 +677,7 @@ msgid ""
 msgstr ""
 "\n"
 "        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním "
-"najskôr pripojiť.Libvirt obecný tvar URI\n"
+"najskôr pripojiť. Libvirt obecný tvar URI\n"
 "        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
 "\">podrobné informácie</a>):\n"
 "        "

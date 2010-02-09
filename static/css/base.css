@@ -41,10 +41,12 @@ td.description                  { font-style: italic; font-size: 0.7em; cursor: 
 
 /* allings */
 .center                         { margin: 0 auto; text-align: center; }
+.vcenter                        { vertical-align: middle; }
 .right                          { text-align: right; }
 .left                           { text-align: left; }
 
 /* tables */
+table th, td                    { vertical-align: middle; }
 table.stripe, 
  table.white-stripe             { border: 1px solid #777; }
 table.stripe th                 { color: #111; background-color: #ccc; }

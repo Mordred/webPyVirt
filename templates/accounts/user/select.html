@@ -28,7 +28,7 @@
         {% for user in users.object_list %}
         <tr>
             <td><a href="{% urlWithVar next userId=user.id %}">{{ user.username }}</a></td>
-            <td class="center">{{ user.is_active|yesno:_("yes,no") }}</td>
+            <td class="center">{{ user.is_active|yesno:_("Yes,No") }}</td>
         </tr>
         {% empty %}
         <tr>

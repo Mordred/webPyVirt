@@ -134,3 +134,50 @@ def group(request, groupId):
         context_instance=RequestContext(request)
     )
 #enddef
+
+@secure
+@permissions("auth.change_permission")
+def show(request, userId):
+    managedUser = get_object_or_404(User, id=userId)
+
+    form = GlobalPermissionsForm()
+
+    userPermissions = [ perm.codename for perm in managedUser.user_permissions.all() ]
+    groupsPermissions = {}
+    for group in managedUser.groups.all():
+        groupsPermissions[group] = [ perm.codename for perm in group.permissions.all() ]
+    #endfor
+
+    permissions = []
+    for field in form.fields:
+        groupPerm = []
+        for group in groupsPermissions:
+            if field in groupsPermissions[group]:
+                groupPerm.append("<a href=\"%s\">%s</a>" \
+                    % (reverse("accounts:permissions_group", kwargs={ "groupId": group.id}), group.name))
+            #endif
+        #endif
+
+        if field == "is_superuser":
+            userPerm = managedUser.is_superuser
+        else:
+            userPerm = field in userPermissions
+        #endif
+
+        permissions.append({
+            "label":    unicode(form.fields[field].label),
+            "has":      userPerm or len(groupPerm),
+            "user":     userPerm,
+            "groups":   groupPerm
+        })
+    #endfor
+
+    return render_to_response(
+        "accounts/permissions/show.html",
+        {
+            "managedUser":      managedUser,
+            "permissions":      permissions
+        },
+        context_instance=RequestContext(request)
+    )
+#enddef
