@@ -1,5 +1,7 @@
 # -*- coding: UTF-8 -*-
 
+import sha, time
+
 from django.shortcuts           import render_to_response, get_object_or_404
 from django.contrib.auth.models import Group, User
 from django.template            import RequestContext
@@ -36,8 +38,27 @@ def add(request):
 #enddef
 
 @secure
-@permissions(["auth.change_group", "auth.delete_group"])
-def select(request, next):
+def select(request, next, permission = None, *args, **kwargs):
+
+    if permission:
+        if not permission(request, *args, **kwargs):
+            return HttpResponseRedirect("%s" % (reverse("403")))
+        #endif
+    #endif
+
+    permis = request.session.get("accounts.group.select", {})
+    permisHash = sha.sha(request.user.username.upper() + ":" + str(time.time())).hexdigest()
+    permis[permisHash] = time.time()
+
+    # Session cleanup
+    for per in permis:
+        if (time.time() - permis[per]) > 1800:
+            del permis[per]
+        #endif
+    #endfor
+
+    request.session['accounts.group.select'] = permis
+
     groups = Group.objects.all().order_by("name")
     paginator = Paginator(groups, 25)
 
@@ -59,8 +80,9 @@ def select(request, next):
 
             group = get_object_or_404(Group, name=form.cleaned_data['name'])
 
+            kwargs["groupId"] = group.id
             return HttpResponseRedirect(
-                reverse(next, kwargs={ "groupId": group.id })
+                reverse(next, args=args, kwargs=kwargs)
             )
         #endif
     else:
@@ -70,17 +92,26 @@ def select(request, next):
     return render_to_response(
         "accounts/group/select.html", 
         {
-            "groups":   groups,
-            "form":     form,
-            "next":     next
+            "groups":       groups,
+            "form":         form,
+            "permission":   permisHash,
+            "next":         next,
+            "next_args":    args,
+            "next_kwargs":  kwargs
         }, 
         context_instance=RequestContext(request)
     ) 
 #enddef
 
 @secure
-@permissions(["auth.change_group", "auth.delete_group"])
-def select_autocomplete(request):
+def select_autocomplete(request, permission):
+    permis = request.session.get("accounts.group.select", {})
+    if not permission in permis or (time.time() - permis[permission]) > 1800:
+        return HttpResponse(simplejson.dumps([]))
+    #endif
+
+    request.session['accounts.group.select'] = permis
+
     search = request.GET['term']
 
     groups = Group.objects.filter(name__icontains = search)

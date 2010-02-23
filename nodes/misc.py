@@ -1,0 +1,40 @@
+# -*- coding: UTF-8 -*-
+
+from django.db.models           import Q
+
+from webPyVirt.nodes.models     import Node
+
+def getNodes(request, nodeFilter, search=None):
+    if nodeFilter == "change_acl":
+        userNodeAclQ = Q(usernodeacl__change_acl=True)
+        groupNodeAclQ = Q(groupnodeacl__change_acl=True)
+        exUserNodeAclQ = Q(usernodeacl__change_acl=False)
+        exGroupNodeAclQ = Q(groupnodeacl__change_acl=False)
+    else:
+        raise ValueError("Unknown node filter: `%s`" % (nodeFilter))
+    #endif
+
+    if request.user.is_superuser:
+        nodes = Node.objects.all()
+    else:
+        groups = request.user.groups.all()
+
+        nodes = Node.objects.filter(
+            Q(owner = request.user)
+            | (
+                (Q(usernodeacl__user=request.user) & userNodeAclQ)
+                & ~(Q(groupnodeacl__group__in=groups) & exGroupNodeAclQ)
+            )
+            | (
+                (Q(groupnodeacl__group__in=groups) & groupNodeAclQ)
+                & ~(Q(usernodeacl__user=request.user) & exUserNodeAclQ)
+            )
+        ).distinct()
+    #endif
+
+    if search:
+       nodes = nodes.filter(name__icontains=search)
+    #endif
+
+    return nodes
+#enddef

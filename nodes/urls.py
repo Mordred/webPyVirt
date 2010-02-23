@@ -1,21 +1,81 @@
 # -*- coding: UTF-8 -*-
-from django.conf.urls.defaults import *
-from django.utils.translation import ugettext as _
+from django.conf.urls.defaults      import *
+
+from webPyVirt.nodes.permissions    import *
 
 urlpatterns = patterns("webPyVirt.nodes",
     url(    # TODO
         r"^$", 
-        "views.listNodes",
-        name="list_nodes"
+        "views.node.list",
+        name="node_list"
     ),
     url(
-        r"^addNode/$",
-        "views.addNode",
-        name="add_node"
+        r"^node/add/$",
+        "views.node.add",
+        name="node_add"
     ),
     url(
-        r"^testConnection/$", 
-        "views.testConnection",
-        name="testConnection"
+        r"^node/testConnection/$",
+        "views.node.testConnection",
+        name="node_testConnection"
     ),
+    url(
+        r"^node/select/autocomplete/(?P<permission>[\dabcdef]+)/$",
+        "views.node.select_autocomplete",
+        name="node_select_autocomplete"
+    ),
+
+    # ACL
+    url(
+        r"^acl/user/$",
+        "views.node.select",
+        {
+            "next":         "nodes:acl_user__select_user",
+            "nodeFilter":   "change_acl",
+            "permission":   canChangeAcls
+        },
+        name="acl_user__select_node"
+    ),
+    url(
+        r"^acl/user/(?P<nodeId>\d+)/(?P<userId>\d+)/$",
+        "views.acl.user",
+        name="acl_user"
+    ),
+    url(
+        r"^acl/group/$",
+        "views.node.select",
+        {
+            "next":         "nodes:acl_group__select_group",
+            "nodeFilter":   "change_acl",
+            "permission":   canChangeAcls
+        },
+        name="acl_group__select_node"
+    ),
+    url(
+        r"^acl/group/(?P<nodeId>\d+)/(?P<groupId>\d+)/$",
+        "views.acl.group",
+        name="acl_group"
+    ),
+)
+
+urlpatterns += patterns("webPyVirt.accounts",
+    url(
+        r"^acl/user/(?P<nodeId>\d+)/$",
+        "views.user.select",
+        {
+            "next":         "nodes:acl_user",
+            "permission":   canChangeNodeAcl
+        },
+        name="acl_user__select_user"
+    ),
+    url(
+        r"^acl/group/(?P<nodeId>\d+)/$",
+        "views.group.select",
+        {
+            "next":         "nodes:acl_group",
+            "permission":   canChangeNodeAcl
+        },
+        name="acl_group__select_group"
+    ),
+
 )

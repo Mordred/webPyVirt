@@ -1,12 +1,17 @@
 $(function() {
 
     $("#frmSelectUser #id_username").autocomplete({
-        source:     "/accounts/user/select/autocomplete/",
+        source:     "/accounts/user/select/autocomplete/" + $("#frmSelectUser #autocomplete_permission").val() + "/",
         minLength:  2
     });
 
     $("#frmSelectGroup #id_name").autocomplete({
-        source:     "/accounts/group/select/autocomplete/",
+        source:     "/accounts/group/select/autocomplete/" + $("#frmSelectGroup #autocomplete_permission").val() + "/",
+        minLength:  2
+    });
+
+    $("#frmSelectNode #id_name").autocomplete({
+        source:     "/nodes/node/select/autocomplete/" + $("#frmSelectNode #autocomplete_permission").val() + "/",
         minLength:  2
     });
 

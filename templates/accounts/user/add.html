@@ -28,7 +28,7 @@
 
             <div class="field{% if form.username.errors %} field-error{% endif %}">
                 {{ form.username.errors }}
-                <label for="id_username">{% trans form.username.label %}:</label>
+                <label for="id_username">{{ form.username.label }}:</label>
                 {{ form.username }}
                 <span class="required">*</span>
                 <span class="description">
@@ -38,14 +38,14 @@
 
             <div class="field{% if form.password1.errors %} field-error{% endif %}">
                 {{ form.password1.errors }}
-                <label for="id_password1">{% trans form.password1.label %}:</label>
+                <label for="id_password1">{{ form.password1.label }}:</label>
                 {{ form.password1 }}
                 <span class="required">*</span>
             </div>
 
             <div class="field{% if form.password2.errors %} field-error{% endif %}">
                 {{ form.password2.errors }}
-                <label for="id_password2">{% trans form.password2.label %}:</label>
+                <label for="id_password2">{{ form.password2.label }}:</label>
                 {{ form.password2 }}
                 <span class="required">*</span>
             </div>

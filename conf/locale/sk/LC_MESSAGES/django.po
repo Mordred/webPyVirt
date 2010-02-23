@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-09 11:29+0100\n"
+"POT-Creation-Date: 2010-02-23 13:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Martin Jantošovič <mordred@inmail.sk>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,12 +29,12 @@ msgstr "Rýchly prístup"
 msgid "Users & Groups"
 msgstr "Užívatelia & Skupiny"
 
-#: menu.py:36 nodes/menu.py:10 templates/nodes/index.html:4
+#: menu.py:36 nodes/menu.py:14 templates/nodes/index.html:4
 #: templates/nodes/index.html.py:7
 msgid "Nodes"
 msgstr "Uzly"
 
-#: menu.py:44
+#: menu.py:44 templates/nodes/node/select.html:26
 msgid "Domains"
 msgstr "Domény"
 
@@ -46,17 +46,17 @@ msgstr "Slovensky"
 msgid "English"
 msgstr "Anglicky"
 
-#: accounts/forms.py:9 templates/accounts/user/select.html:68
+#: accounts/forms.py:9 templates/accounts/user/select.html:69
 msgid "Select user"
 msgstr "Výber užívateľa"
 
 #: accounts/forms.py:10 accounts/forms.py:29 accounts/forms.py:78
-#: accounts/forms.py:102
+#: accounts/forms.py:102 nodes/forms.py:11 nodes/forms.py:31
 msgid "Only letters, digits and underscores"
 msgstr "Iba písmená, číslice a podtržítka"
 
 #: accounts/forms.py:11 accounts/forms.py:30 accounts/forms.py:79
-#: accounts/forms.py:103
+#: accounts/forms.py:103 nodes/forms.py:12 nodes/forms.py:32
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
 
@@ -64,7 +64,8 @@ msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
 msgid "A user with that username does not exist."
 msgstr "Užívateľ s týmto menom neexistuje."
 
-#: accounts/forms.py:28 templates/accounts/user/select.html:25
+#: accounts/forms.py:28 nodes/models.py:50
+#: templates/accounts/user/select.html:25
 msgid "Username"
 msgstr "Užívateľské meno"
 
@@ -92,7 +93,7 @@ msgstr "Názov skupiny"
 msgid "A group with that name already exists."
 msgstr "Skupina s týmto menom už existuje."
 
-#: accounts/forms.py:101 templates/accounts/group/select.html:68
+#: accounts/forms.py:101 templates/accounts/group/select.html:69
 msgid "Select group"
 msgstr "Výber skupiny"
 
@@ -166,7 +167,7 @@ msgstr "Odstrániť skupinu"
 msgid "User can remove groups"
 msgstr "Užívateľ môže odstrániť skupinu"
 
-#: accounts/forms.py:140 nodes/menu.py:20 templates/nodes/addNode_Form.html:98
+#: accounts/forms.py:140 nodes/menu.py:24 templates/nodes/node/add.html:98
 msgid "Add node"
 msgstr "Pridať uzol"
 
@@ -215,13 +216,99 @@ msgstr "Upraviť užívateľa"
 msgid "Delete user"
 msgstr "Zmazať užívateľa"
 
-#: domains/menu.py:31 nodes/menu.py:28
+#: domains/menu.py:31 nodes/menu.py:32
 msgid "Permissions"
 msgstr "Práva"
 
-#: nodes/menu.py:14
+#: nodes/forms.py:10 nodes/models.py:38 templates/nodes/node/select.html:25
+msgid "Node Name"
+msgstr "Názov uzla"
+
+#: nodes/forms.py:30 templates/nodes/node/select.html:69
+msgid "Select node"
+msgstr "Výber uzlu"
+
+#: nodes/forms.py:40 nodes/views/node.py:132
+msgid "A node with that name does not exist."
+msgstr "Uzol s týmto menom neexistuje."
+
+#: nodes/menu.py:18
 msgid "List nodes"
 msgstr "Zoznam uzlov"
+
+#: nodes/menu.py:36 templates/nodes/acl/user.html:4
+#: templates/nodes/acl/user.html.py:7
+msgid "User ACL"
+msgstr "ACL užívateľov"
+
+#: nodes/menu.py:42 templates/nodes/acl/group.html:4
+#: templates/nodes/acl/group.html.py:7
+msgid "Group ACL"
+msgstr "ACL skupín"
+
+#: nodes/models.py:43
+msgid "Hypervisor Driver"
+msgstr ""
+
+#: nodes/models.py:45
+msgid "Hostname / IP Address"
+msgstr ""
+
+#: nodes/models.py:46
+msgid "Port"
+msgstr "Port"
+
+#: nodes/models.py:48
+msgid "Used Transport"
+msgstr "Transport"
+
+#: nodes/models.py:51
+msgid "Path"
+msgstr "Cesta"
+
+#: nodes/models.py:53
+msgid "Extra Parameters"
+msgstr "Extra parametre"
+
+#: nodes/models.py:131
+msgid "Change ACL"
+msgstr "Zmeniť ACL"
+
+#: nodes/models.py:132
+msgid "User can change ACL for the node"
+msgstr "Užívateľ môže zmeniť ACL práva uzla"
+
+#: nodes/models.py:134
+msgid "Add Domain"
+msgstr "Pridať doménu"
+
+#: nodes/models.py:135
+msgid "User can create new domain on the node"
+msgstr "Užívateľ môže vytvoriť novú doménu na uzle"
+
+#: nodes/models.py:137
+msgid "View Node"
+msgstr "Zobrazenie uzla"
+
+#: nodes/models.py:138
+msgid "User can view the node in the administration"
+msgstr "Užívateľovi sa zobrazí uzol v administrácii"
+
+#: nodes/models.py:139
+msgid "Change Node"
+msgstr "Zmeniť uzol"
+
+#: nodes/models.py:140
+msgid "User can change node data"
+msgstr "Užívateľ môže zmeniť informácie o uzle"
+
+#: nodes/models.py:141
+msgid "Delete Node"
+msgstr "Zmazať uzol"
+
+#: nodes/models.py:142
+msgid "User can delete the node"
+msgstr "Užívateľ môže zmazať uzol"
 
 #: templates/403.html:4 templates/403.html.py:16
 msgid "Forbidden"
@@ -291,7 +378,9 @@ msgstr ""
 #: templates/accounts/permissions/group.html:27
 #: templates/accounts/permissions/user.html:27
 #: templates/accounts/user/add.html:23 templates/accounts/user/manage.html:23
-#: templates/accounts/user/select.html:52 templates/nodes/addNode_Form.html:32
+#: templates/accounts/user/select.html:52 templates/nodes/acl/group.html:23
+#: templates/nodes/acl/user.html:23 templates/nodes/node/add.html:32
+#: templates/nodes/node/select.html:52
 msgid "There are errors in the form."
 msgstr "Vo formulári sa nachádzajú chyby."
 
@@ -337,7 +426,8 @@ msgstr "Pridať užívateľa do skupiny"
 #: templates/accounts/permissions/group.html:56
 #: templates/accounts/permissions/user.html:56
 #: templates/accounts/user/manage.html:97
-#: templates/accounts/user/manage.html:134
+#: templates/accounts/user/manage.html:134 templates/nodes/acl/group.html:52
+#: templates/nodes/acl/user.html:63
 msgid "Save"
 msgstr "Uložiť"
 
@@ -380,12 +470,12 @@ msgstr ""
 "        "
 
 #: templates/accounts/group/remove.html:31
-#: templates/accounts/user/remove.html:38
+#: templates/accounts/user/remove.html:38 templates/nodes/acl/user.html:43
 msgid "Yes"
 msgstr "Áno"
 
 #: templates/accounts/group/remove.html:32
-#: templates/accounts/user/remove.html:39
+#: templates/accounts/user/remove.html:39 templates/nodes/acl/user.html:45
 msgid "No"
 msgstr "Nie"
 
@@ -441,11 +531,13 @@ msgstr ""
 #: templates/accounts/permissions/group.html:38
 #: templates/accounts/permissions/show.html:24
 #: templates/accounts/permissions/user.html:38
+#: templates/nodes/acl/group.html:34 templates/nodes/acl/user.html:34
 msgid "Permission"
 msgstr "Právo"
 
 #: templates/accounts/permissions/group.html:39
 #: templates/accounts/permissions/user.html:39
+#: templates/nodes/acl/group.html:35 templates/nodes/acl/user.html:35
 msgid "Description"
 msgstr "Popis"
 
@@ -532,7 +624,7 @@ msgstr ""
 msgid "only letters, digits and underscores"
 msgstr "iba písmená, číslice a podtržítka"
 
-#: templates/accounts/user/add.html:57 templates/nodes/addNode_Form.html:99
+#: templates/accounts/user/add.html:57 templates/nodes/node/add.html:99
 msgid "Reset"
 msgstr "Resetovať"
 
@@ -661,39 +753,6 @@ msgstr "Prihlásený ako:"
 msgid "Logout"
 msgstr "Odhlásiť"
 
-#: templates/nodes/addNode_Form.html:4 templates/nodes/addNode_Form.html:11
-#: templates/nodes/listNodes.html:4
-msgid "Add Node"
-msgstr "Pridať uzol"
-
-#: templates/nodes/addNode_Form.html:14
-msgid ""
-"\n"
-"        Before you can administrate a node, you need connect to it first. "
-"Libvirt remote URI general form\n"
-"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
-"\">detail information</a>):\n"
-"        "
-msgstr ""
-"\n"
-"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním "
-"najskôr pripojiť. Libvirt obecný tvar URI\n"
-"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
-"\">podrobné informácie</a>):\n"
-"        "
-
-#: templates/nodes/addNode_Form.html:43
-msgid "only for better identification"
-msgstr "kvôli lepšej identifikácii"
-
-#: templates/nodes/addNode_Form.html:77
-msgid "if different from default"
-msgstr "ak sa líši od pôvodného"
-
-#: templates/nodes/addNode_Form.html:97
-msgid "Test connection"
-msgstr "Otestovať spojenie"
-
 #: templates/nodes/index.html:10
 msgid ""
 "\n"
@@ -716,6 +775,11 @@ msgstr ""
 "        -->\n"
 "        "
 
+#: templates/nodes/listNodes.html:4 templates/nodes/node/add.html:4
+#: templates/nodes/node/add.html.py:11
+msgid "Add Node"
+msgstr "Pridať uzol"
+
 #: templates/nodes/listNodes.html:11
 msgid "List Nodes"
 msgstr "Zoznam uzlov"
@@ -725,3 +789,77 @@ msgid ""
 "\n"
 "        "
 msgstr ""
+
+#: templates/nodes/acl/group.html:10
+msgid ""
+"\n"
+"        Group permissions for node.\n"
+"        "
+msgstr ""
+"\n"
+"        Práva skupiny pracovať s uzlom.\n"
+"        "
+
+#: templates/nodes/acl/user.html:10
+msgid ""
+"\n"
+"        User permissions for node.\n"
+"        "
+msgstr ""
+"\n"
+"        Práva užívateľa pracovať s uzlom.\n"
+"        "
+
+#: templates/nodes/acl/user.html:39
+msgid "Is Onwer"
+msgstr "Vlastník"
+
+#: templates/nodes/acl/user.html:40
+msgid "The user is owner of the node."
+msgstr "Užívateľ je vlastníkom uzla."
+
+#: templates/nodes/node/add.html:14
+msgid ""
+"\n"
+"        Before you can administrate a node, you need connect to it first. "
+"Libvirt remote URI general form\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
+"\">detail information</a>):\n"
+"        "
+msgstr ""
+"\n"
+"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním "
+"najskôr pripojiť. Libvirt obecný tvar URI\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
+"\">podrobné informácie</a>):\n"
+"        "
+
+#: templates/nodes/node/add.html:43
+msgid "only for better identification"
+msgstr "kvôli lepšej identifikácii"
+
+#: templates/nodes/node/add.html:77
+msgid "if different from default"
+msgstr "ak sa líši od pôvodného"
+
+#: templates/nodes/node/add.html:97
+msgid "Test connection"
+msgstr "Otestovať spojenie"
+
+#: templates/nodes/node/select.html:4 templates/nodes/node/select.html.py:7
+msgid "Select Node"
+msgstr "Výber uzla"
+
+#: templates/nodes/node/select.html:10
+msgid ""
+"\n"
+"        Select a node from list or type name.\n"
+"        "
+msgstr ""
+"\n"
+"        Vyberte uzol zo zoznamu alebo napíšte jeho meno.\n"
+"        "
+
+#: templates/nodes/node/select.html:35
+msgid "There is no nodes."
+msgstr "Neexistujú žiadne uzle."

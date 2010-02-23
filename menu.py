@@ -36,7 +36,7 @@ def MENU(request):
             "label":        _("Nodes"),
             "module":       "nodes",
             "namespace":    "nodes",
-            "url":          "list_nodes",
+            "url":          "node_list",
             "selected":     r"^/nodes/"
         },
         {   # DOMAINS
@@ -52,8 +52,13 @@ def MENU(request):
 
 def generateMenu(request):
 
-    mainMenu, selectedMainMenuItem = getMainMenu(request)
-    leftMenu = getLeftMenu(request, selectedMainMenuItem)
+    if request.user.is_authenticated():
+        mainMenu, selectedMainMenuItem = getMainMenu(request)
+        leftMenu = getLeftMenu(request, selectedMainMenuItem)
+    else:
+        mainMenu = []
+        leftMenu = []
+    #endif
 
     return {
         "main_menu":    mainMenu,

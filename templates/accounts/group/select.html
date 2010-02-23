@@ -27,7 +27,7 @@
         </tr>
         {% for group in groups.object_list %}
         <tr>
-            <td><a href="{% urlWithVar next groupId=group.id %}">{{ group.name }}</a></td>
+            <td><a href="{% urlWithVar next groupId=group.id *next_args **next_kwargs %}">{{ group.name }}</a></td>
             <td class="center">{{ group.user_set.count }}</td>
         </tr>
         {% empty %}
@@ -57,8 +57,9 @@
 
             <div class="field{% if form.name.errors %} field-error{% endif %}">
                 {{ form.name.errors }}
-                <label for="id_name">{% trans form.name.label %}:</label>
+                <label for="id_name">{{ form.name.label }}:</label>
                 {{ form.name }}
+                <input type="hidden" id="autocomplete_permission" name="permission" value="{{ permission }}" />
             </div>
 
             <br />

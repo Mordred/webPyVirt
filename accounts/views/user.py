@@ -13,6 +13,8 @@ from webPyVirt.decorators       import secure, permissions
 
 from webPyVirt.accounts.forms   import SelectUserForm, UserOverviewForm
 
+import sha, time
+
 @secure
 @permissions("auth.add_user")
 def add(request):
@@ -37,8 +39,27 @@ def add(request):
 #enddef
 
 @secure
-@permissions(["auth.change_user", "auth.delete_user"])
-def select(request, next):
+def select(request, next, permission = None, *args, **kwargs):
+
+    if permission:
+        if not permission(request, *args, **kwargs):
+            return HttpResponseRedirect("%s" % (reverse("403")))
+        #endif
+    #endif
+
+    permis = request.session.get("accounts.user.select", {})
+    permisHash = sha.sha(request.user.username.upper() + ":" + str(time.time())).hexdigest()
+    permis[permisHash] = time.time()
+
+    # Session cleanup
+    for per in permis:
+        if (time.time() - permis[per]) > 1800:
+            del permis[per]
+        #endif
+    #endfor
+
+    request.session['accounts.user.select'] = permis
+
     users = User.objects.all().order_by("username")
     paginator = Paginator(users, 25)
 
@@ -60,8 +81,9 @@ def select(request, next):
 
             user = get_object_or_404(User, username=form.cleaned_data['username'])
 
+            kwargs["userId"] = user.id
             return HttpResponseRedirect(
-                reverse(next, kwargs={ "userId": user.id })
+                reverse(next, args=args, kwargs=kwargs)
             )
         #endif
     else:
@@ -71,17 +93,26 @@ def select(request, next):
     return render_to_response(
         "accounts/user/select.html", 
         {
-            "users":    users,
-            "form":     form,
-            "next":     next
+            "users":        users,
+            "form":         form,
+            "permission":   permisHash,
+            "next":         next,
+            "next_args":    args,
+            "next_kwargs":  kwargs
         }, 
         context_instance=RequestContext(request)
     ) 
 #enddef
 
 @secure
-@permissions(["auth.change_user", "auth.delete_user"])
-def select_autocomplete(request):
+def select_autocomplete(request, permission):
+    permis = request.session.get("accounts.user.select", {})
+    if not permission in permis or (time.time() - permis[permission]) > 1800:
+        return HttpResponse(simplejson.dumps([]))
+    #endif
+
+    request.session['accounts.user.select'] = permis
+
     search = request.GET['term']
 
     users = User.objects.filter(username__icontains = search)
@@ -89,7 +120,7 @@ def select_autocomplete(request):
     data = [ user.username for user in users ]
     
     return HttpResponse(simplejson.dumps(data))
-#enddef#enddef
+#enddef
 
 @secure
 @permissions("auth.change_user")

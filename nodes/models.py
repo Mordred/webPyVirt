@@ -1,7 +1,8 @@
 # -*- coding: UTF-8 -*-
 
 from django.db                      import models
-from django.contrib.auth.models     import User
+from django.contrib.auth.models     import User, Group
+from django.utils.translation       import ugettext_lazy as _
 
 try:
     # Python 2.6
@@ -34,22 +35,22 @@ class Node(models.Model):
         (u"tcp", u"Unencrypted TCP/IP socket")
     )
 
-    name = models.CharField(max_length = 255, verbose_name = "Node Name", unique = True)
+    name = models.CharField(max_length = 255, verbose_name = _("Node Name"), unique = True)
     owner = models.ForeignKey(User)
 
     # Node connection
     driver = models.CharField(max_length = 6, choices = DRIVERS,
-        verbose_name = "Hypervisor Driver")
+        verbose_name = _("Hypervisor Driver"))
     address = models.CharField(max_length = 255, null = True, blank = True,
-        verbose_name = "Hostname / IP Address")
-    port = models.IntegerField(null = True, blank = True, verbose_name = "Port")
+        verbose_name = _("Hostname / IP Address"))
+    port = models.IntegerField(null = True, blank = True, verbose_name = _("Port"))
     transport = models.CharField(max_length = 4, choices = TRANSPORTS, null = True, blank = True,
-        verbose_name = "Used Transport")
+        verbose_name = _("Used Transport"))
     
-    username = models.CharField(max_length = 60, null = True, blank = True, verbose_name = "Username")
-    path = models.CharField(max_length = 1024, null = True, blank = True, verbose_name = "Path")
+    username = models.CharField(max_length = 60, null = True, blank = True, verbose_name = _("Username"))
+    path = models.CharField(max_length = 1024, null = True, blank = True, verbose_name = _("Path"))
     extra_parameters = models.CharField(max_length = 1024, null = True, blank = True, 
-        verbose_name = "Extra Parameters")
+        verbose_name = _("Extra Parameters"))
 
     def __unicode__(self):
         return self.name
@@ -120,5 +121,45 @@ class Node(models.Model):
             return AF_INET, (self.getHost(), self.getPort())
         #endif
     #enddef
+
+#endclass
+
+class NodeAcl(models.Model):
+
+    node = models.ForeignKey(Node)
+
+    change_acl = models.NullBooleanField(verbose_name = _("Change ACL"),
+        help_text = _("User can change ACL for the node"))
+
+    add_domain = models.NullBooleanField(verbose_name = _("Add Domain"),
+        help_text = _("User can create new domain on the node"))
+
+    view_node = models.NullBooleanField(verbose_name = _("View Node"),
+        help_text = _("User can view the node in the administration"))
+    change_node = models.NullBooleanField(verbose_name = _("Change Node"),
+        help_text = _("User can change node data"))
+    delete_node = models.NullBooleanField(verbose_name = _("Delete Node"),
+        help_text = _("User can delete the node"))
+
+    class Meta:
+        abstract = True
+
+#endclass
+
+class UserNodeAcl(NodeAcl):
+
+    user = models.ForeignKey(User)
+
+    class Meta:
+        unique_together = ("node", "user")
+
+#endclass
+
+class GroupNodeAcl(NodeAcl):
+
+    group = models.ForeignKey(Group)
+
+    class Meta:
+        unique_together = ("node", "group")
 
 #endclass

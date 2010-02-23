@@ -96,6 +96,8 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
+#    "django_extensions",
+    "webPyVirt.accounts",
     "webPyVirt.nodes",
     "webPyVirt.conf"
 )
@@ -112,6 +114,6 @@ if DEBUG:
         level       = logging.DEBUG,
         format      = "%(asctime)s [ %(levelname)s ]: %(message)s",
         filename    = LOG_FILENAME,
-        filemode    = "w"
+        filemode    = "a"
     )
 #endif

@@ -1,6 +1,7 @@
 # -*- coding: UTF-8 -*-
-from django.conf.urls.defaults import *
-from django.utils.translation import ugettext as _
+from django.conf.urls.defaults      import *
+
+from webPyVirt.accounts.permissions import *
 
 urlpatterns = patterns("webPyVirt.accounts",
     # USERS
@@ -13,7 +14,8 @@ urlpatterns = patterns("webPyVirt.accounts",
         r"^user/manage/$",
         "views.user.select",
         {
-            "next":     "accounts:user_manage"
+            "next":         "accounts:user_manage",
+            "permission":   canManageUser
         },
         name="user_manage__select"
     ),
@@ -23,7 +25,7 @@ urlpatterns = patterns("webPyVirt.accounts",
         name="user_manage"
     ),
     url(
-        r"^user/select/autocomplete/$",
+        r"^user/select/autocomplete/(?P<permission>[\dabcdef]+)/$",
         "views.user.select_autocomplete",
         name="user_select_autocomplete"
     ),
@@ -31,7 +33,8 @@ urlpatterns = patterns("webPyVirt.accounts",
         r"^user/remove/$",
         "views.user.select",
         {
-            "next":     "accounts:user_remove"
+            "next":         "accounts:user_remove",
+            "permission":   canRemoveUser
         },
         name="user_remove__select"
     ),
@@ -51,7 +54,8 @@ urlpatterns = patterns("webPyVirt.accounts",
         r"^group/manage/$",
         "views.group.select",
         {
-            "next":     "accounts:group_manage"
+            "next":         "accounts:group_manage",
+            "permission":   canManageGroup
         },
         name="group_manage__select"
     ),
@@ -61,7 +65,7 @@ urlpatterns = patterns("webPyVirt.accounts",
         name="group_manage"
     ),
     url(
-        r"^group/select/autocomplete/$",
+        r"^group/select/autocomplete/(?P<permission>[\dabcdef]+)/$",
         "views.group.select_autocomplete",
         name="group_select_autocomplete"
     ),
@@ -69,7 +73,8 @@ urlpatterns = patterns("webPyVirt.accounts",
         r"^group/remove/$",
         "views.group.select",
         {
-            "next":     "accounts:group_remove"
+            "next":         "accounts:group_remove",
+            "permission":   canRemoveGroup
         },
         name="group_remove__select"
     ),
@@ -84,7 +89,8 @@ urlpatterns = patterns("webPyVirt.accounts",
         r"^permissions/user/$",
         "views.user.select",
         {
-            "next":     "accounts:permissions_user"
+            "next":         "accounts:permissions_user",
+            "permission":   None
         },
         name="permissions_user__select"
     ),

@@ -1,20 +1,20 @@
 {% extends "base_administration.html" %}
 {% load i18n webPyVirt_extras %}
 
-{% block subtitle %}{% trans "Select User" %}{% endblock subtitle %}
+{% block subtitle %}{% trans "Select Node" %}{% endblock subtitle %}
 
 {% block content_body %}
-    <h1 class="center">{% trans "Select User" %}</h1>
+    <h1 class="center">{% trans "Select Node" %}</h1>
 
     <p class="indent">
         {% blocktrans %}
-        Select a user from list or type name.
+        Select a node from list or type name.
         {% endblocktrans %}
     </p>
 
     <br />
 
-    {% with users as pagination %}
+    {% with nodes as pagination %}
         {% include "includes/pagination.html" %}
     {% endwith %}
 
@@ -22,28 +22,28 @@
         <col width="80%" />
         <col width="10%" />
         <tr>
-            <th>{% trans "Username" %}</th>
-            <th class="center">{% trans "Active" %}</td>
+            <th>{% trans "Node Name" %}</th>
+            <th class="center">{% trans "Domains" %}</td>
         </tr>
-        {% for user in users.object_list %}
+        {% for node in nodes.object_list %}
         <tr>
-            <td><a href="{% urlWithVar next userId=user.id *next_args **next_kwargs %}">{{ user.username }}</a></td>
-            <td class="center">{{ user.is_active|yesno:_("Yes,No") }}</td>
+            <td><a href="{% urlWithVar next nodeId=node.id, *next_args **next_kwargs %}">{{ node.name }}</a></td>
+            <td class="center">0</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="2" class="center">{% trans "There is no users." %}</td>
+            <td colspan="2" class="center">{% trans "There is no nodes." %}</td>
         </tr>
         {% endfor %}
     </table>
 
-    {% with users as pagination %}
+    {% with nodes as pagination %}
         {% include "includes/pagination.html" %}
     {% endwith %}
 
     <br />
 
-    <form action="" method="post" id="frmSelectUser">
+    <form action="" method="post" id="frmSelectNode">
         <div class="form">
             {% csrf_token %}
 
@@ -56,9 +56,9 @@
             {% endif %}
 
             <div class="field{% if form.username.errors %} field-error{% endif %}">
-                {{ form.username.errors }}
-                <label for="id_username">{{ form.username.label }}:</label>
-                {{ form.username }}
+                {{ form.name.errors }}
+                <label for="id_name">{{ form.name.label }}:</label>
+                {{ form.name }}
                 <input type="hidden" id="autocomplete_permission" name="permission" value="{{ permission }}" />
             </div>
 
@@ -66,7 +66,7 @@
 
             <div class="submit right">
                 <input type="hidden" name="next" value="{{ next }}" />
-                <input type="submit" value="{% trans "Select user" %}" />
+                <input type="submit" value="{% trans "Select node" %}" />
             </div>
 
         </div>
