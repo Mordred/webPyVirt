@@ -16,15 +16,49 @@ from webPyVirt.nodes.misc       import getNodes
 
 from webPyVirt.decorators       import secure, permissions
 from webPyVirt.libs             import virtualization
+from webPyVirt.menu             import generateMenu
 
 @secure
 def index(request):
-    return render_to_response("nodes/index.html", {}, context_instance=RequestContext(request))
+    leftMenu = generateMenu(request)['left_menu']
+
+    if not len(leftMenu):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    # Redirect to first available page
+    return HttpResponseRedirect(leftMenu[0]['items'][0]['url'])
 #enddef
 
 @secure
 def list(request):
-    return render_to_response("nodes/listNodes.html", {}, context_instance=RequestContext(request))
+    nodes = getNodes(request, "view_node")
+
+    if not len(nodes):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    paginator = Paginator(nodes, 25)
+
+    try:
+        page = int(request.GET.get("page", "1"))
+    except ValueError:
+        page = 1
+    #endtry
+
+    try:
+        nodes = paginator.page(page)
+    except (EmptyPage, InvalidPage):
+        nodes = paginator.page(paginator.num_pages)
+    #endtry
+
+    return render_to_response(
+        "nodes/node/list.html",
+        {
+            "nodes":        nodes
+        },
+        context_instance=RequestContext(request)
+    )
 #enddef
 
 @secure
@@ -55,6 +89,7 @@ def add(request):
 def testConnection(request):
     if request.method == "POST":
         form = NodeForm(request.POST)
+        form.fields.pop("name", "")     # We don't need check name
         if form.is_valid():
 
             testNode = form.save(commit = False)
@@ -173,6 +208,24 @@ def select_autocomplete(request, permission):
     nodes = getNodes(request, nodeFilter, search)
 
     data = [ node.name for node in nodes ]
+
+    return HttpResponse(simplejson.dumps(data))
+#enddef
+
+@secure
+def checkStatus(request, nodeId):
+    node = get_object_or_404(Node, id=nodeId)
+
+    result = virtualization.testConnection(node)
+
+    data = {
+        "status":           200,
+        "statusMessage":    "OK",
+        "node":             {
+            "status":           result['success'],
+            "error":            "error" in result and result['error']
+        }
+    }
 
     return HttpResponse(simplejson.dumps(data))
 #enddef

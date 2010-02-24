@@ -6,6 +6,11 @@ from webPyVirt.nodes.permissions    import *
 urlpatterns = patterns("webPyVirt.nodes",
     url(    # TODO
         r"^$", 
+        "views.node.index",
+        name="node_index"
+    ),
+    url(
+        r"^node/list/$",
         "views.node.list",
         name="node_list"
     ),
@@ -17,7 +22,12 @@ urlpatterns = patterns("webPyVirt.nodes",
     url(
         r"^node/testConnection/$",
         "views.node.testConnection",
-        name="node_testConnection"
+        name="node_test_connection"
+    ),
+    url(
+        r"^node/checkStatus/(?P<nodeId>\d+)/$",
+        "views.node.checkStatus",
+        name="node_check_status"
     ),
     url(
         r"^node/select/autocomplete/(?P<permission>[\dabcdef]+)/$",

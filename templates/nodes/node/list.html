@@ -1,0 +1,62 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "List Nodes" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.check_status.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/check_status.js"></script>
+{% endblock custom_js %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "List Nodes" %}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        List of available nodes.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    {% with nodes as pagination %}
+        {% include "includes/pagination.html" %}
+    {% endwith %}
+
+    <table class="white-stripe w100p">
+        <col width="55%" />
+        <col width="10%" />
+        <col width="20%" />
+        <col width="15%" />
+        <tr>
+            <th>{% trans "Node Name" %}</th>
+            <th class="center">{% trans "Domains" %}</th>
+            <th class="center">{% trans "Status" %}</th>
+            <th class="center"></th>
+        </tr>
+        {% for node in nodes.object_list %}
+        <tr>
+            <td>{{ node.name }}</td>
+            <td class="center">0</td>
+            <td id="node_status_{{ node.id }}" class="center">
+                <img class="loader" src="{{ MEDIA_URL }}img/icons/load-roller-{% cycle "1" "2" %}.gif" alt="" />
+                <span class="message" style="display:none">&nbsp;</span>
+            </td>
+            <td class="center">
+                <button id="node_{{ node.id }}" class="node-check">
+                     {% trans "Recheck" %}
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2" class="center">{% trans "There is no nodes." %}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    {% with nodes as pagination %}
+        {% include "includes/pagination.html" %}
+    {% endwith %}
+
+{% endblock content_body %}

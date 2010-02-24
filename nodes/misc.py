@@ -10,6 +10,11 @@ def getNodes(request, nodeFilter, search=None):
         groupNodeAclQ = Q(groupnodeacl__change_acl=True)
         exUserNodeAclQ = Q(usernodeacl__change_acl=False)
         exGroupNodeAclQ = Q(groupnodeacl__change_acl=False)
+    elif nodeFilter == "view_node":
+        userNodeAclQ = Q(usernodeacl__view_node=True)
+        groupNodeAclQ = Q(groupnodeacl__view_node=True)
+        exUserNodeAclQ = Q(usernodeacl__view_node=False)
+        exGroupNodeAclQ = Q(groupnodeacl__view_node=False)
     else:
         raise ValueError("Unknown node filter: `%s`" % (nodeFilter))
     #endif

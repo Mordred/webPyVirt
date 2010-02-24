@@ -3,7 +3,7 @@
     $.fn.testConnection = function(options) {
 
         var defaults = {
-            url:                "/nodes/testConnection/",
+            url:                "/nodes/node/testConnection/",
             formTag:            "#frmAddNode",
             canvas:             "#testConnection",
             loadImage:          MEDIA_URL + "/img/icons/load-roller.gif"
@@ -160,12 +160,7 @@
         var validate = function(data) {
             var valid = true;
 
-            if (data['name'].length == 0) {
-                var field = $(settings.formTag).find(":input[name='name']").parent();
-                field.addClass("field-error");
-
-                valid = false;
-            } else {
+            if (data['name'].length != 0) {
                 var field = $(settings.formTag).find(":input[name='name']").parent();
                 field.removeClass("field-error");
 
@@ -179,6 +174,33 @@
                 valid = false;
             } else {
                 var field = $(settings.formTag).find(":input[name='driver']").parent();
+                field.removeClass("field-error");
+
+                field.find(".errorlist").remove();
+            }
+
+            if (data['port'].length != 0) {
+                var isNumber = true;
+                for (var i = 0; i < data['port'].length; i++) {
+                    if (data['port'].charAt(i) < "0" || data['port'].charAt(i) > "9") {
+                        isNumber = false;
+                        break;
+                    }
+                }
+
+                if (!isNumber) {
+                    var field = $(settings.formTag).find(":input[name='port']").parent();
+                    field.addClass("field-error");
+
+                    valid = false;
+                } else {
+                    var field = $(settings.formTag).find(":input[name='port']").parent();
+                    field.removeClass("field-error");
+
+                    field.find(".errorlist").remove();
+                }
+            } else {
+                var field = $(settings.formTag).find(":input[name='port']").parent();
                 field.removeClass("field-error");
 
                 field.find(".errorlist").remove();
@@ -199,9 +221,4 @@
     };
 
 })(jQuery);
-
-$(function() {
-    // Connection test button
-    $("#btnTestConnection").testConnection();
-});
 

@@ -7,6 +7,7 @@ from webPyVirt.nodes.permissions    import *
 
 def MENU(request):
     changeAcls = canChangeAcls(request)
+    listNodes = canListNodes(request)
 
     return [
         {   # Section nodes
@@ -14,9 +15,9 @@ def MENU(request):
             "label":        _("Nodes"),
             "items":        [
                 {   # List nodes
-                    "hide":     False,
+                    "hide":     not listNodes,
                     "label":    _("List nodes"),
-                    "selected": r"$",
+                    "selected": r"node/list/$",
                     "url":      "node_list"
                 },
                 {   # Add node

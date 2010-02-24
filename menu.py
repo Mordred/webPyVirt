@@ -36,7 +36,7 @@ def MENU(request):
             "label":        _("Nodes"),
             "module":       "nodes",
             "namespace":    "nodes",
-            "url":          "node_list",
+            "url":          "node_index",
             "selected":     r"^/nodes/"
         },
         {   # DOMAINS
