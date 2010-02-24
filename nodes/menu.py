@@ -8,6 +8,8 @@ from webPyVirt.nodes.permissions    import *
 def MENU(request):
     changeAcls = canChangeAcls(request)
     listNodes = canListNodes(request)
+    editNodes = canEditNodes(request)
+    removeNodes = canRemoveNodes(request)
 
     return [
         {   # Section nodes
@@ -25,6 +27,18 @@ def MENU(request):
                     "label":    _("Add node"),
                     "selected": r"node/add/",
                     "url":      "node_add"
+                },
+                {   # Edit node
+                    "hide":     not editNodes,
+                    "label":    _("Edit node"),
+                    "selected": r"node/edit/",
+                    "url":      "node_edit__select_node"
+                },
+                {   # Remove node
+                    "hide":     not removeNodes,
+                    "label":    _("Remove node"),
+                    "selected": r"node/remove/",
+                    "url":      "node_remove__select_node"
                 },
             ]
         },

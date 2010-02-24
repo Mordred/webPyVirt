@@ -10,9 +10,10 @@ from django.template            import RequestContext
 from django.utils               import simplejson
 from django.utils.translation   import ugettext as _
 
-from webPyVirt.nodes.forms      import NodeForm, SelectNodeForm
-from webPyVirt.nodes.models     import Node, UserNodeAcl, GroupNodeAcl
-from webPyVirt.nodes.misc       import getNodes
+from webPyVirt.nodes.forms          import NodeForm, SelectNodeForm
+from webPyVirt.nodes.models         import Node, UserNodeAcl, GroupNodeAcl
+from webPyVirt.nodes.misc           import getNodes
+from webPyVirt.nodes.permissions    import *
 
 from webPyVirt.decorators       import secure, permissions
 from webPyVirt.libs             import virtualization
@@ -216,6 +217,10 @@ def select_autocomplete(request, permission):
 def checkStatus(request, nodeId):
     node = get_object_or_404(Node, id=nodeId)
 
+    if not isAllowedTo(request, node, "view_node"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
     result = virtualization.testConnection(node)
 
     data = {
@@ -228,4 +233,63 @@ def checkStatus(request, nodeId):
     }
 
     return HttpResponse(simplejson.dumps(data))
+#enddef
+
+@secure
+def edit(request, nodeId):
+    node = get_object_or_404(Node, id=nodeId)
+
+    if not isAllowedTo(request, node, "change_node"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    if request.method == "POST":
+        form = NodeForm(request.POST, instance=node)
+        if form.is_valid():
+            node = form.save()
+
+            # Redirect
+            return HttpResponseRedirect(
+                reverse("nodes:node_edit", kwargs={ "nodeId": node.id })
+            )
+        #endif
+    else:
+        form = NodeForm(instance=node)
+    #endif
+
+    return render_to_response(
+        "nodes/node/edit.html",
+        {
+            "form":         form,
+            "managedNode":  node
+        },
+        context_instance=RequestContext(request)
+    )
+#enddef
+
+@secure
+def remove(request, nodeId):
+    node = get_object_or_404(Node, id=nodeId)
+
+    if not isAllowedTo(request, node, "delete_node"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    if request.method == "POST":
+        if "yes" in request.POST and node.id == int(request.POST['nodeId']):
+            node.delete()
+        #endif
+
+        return HttpResponseRedirect(
+            reverse("nodes:node_remove__select_node")
+        )
+    #endif
+
+    return render_to_response(
+        "nodes/node/remove.html",
+        {
+            "managedNode":  node
+        },
+        context_instance=RequestContext(request)
+    )
 #enddef

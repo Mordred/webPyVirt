@@ -1,0 +1,42 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Remove Node" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Remove Node" %} :: {{ managedNode.name }}</h1>
+
+    <p class="indent">
+        !!! Napis sem kolko ma node domen. !!!
+        {% comment %}
+        {% blocktrans count managedUser.groups.count as counter %}
+        This user is member of one group.
+        {% plural %}
+        This user is member of {{ counter }} groups.
+        {% endblocktrans %}
+        {% endcomment %}
+    </p>
+
+    <p class="indent">
+        {% blocktrans %}
+        Do you really want to remove this node and all its domains?
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmRemoveNode">
+        <div class="form">
+            {% csrf_token %}
+
+            <div class="submit right">
+                <input type="hidden" name="nodeId" value="{{ managedNode.id }}" />
+                <input type="submit" name="yes" value="{% trans "Yes" %}" />
+                <input type="submit" name="no" value="{% trans "No" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

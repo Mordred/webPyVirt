@@ -4,7 +4,9 @@ from django.conf.urls.defaults      import *
 from webPyVirt.nodes.permissions    import *
 
 urlpatterns = patterns("webPyVirt.nodes",
-    url(    # TODO
+
+    # Node
+    url(
         r"^$", 
         "views.node.index",
         name="node_index"
@@ -18,6 +20,36 @@ urlpatterns = patterns("webPyVirt.nodes",
         r"^node/add/$",
         "views.node.add",
         name="node_add"
+    ),
+    url(
+        r"^node/edit/$",
+        "views.node.select",
+        {
+            "next":         "nodes:node_edit",
+            "nodeFilter":   "change_node",
+            "permission":   canEditNodes
+        },
+        name="node_edit__select_node"
+    ),
+    url(
+        r"^node/edit/(?P<nodeId>\d+)/$",
+        "views.node.edit",
+        name="node_edit"
+    ),
+    url(
+        r"^node/remove/$",
+        "views.node.select",
+        {
+            "next":         "nodes:node_remove",
+            "nodeFilter":   "delete_node",
+            "permission":   canRemoveNodes
+        },
+        name="node_remove__select_node"
+    ),
+    url(
+        r"^node/remove/(?P<nodeId>\d+)/$",
+        "views.node.remove",
+        name="node_remove"
     ),
     url(
         r"^node/testConnection/$",

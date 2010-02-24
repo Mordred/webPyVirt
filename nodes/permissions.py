@@ -21,6 +21,22 @@ def canListNodes(request, *args, **kwargs):
     #endif
 #enddef
 
+def canEditNodes(request, *args, **kwargs):
+    if not getNodes(request, "change_node").count():
+        return False        # No Nodes
+    else:
+        return True
+    #endif
+#enddef
+
+def canRemoveNodes(request, *args, **kwargs):
+    if not getNodes(request, "delete_node").count():
+        return False        # No Nodes
+    else:
+        return True
+    #endif
+#enddef
+
 def isAllowedTo(request, node, acl):
     if not node: return False
 

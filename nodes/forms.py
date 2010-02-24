@@ -15,6 +15,21 @@ class NodeForm(forms.ModelForm):
         model = Node
         exclude = [ "owner" ]
 
+    def clean_name(self):
+        name = self.cleaned_data['name']
+
+        try:
+            node = Node.objects.get(name=name)
+        except Node.DoesNotExist:
+            return name
+        #endtry
+
+        if self.instance.id != node.id:
+            raise forms.ValidationError(_("A node with that name already exists."))
+        else:
+            return name
+        #endif
+    #enddef
 #endclass
 
 class NodeAclForm(forms.ModelForm):
