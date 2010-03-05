@@ -16,23 +16,23 @@ from socket         import AF_INET, AF_UNIX
 
 class Node(models.Model):
     DRIVERS = (
-        (u"xen", u"Xen"),
-        (u"qemu", u"QEMU / KVM"),
-        (u"lxc", u"Linux Containers (LXC)"),
-        (u"test", u"Test \"mock\""),
-        (u"openvz", u"OpenVZ"),
-        (u"uml", u"User Mode Linux"),
-        (u"vbox", u"VirtualBox"),
-        (u"one", u"Open Nebula"),
-        (u"esx", u"VMware ESX"),
-        (u"gsx", u"VMware GSX")
+        (u"xen", _(u"Xen")),
+        (u"qemu", _(u"QEMU / KVM")),
+        (u"lxc", _(u"Linux Containers (LXC)")),
+        (u"test", _(u"Test \"mock\"")),
+        (u"openvz", _(u"OpenVZ")),
+        (u"uml", _(u"User Mode Linux")),
+        (u"vbox", _(u"VirtualBox")),
+        (u"one", _(u"Open Nebula")),
+        (u"esx", _(u"VMware ESX")),
+        (u"gsx", _(u"VMware GSX"))
     )
     TRANSPORTS = (
-        (u"tls", u"TLS 1.0 (SSL 3.1)"),
-        (u"unix", u"Unix domain socket"),
-        (u"ssh", u"SSH tunneled"),
-        (u"ext", u"External program"),
-        (u"tcp", u"Unencrypted TCP/IP socket")
+        (u"tls", _(u"TLS 1.0 (SSL 3.1)")),
+        (u"unix", _(u"Unix domain socket")),
+        (u"ssh", _(u"SSH tunneled")),
+        (u"ext", _(u"External program")),
+        (u"tcp", _(u"Unencrypted TCP/IP socket"))
     )
 
     name = models.CharField(max_length = 255, verbose_name = _("Node Name"), unique = True)

@@ -54,6 +54,7 @@ def testConnection(node, timeout = TIMEOUT):
 
     if error:
         logging.error("libvirt: %s" % error)
+        if connection: connection.close()
         return {
             "success":      False,
             "error":        error
@@ -61,6 +62,8 @@ def testConnection(node, timeout = TIMEOUT):
     #endif
 
     nodeInfo = connection.getInfo()
+
+    connection.close()
     return {
         "success":          True,
         "info":             {

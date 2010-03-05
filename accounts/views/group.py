@@ -51,7 +51,8 @@ def select(request, next, permission = None, *args, **kwargs):
     permis[permisHash] = time.time()
 
     # Session cleanup
-    for per in permis:
+    keys = permis.keys()
+    for per in keys:
         if (time.time() - permis[per]) > 1800:
             del permis[per]
         #endif

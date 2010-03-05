@@ -340,7 +340,7 @@ msgstr "Vytvoril Martin Jantošovič"
 
 #: templates/home.html:7
 msgid "Welcome to webPyVirt Administration"
-msgstr "Vitajte v webPyVirt Administrácii"
+msgstr "Vitajte vo webPyVirt Administrácii"
 
 #: templates/login.html:4 templates/login.html.py:45
 msgid "Log in"
