@@ -37,7 +37,7 @@
         {% for node in nodes.object_list %}
         <tr>
             <td>{{ node.name }}</td>
-            <td class="center">0</td>
+            <td class="center">{{ node.domain_set.count }}</td>
             <td id="node_status_{{ node.id }}" class="center">
                 <img class="loader" src="{{ MEDIA_URL }}img/icons/load-roller-{% cycle "1" "2" %}.gif" alt="" />
                 <span class="message" style="display:none">&nbsp;</span>

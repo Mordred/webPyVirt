@@ -60,7 +60,14 @@ form .accordion div.submit      { margin: 0 0 0 0; }
 
 #testConnection                 {  }
 #testConnection img             { vertical-align: middle; margin: 0 3px; }
-#testConnection .status         { float: right; }
+.dialog .status                 { float: right; }
+.dialog .status img             { vertical-align: middle; }
 #testConnection table,
  #testConnection div.error      { font-size: 0.7em; margin: 1px 10px; }
+
+#autoimport .loader,
+ #autoimport .error,
+ #autoimport .message           { width: 100%; text-align: center; padding-top: 100px; }
+#autoimport .error              { color: #ee0000; }
+#autoimport .message            { color: #0000ee; }
 

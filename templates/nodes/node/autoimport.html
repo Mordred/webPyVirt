@@ -1,0 +1,35 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Autoimport Domains of Node" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.autoimport_domains.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/autoimport_domains.js"></script>
+{% endblock custom_js %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Autoimport Domains" %} :: {{ managedNode.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        Autoimport of existing domains from node. This process will compare
+        database information with actual domains on the node. If on the node is
+        domain which doesn't have record in the database, all data will be added.
+        On the other hand if in the database is domain which doesn't exist
+        on the node, it can recreated with stored data or it can be removed.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <div id="autoimport">
+        <div class="hidden"><input type="hidden" id="secret" value="{{ secret }}" /></div>
+        <div class="loader">
+            <span class="center">{% trans "Loading ..." %}</span>
+            <br />
+            <img class="center" src="{{ MEDIA_URL }}img/icons/load-bert2.gif" alt="" />
+        </div>
+    </div>
+
+{% endblock content_body %}

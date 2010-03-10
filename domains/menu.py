@@ -6,23 +6,13 @@ from django.core.urlresolvers import reverse
 def MENU(request):
     return [
         {   # Section edit user
-            "hide":         True,
-            "label":        _("Users"),
+            "hide":         False,
+            "label":        _("Domains"),
             "items":        [
                 {   # Add user
                     "hide":     False,
-                    "label":    _("Add user"),
-                    "url":      "add_user"
-                },
-                {   # Edit user
-                    "hide":     False,
-                    "label":    _("Edit user"),
-                    "url":      "edit_user"
-                },
-                {   # Edit user
-                    "hide":     False,
-                    "label":    _("Delete user"),
-                    "url":      "delete_user"
+                    "label":    _("Add domain"),
+                    "url":      "domain_add"
                 },
             ]
         },

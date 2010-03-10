@@ -1,0 +1,36 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Add Domain" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Add Domain" %}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmAddDomain">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br />
+            {% endif %}
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Add domain" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

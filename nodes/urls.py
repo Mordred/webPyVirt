@@ -37,6 +37,26 @@ urlpatterns = patterns("webPyVirt.nodes",
         name="node_edit"
     ),
     url(
+        r"^node/autoimport/$",
+        "views.node.select",
+        {
+            "next":         "nodes:node_autoimport",
+            "nodeFilter":   "owner",
+            "permission":   canAutoimportDomains
+        },
+        name="node_autoimport__select_node"
+    ),
+    url(
+        r"^node/autoimport/(?P<nodeId>\d+)/$",
+        "views.node.autoimport",
+        name="node_autoimport"
+    ),
+    url(
+        r"^node/autoimport/list/(?P<secret>[\dabcdef]+)/$",
+        "views.node.autoimport_list",
+        name="node_autoimport_list"
+    ),
+    url(
         r"^node/remove/$",
         "views.node.select",
         {

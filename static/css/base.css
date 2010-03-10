@@ -29,11 +29,15 @@ td.description                  { font-style: italic; font-size: 0.7em; cursor: 
 
 .w200                           { width: 200px; }
 .w500                           { width: 500px; }
+.w20p                           { width: 20%; }
+.w25p                           { width: 25%; }
 .w100p                          { width: 100%; }
 
 .h80                            { height: 80px; }
 
 .indent                         { text-indent: 25px; }
+.small                          { font-size: 0.7em; }
+.smaller                        { font-size: 0.85em; }
 
 .hide                           { display: none; }
 

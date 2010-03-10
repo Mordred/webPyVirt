@@ -10,6 +10,7 @@ def MENU(request):
     listNodes = canListNodes(request)
     editNodes = canEditNodes(request)
     removeNodes = canRemoveNodes(request)
+    autoimportDomains = canAutoimportDomains(request)
 
     return [
         {   # Section nodes
@@ -33,6 +34,12 @@ def MENU(request):
                     "label":    _("Edit node"),
                     "selected": r"node/edit/",
                     "url":      "node_edit__select_node"
+                },
+                {   # Import existed domains
+                    "hide":     not autoimportDomains,
+                    "label":    _("Autoimport domains"),
+                    "selected": r"node/autoimport/",
+                    "url":      "node_autoimport__select_node"
                 },
                 {   # Remove node
                     "hide":     not removeNodes,

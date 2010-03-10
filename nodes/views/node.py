@@ -16,7 +16,7 @@ from webPyVirt.nodes.misc           import getNodes
 from webPyVirt.nodes.permissions    import *
 
 from webPyVirt.decorators       import secure, permissions
-from webPyVirt.libs             import virtualization
+from webPyVirt.libs             import virtualization, parse
 from webPyVirt.menu             import generateMenu
 
 @secure
@@ -95,15 +95,21 @@ def testConnection(request):
 
             testNode = form.save(commit = False)
 
-            result = virtualization.testConnection(testNode)
-
             data = {
                 "status":           200,
-                "statusMessage":    "OK",
-                "success":          result['success'],
-                "error":            "error" in result and result['error'],
-                "info":             "info" in result and result['info']
+                "statusMessage":    "OK"
             }
+
+            try:
+                result = virtualization.testConnection(testNode)
+            except virtualization.ErrorException, e:
+                data['success'] = False
+                data['error'] = unicode(e)
+            else:
+                data['success'] = True
+                data['info'] = result
+            #endtry
+
         else:
             data = {
                 "status":           400,
@@ -221,16 +227,20 @@ def checkStatus(request, nodeId):
         return HttpResponseRedirect("%s" % (reverse("403")))
     #endif
 
-    result = virtualization.testConnection(node)
-
     data = {
         "status":           200,
         "statusMessage":    "OK",
-        "node":             {
-            "status":           result['success'],
-            "error":            "error" in result and result['error']
-        }
+        "node":             {}
     }
+
+    try:
+        result = virtualization.testConnection(node)
+    except virtualization.ErrorException, e:
+        data['node']['status'] = False
+        data['node']['error'] = unicode(e)
+    else:
+        data['node']['status'] = True
+    #endtry
 
     return HttpResponse(simplejson.dumps(data))
 #enddef
@@ -292,4 +302,110 @@ def remove(request, nodeId):
         },
         context_instance=RequestContext(request)
     )
+#enddef
+
+@secure
+def autoimport(request, nodeId):
+    node = get_object_or_404(Node, id=nodeId)
+
+    # Only owner of the node can autoimport domains
+    if request.user != node.owner and not request.user.is_superuser:
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    secret = sha.sha(str(node.id) + ":" + str(time.time())).hexdigest()
+    request.session['nodes.node.autoimport'] = (secret, nodeId)
+
+    return render_to_response(
+        "nodes/node/autoimport.html",
+        {
+            "managedNode":  node,
+            "secret":       secret
+        },
+        context_instance=RequestContext(request)
+    )
+#enddef
+
+@secure
+def autoimport_list(request, secret):
+    savedSecret, nodeId = request.session.pop("nodes.node.autoimport", (None, None))
+    node = get_object_or_404(Node, id=nodeId)
+    if not savedSecret or not nodeId or secret != savedSecret:
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    # test:///default - this doesn't have stable domains so report it as unimplemented
+    if node.getURI() == "test:///default":
+        data = {
+            "status":           501,
+            "statusMessage":    _("Node `%(nodeUri)s` cannot autoimport domains." ) % { "nodeUri": node.getURI() }
+        }
+        return HttpResponse(simplejson.dumps(data))
+    #enddef
+
+    nodeDomains = node.domain_set.all()
+
+    data = {
+        "status":           200,
+        "statusMessage":    "OK",
+        "domains":          {}
+    }
+
+    try:
+        domainsUUIDs = virtualization.listDomains(node,
+            virtualization.LIST_DOMAINS_ACTIVE | virtualization.LIST_DOMAINS_INACTIVE)
+    except virtualization.ErrorException, e:
+        data['status'] = 503
+        data['statusMessage'] = _(unicode(e))
+        return HttpResponse(simplejson.dumps(data))
+    #endtry
+
+    domains = []
+
+    toRemove = []
+    for domain in nodeDomains:
+        if domain.uuid in domainsUUIDs:
+            domainsUUIDs.remove(domain.uuid)
+        else:
+            # Not existing domains
+            domains.append({
+                "name":         domain.name,
+                "uuid":         domain.uuid,
+                "vcpu":         domain.vcpu,
+                "memory":       str(round(domain.memory / 1024, 2)),
+                "status":       0
+            })
+            toRemove.append(domain.id)
+        #endif
+    #endfor
+
+    toImport = {}
+    for uuid in domainsUUIDs:
+        try:
+            xml = virtualization.getDomainXML(node, uuid)
+            domain, devices = parse.parseDomainXML(xml)
+            domain.node = node
+            domain.owner = request.user
+            domains.append({
+                "name":         domain.name,
+                "uuid":         domain.uuid,
+                "vcpu":         domain.vcpu,
+                "memory":       str(round(domain.memory / 1024, 2)),
+                "status":       1
+            })
+            toImport[domain.uuid] = (domain, devices)
+        except Exception, e:
+            pass
+        #endtry
+    #endfor
+
+    # Store parsed domains to session for later save to database
+    request.session['nodes.node.autoimport.toImport'] = toImport
+    # Store ids of domains which should be deleted or recreated
+    request.session['nodes.node.autoimport.toRemove'] = toRemove
+
+    data['domains'] = sorted(domains, key=lambda x: x['name'])
+
+    # TODO: Check data witch database - if some values didn't change
+    return HttpResponse(simplejson.dumps(data))
 #enddef

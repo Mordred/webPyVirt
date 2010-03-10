@@ -25,12 +25,14 @@ def getNodes(request, nodeFilter, search=None):
         groupNodeAclQ = Q(groupnodeacl__delete_node=True)
         exUserNodeAclQ = Q(usernodeacl__delete_node=False)
         exGroupNodeAclQ = Q(groupnodeacl__delete_node=False)
-    else:
+    elif nodeFilter != "owner":
         raise ValueError("Unknown node filter: `%s`" % (nodeFilter))
     #endif
 
     if request.user.is_superuser:
         nodes = Node.objects.all()
+    elif nodeFilter == "owner":
+        nodes = Node.objects.filter(owner=request.user)
     else:
         groups = request.user.groups.all()
 

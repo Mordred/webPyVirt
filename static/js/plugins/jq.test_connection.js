@@ -114,7 +114,7 @@
 
             if (!validate(data)) return false;
 
-            canvas.html("").hide().dialog("destroy");
+            canvas.html("").hide().dialog("destroy").addClass("dialog");
 
             $("<span />")
                 .html(interpolate(gettext("Connecting to '<i>%s</i>'..."), [createURI(data)]))

@@ -1,0 +1,3 @@
+$(function() {
+    $("#autoimport").autoimportDomains();
+});

@@ -37,6 +37,14 @@ def canRemoveNodes(request, *args, **kwargs):
     #endif
 #enddef
 
+def canAutoimportDomains(request, *args, **kwargs):
+    if not getNodes(request, "owner").count():
+        return False        # No Nodes
+    else:
+        return True
+    #endif
+#enddef
+
 def isAllowedTo(request, node, acl):
     if not node: return False
 
