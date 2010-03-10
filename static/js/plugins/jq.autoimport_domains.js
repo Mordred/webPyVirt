@@ -70,29 +70,7 @@
                 .dialog("open")
                 .html("");
 
-
-            $("<span />")
-                .html(interpolate(gettext("Trying to import domain '<i>%s</i>'..."), [domain['name']]))
-                .appendTo(getDialog());
-
-            var loadImage = $("<img />").attr("src", settings['loadImg']).addClass("import-load-" + domain.uuid);
-            var status = $("<span />").addClass("import-status-" + domain.uuid);
-
-            $("<span />")
-                .append("[&nbsp;")
-                .append(loadImage)
-                .append(status)
-                .append("&nbsp;]")
-                .addClass("status")
-                .appendTo(getDialog());
-
-            $.ajax({
-                type:       "POST",
-                url:        settings['importUrl'],
-                data:       { "uuid": domain['uuid'] },
-                dataType:   "json",
-                success:    function(data, textStatus) { importDomainResponse(data); }
-            });
+            sendImportRequest(domain['uuid'])
         };
 
         var importAllDomainsClick = function() {
@@ -103,32 +81,36 @@
                 .html("");
 
             for (uuid in domains) {
-                var domain = domains[uuid];
-                $("<span />")
-                    .html(interpolate(gettext("Trying to import domain '<i>%s</i>'..."), [domain['name']]))
-                    .appendTo(getDialog());
-
-                var loadImage = $("<img />").attr("src", settings['loadImg']).addClass("import-load-" + uuid);
-                var status = $("<span />").addClass("import-status-" + uuid);
-
-                $("<span />")
-                    .append("[&nbsp;")
-                    .append(loadImage)
-                    .append(status)
-                    .append("&nbsp;]")
-                    .addClass("status")
-                    .appendTo(getDialog());
-
-                $("<br />").appendTo(getDialog());
-
-                $.ajax({
-                    type:       "POST",
-                    url:        settings['importUrl'],
-                    data:       { "uuid": uuid },
-                    dataType:   "json",
-                    success:    function(data, textStatus) { importDomainResponse(data); }
-                });
+                sendImportRequest(uuid);
             }
+        };
+
+        var sendImportRequest = function(uuid) {
+            var domain = domains[uuid];
+            $("<span />")
+                .html(interpolate(gettext("Trying to import domain '<i>%s</i>'..."), [domain['name']]))
+                .appendTo(getDialog());
+
+            var loadImage = $("<img />").attr("src", settings['loadImg']).addClass("import-load-" + uuid);
+            var status = $("<span />").addClass("import-status-" + uuid);
+
+            $("<span />")
+                .append("[&nbsp;")
+                .append(loadImage)
+                .append(status)
+                .append("&nbsp;]")
+                .addClass("status")
+                .appendTo(getDialog());
+
+            $("<br />").appendTo(getDialog());
+
+            $.ajax({
+                type:       "POST",
+                url:        settings['importUrl'],
+                data:       { "uuid": uuid },
+                dataType:   "json",
+                success:    function(data, textStatus) { importDomainResponse(data); }
+            });
         };
 
         var createActions = function(uuid) {
