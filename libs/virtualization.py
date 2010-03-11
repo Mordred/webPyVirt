@@ -6,6 +6,7 @@ import logging
 import sys
 
 import misc
+import parse
 
 LIST_DOMAINS_ACTIVE     = 0x1
 LIST_DOMAINS_INACTIVE   = 0x2
@@ -26,136 +27,259 @@ class NoPingException(ErrorException):
 
 # ----------------------------------------------------------------
 
-# USAGE @secure
-class ping(object):
+# USAGE @ping
+def ping(method):
 
-    def __init__(self, function):
-        self.fnc = function
-    #enddef
-
-    def __call__(self, node, *args, **kwargs):
-        if node.driver == "test":
-            return self.fnc(node, *args, **kwargs)
+    def decorator(virNode, *args, **kwargs):
+        if virNode.node.driver == "test":
+            return method(virNode, *args, **kwargs)
         else:
             # PING before try to connect, because ping has implemented timeout
-            family, address = node.getAddressForSocket()
+            family, address = virNode.node.getAddressForSocket()
             if not misc.ping(address, family):
                 raise NoPingException("Cannot connect to hypervisor!")
             else:
-                return self.fnc(node, *args, **kwargs)
+                return method(virNode, *args, **kwargs)
             #endif
         #endif
+    #enddef
+
+    return decorator
+
+#enddef
+
+# ----------------------------------------------------------------
+
+class virNode(object):
+
+    def __init__(self, node):
+        if not node: raise ValueError("Node not set")
+
+        self.node = node
+
+        # Variables
+        self.readOnly = None
+
+        # Connection
+        self._connection = None
+    #enddef
+
+    def __del__(self):
+        if self._connection: self._connection.close()
+    #enddef
+
+    @ping
+    def getConnection(self, readOnly = False):
+        if not self._connection or self.readOnly != readOnly:
+            if self._connection: self._connection.close()
+
+            self._connection = None
+            error = None
+
+            uri = self.node.getURI()
+
+            try:
+                if readOnly:
+                    self._connection = libvirt.openReadOnly(uri)
+                else:
+                    self._connection = libvirt.open(uri)
+                #endif
+            except libvirt.libvirtError, e:
+                error = unicode(e)
+            #endtry
+
+            if not self._connection and not error:
+                error = u"Failed to open connection to the hypervisor"
+            #endif
+
+            if error:
+                logging.error("libvirt: %s" % error)
+                if self._connection: self._connection.close()
+                self._connection = None
+                raise CantConnectException(error)
+            #endif
+
+            self.readOnly = readOnly
+            return self._connection
+        else:
+            return self._connection
+        #endif
+    #enddef
+
+    def getInfo(self):
+        """
+        @returns
+            dict       Information about node
+                "model":        string      (CPU model)
+                "memory":       integer     (in MB)
+                "cpus":         integer     (number of active CPUs)
+                "mhz":          integer     (CPU frequency)
+                "nodes":        integer     (the number of NUMA cell, 1 for uniform mem access)
+                "sockets":      integer     (number of CPU socket per node)
+                "cores":        integer     (number of core per socket)
+                "threads":      integer     (number of threads per core)
+        """
+        try:
+            connection = self.getConnection()
+            nodeInfo = connection.getInfo()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return {
+            "model":            nodeInfo[0],
+            "memory":           nodeInfo[1],
+            "cpus":             nodeInfo[2],
+            "mhz":              nodeInfo[3],
+            "nodes":            nodeInfo[4],
+            "sockets":          nodeInfo[5],
+            "cores":            nodeInfo[6],
+            "threads":          nodeInfo[7]
+        }
+    #enddef
+
+    def listDomains(self, listFilter = LIST_DOMAINS_ACTIVE):
+        active = []
+        inactive = []
+
+        try:
+            connection = self.getConnection()
+            if listFilter & LIST_DOMAINS_ACTIVE:
+                active = [ connection.lookupByID(domId).UUIDString() for domId in connection.listDomainsID() ]
+            #endif
+            if listFilter & LIST_DOMAINS_INACTIVE:
+                inactive = [ connection.lookupByName(domName).UUIDString()
+                    for domName in connection.listDefinedDomains() ]
+            #endif
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return active + inactive
+    #enddef
+
+    def getDomain(self, uuid):
+        try:
+            connection = self.getConnection()
+            return virDomain(node = self, connection = connection.lookupByUUIDString(uuid))
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        else:
+            connection.close()
+        #endtry
+
+        return xml
     #enddef
 
 #endclass
 
 # ----------------------------------------------------------------
 
-@ping
-def openConnection(node, readOnly = True):
-    """
-    @returns read-only connection to hypervisor
-    """
-    error = None
-    connection = None
+class virDomain(object):
 
-    uri = node.getURI()
+    def __init__(self, model = None, node = None, connection = None):
+        if not model and not connection: raise ValueError("Model or connection must be set")
 
-    try:
-        if readOnly:
-            connection = libvirt.openReadOnly(uri)
+        # Variables
+        self.xml = None
+        self.devices = None
+
+        # Internal
+        self._model = model
+        self._connection = connection
+        self._node = node
+    #enddef
+
+    def __del__(self):
+        if self._connection: self._connection.close()
+    #enddef
+
+    def getConnection(self):
+        if self._connection: return self._connection
+
+        model = self.getModel()
+
+        node = self.getNode()
+        self._connection = node.getDomain(model.uuid)
+
+        return self._connection
+    #enddef
+
+    def getNode(self):
+        if self._node: return self._node
+
+        model = self.getModel()
+        if not self._node: self._node = virNode(model.node)
+        return self._node
+    #enddef
+
+    def getXML(self, renew = False):
+        if self.xml and not renew: return self.xml
+
+        con = self.getConnection()
+        try:
+            self.xml = con.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return self.xml
+    #enddef
+
+    def getModel(self, renew = False):
+        if self._model and not renew: return self._model
+
+        con = self.getConnection()
+        xml = self.getXML()
+
+        self._model, self.devices = parse.parseDomainXML(xml)
+
+        # XEN in dumpxml gives bad data about memory for Domain-0
+        # so set max memory to host memory
+        if con.ID() == 0 and self._model.hypervisor_type == "xen":
+            node = self.getNode()
+            info = node.getInfo()
+            self._model.memory = info["memory"] * 1024
+        #endif
+
+        return self._model
+    #enddef
+
+    def getDevices(self, renew = False):
+        if self.devices and not renew: return self.devices
+
+        if self._model and not renew:
+            self.devices = self._model.getDevices()
         else:
-            connection = libvirt.open(uri)
+            con = self.getConnection()
+            xml = self.getXML()
+            model, self.devices = parse.parseDomainXML(xml)
         #endif
-    except libvirt.libvirtError, e:
-        error = unicode(e)
-    #endtry
 
-    if not connection and not error:
-        error = u"Failed to open connection to the hypervisor"
-    #endif
+        return self.devices
+    #enddef
 
-    if error:
-        logging.error("libvirt: %s" % error)
-        if connection: connection.close()
-        raise CantConnectException(error)
-    #endif
+    def saveModel(self, owner = None, node = None):
+        model = self.getModel()
+        devices = self.getDevices()
 
-    return connection
-#enddef
+        if (not owner and not model.owner) \
+            or (not node and not model.node): raise ValueError("Owner or node must be set")
 
-# ----------------------------------------------------------------
+        if not model.owner: model.owner = owner
+        if not model.node: model.node = node
 
-def testConnection(node):
-    """
-    @param uri      Node URI
-    @returns
-        dict       Information about node
-            "model":        string      (CPU model)
-            "memory":       integer     (in MB)
-            "cpus":         integer     (number of active CPUs)
-            "mhz":          integer     (CPU frequency)
-            "nodes":        integer     (the number of NUMA cell, 1 for uniform mem access)
-            "sockets":      integer     (number of CPU socket per node)
-            "cores":        integer     (number of core per socket)
-            "threads":      integer     (number of threads per core)
-    """
-    try:
-        connection = openConnection(node)
-        nodeInfo = connection.getInfo()
-    except libvirt.libvirtError, e:
-        logging.error("libvirt: %s" % unicode(e))
-        raise ErrorException(unicode(e))
-    else:
-        connection.close()
-    #endtry
+        model.save()
+        for devType, devs in devices.items():
+            for device in devs:
+                device.domain = domain
+                device.save()
+            #endfor
+        #endfor
 
-    return {
-        "model":            nodeInfo[0],
-        "memory":           nodeInfo[1],
-        "cpus":             nodeInfo[2],
-        "mhz":              nodeInfo[3],
-        "nodes":            nodeInfo[4],
-        "sockets":          nodeInfo[5],
-        "cores":            nodeInfo[6],
-        "threads":          nodeInfo[7]
-    }
-#enddef
-
-def listDomains(node, listFilter = LIST_DOMAINS_ACTIVE):
-    active = []
-    inactive = []
-
-    try:
-        connection = openConnection(node)
-        if listFilter & LIST_DOMAINS_ACTIVE:
-            active = [ connection.lookupByID(domId).UUIDString() for domId in connection.listDomainsID() ]
-        #endif
-        if listFilter & LIST_DOMAINS_INACTIVE:
-            inactive = [ connection.lookupByName(domName).UUIDString() for domName in connection.listDefinedDomains() ]
-        #endif
-    except libvirt.libvirtError, e:
-        logging.error("libvirt: %s" % unicode(e))
-        raise ErrorException(unicode(e))
-    else:
-        connection.close()
-    #endtry
-
-    return active + inactive
-#enddef
-
-def getDomainXML(node, domainUUID):
-    try:
-        connection = openConnection(node, False)
-        domain = connection.lookupByUUIDString(domainUUID)
-        xml = domain.XMLDesc(libvirt.VIR_DOMAIN_XML_SECURE | libvirt.VIR_DOMAIN_XML_INACTIVE)
-    except libvirt.libvirtError, e:
-        logging.error("libvirt: %s" % unicode(e))
-        raise ErrorException(unicode(e))
-    else:
-        connection.close()
-    #endtry
-
-    return xml
-#enddef
-
+    #enddef
+#endclass

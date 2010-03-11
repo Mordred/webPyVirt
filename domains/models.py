@@ -53,6 +53,8 @@ class Domain(models.Model):
     owner = models.ForeignKey(User)
 
     # Metadata
+    current_id = models.IntegerField(default = -1,
+        verbose_name = _("Current ID on node"))
     hypervisor_type = models.CharField(max_length = 6, choices = Node.DRIVERS,
         verbose_name = _("Hypervisor Driver Type"))
     name = models.CharField(max_length = 255, verbose_name = _("Domain Name"))
@@ -196,6 +198,29 @@ class Domain(models.Model):
             ret[self.CPU_FEATURES[int(features[index])]] = self.CPU_FEATURE_POLICIES[int(policies[index])]
         #endfor
         return ret
+    #enddef
+
+    def getMemory(self):
+        mem = self.memory
+        if mem > (10*1024*1024):
+            return "%2.2f GB" % (mem/(1024.0*1024.0))
+        else:
+            return "%2.0f MB" % (mem/1024.0)
+        #endif
+    #enddef
+
+    def getDevices(self):
+        return {
+            "disk":         self.disk_set.all(),
+            "hostdev":      self.hostdevice_set.all(),
+            "interface":    self.interface_set.all(),
+            "input":        self.inputdevice_set.all(),
+            "graphics":     self.graphics_set.all(),
+            "video":        self.video_set.all(),
+            "port":         self.port_set.all(),
+            "sound":        self.sound_set.all(),
+            "watchdog":     self.watchdog_set.all()
+        }
     #enddef
 
 #endclass

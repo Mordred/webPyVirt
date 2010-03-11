@@ -101,7 +101,8 @@ def testConnection(request):
             }
 
             try:
-                result = virtualization.testConnection(testNode)
+                virNode = virtualization.virNode(testNode)
+                result = virNode.getInfo()
             except virtualization.ErrorException, e:
                 data['success'] = False
                 data['error'] = unicode(e)
@@ -234,7 +235,8 @@ def checkStatus(request, nodeId):
     }
 
     try:
-        result = virtualization.testConnection(node)
+        virNode = virtualization.virNode(node)
+        result = virNode.getInfo()
     except virtualization.ErrorException, e:
         data['node']['status'] = False
         data['node']['error'] = unicode(e)
@@ -351,9 +353,10 @@ def autoimport_list(request, secret):
         "domains":          {}
     }
 
+    virNode = None
     try:
-        domainsUUIDs = virtualization.listDomains(node,
-            virtualization.LIST_DOMAINS_ACTIVE | virtualization.LIST_DOMAINS_INACTIVE)
+        virNode = virtualization.virNode(node)
+        domainsUUIDs = virNode.listDomains(virtualization.LIST_DOMAINS_ACTIVE | virtualization.LIST_DOMAINS_INACTIVE)
     except virtualization.ErrorException, e:
         data['status'] = 503
         data['statusMessage'] = _(unicode(e))
@@ -372,7 +375,7 @@ def autoimport_list(request, secret):
                 "name":         domain.name,
                 "uuid":         domain.uuid,
                 "vcpu":         domain.vcpu,
-                "memory":       str(round(domain.memory / 1024, 2)),
+                "memory":       domain.getMemory(),
                 "status":       0
             })
             toRemove.append(domain.id)
@@ -382,20 +385,27 @@ def autoimport_list(request, secret):
     toImport = {}
     for uuid in domainsUUIDs:
         try:
-            xml = virtualization.getDomainXML(node, uuid)
-            domain, devices = parse.parseDomainXML(xml)
+            virDomain = virNode.getDomain(uuid)
+            domain = virDomain.getModel()
+
+            # This values must be set
             domain.node = node
             domain.owner = request.user
+
             domains.append({
                 "name":         domain.name,
                 "uuid":         domain.uuid,
                 "vcpu":         domain.vcpu,
-                "memory":       str(round(domain.memory / 1024, 2)),
+                "memory":       domain.getMemory(),
                 "status":       1
             })
-            toImport[domain.uuid] = (domain, devices)
+
+            # Store also devices - we will not need to establish
+            # new connection before save
+            toImport[domain.uuid] = domain, virDomain.getDevices()
         except Exception, e:
-            pass
+            import logging, traceback
+            logging.debug("node.autoimport_list: %s" % (traceback.format_exc()))
         #endtry
     #endfor
 

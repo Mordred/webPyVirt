@@ -146,7 +146,7 @@
             if (globalActions == null)
                 globalActions = $("<div />").addClass("right").css("padding", "10px 10px 0 0");
 
-            if (toImportCount > 0)
+            if (toImportCount > 1)
                 globalActions
                     .append(
                         $("<button />").html(gettext("Import All")).attr("id", "import-all")
@@ -154,7 +154,7 @@
                         // TODO: Import all
                     )
 
-            if (toRemoveCount > 0)
+            if (toRemoveCount > 1)
                 globalActions
                     .append(
                         $("<button />").html(gettext("Recreate All")).attr("id", "recreate-all")
@@ -195,7 +195,7 @@
                                 .append("<td>" + dom['name'] + "</td>")
                                 .append("<td class=\"center small\">" + dom['uuid'] + "</td>")
                                 .append("<td class=\"center\">" + dom['vcpu'] + "</td>")
-                                .append("<td class=\"center\">" + dom['memory'] + "&nbsp;MB</td>")
+                                .append("<td class=\"center nowrap\">" + dom['memory'] + "</td>")
                                 .append(
                                     $("<td />").addClass("center").addClass("w25p").append(createActions(dom.uuid))
                                 )

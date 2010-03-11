@@ -28,6 +28,10 @@ def parseDomainXML(xml):
     res = ctx.xpathEval("/domain/@type")
     if len(res): domain.hypervisor_type = res[0].content
 
+    # Current ID
+    res = ctx.xpathEval("/domain/@id")
+    if len(res): domain.current_id = int(res[0].content)
+
     # Name
     res = ctx.xpathEval("/domain/name")
     if len(res): domain.name = res[0].content
