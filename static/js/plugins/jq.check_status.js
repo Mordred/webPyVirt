@@ -1,6 +1,6 @@
 (function($) {
 
-    $.fn.checkStatus = function(options) {
+    $.fn.checkNodeStatus = function(options) {
 
         var defaults = {
             url:                "/nodes/node/checkStatus/",
@@ -49,6 +49,59 @@
             // Click event
             $(this).click(btnClick);
             $(this).click();
+        });
+    };
+
+    $.fn.checkDomainStatus = function(options) {
+
+        var defaults = {
+            url:                "/domains/domain/checkStatus/",
+            updateTime:         10000
+        };
+
+        var settings = $.extend(defaults, options);
+
+        var responseSuccess = function(data, domain, loader, canvas) {
+            if (data['status'] == 200) {
+
+                var oldStatus = canvas.html();
+
+                loader.fadeOut(500, function() {
+                    if (oldStatus != data['domain']['status']) {
+                        canvas.fadeOut(500, function() {
+                            canvas.html(data['domain']['status']);
+                            canvas.fadeIn(500);
+                        });
+                    }
+                });
+
+                setTimeout(function() { sendRequest(domain, loader, canvas); }, settings['updateTime']);
+            }
+        }
+
+        var sendRequest = function(domain, loader, canvas) {
+            var domId = domain.val();
+
+            $.ajax({
+                type:       "GET",
+                url:        settings['url'] + domId + "/",
+                dataType:   "json",
+                success:    function(data, textStatus) { responseSuccess(data, domain, loader, canvas); }
+            });
+        }
+
+        return this.each(function() {
+            var loader = $(this).siblings(".loader");
+            var canvas = $("<span />");
+            var domain = $(this);
+            $(this).parent().append(canvas);
+
+            canvas.fadeOut(500, function() {
+                loader.fadeIn(500, function() {
+                    sendRequest(domain, loader, canvas);
+                })
+            });
+
         });
     };
 

@@ -15,6 +15,18 @@ $(function() {
         minLength:  2
     });
 
+    $("#frmSelectDomain #id_name").autocomplete({
+        source:     "/domains/domain/select/autocomplete/" + $("#frmSelectDomain #autocomplete_permission").val() + "/",
+        minLength:  2,
+        select: function(event, ui) {
+            console.log($("#frmSelectDomain #id_id"));
+            $("#frmSelectDomain #id_id").attr("value", ui.item['id']);
+        },
+        open:   function(event, ui) {
+            $("#frmSelectDomain #id_id").removeAttr("value");
+        }
+    });
+
     $("div.accordion").each(function() {
         var sections = $(this).children("div");
         var index = sections.index(sections.has("div.field-error"));

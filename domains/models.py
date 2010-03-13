@@ -611,3 +611,58 @@ class Watchdog(models.Model):
         return u"%s" % (self.model)
     #enddef
 #endclass
+
+# ------------------------------------------------------------------
+
+class DomainAcl(models.Model):
+
+    domain = models.ForeignKey(Domain)
+
+    change_acl = models.NullBooleanField(verbose_name = _("Change ACL"),
+        help_text = _("User can change ACL for the domain"))
+
+    view_domain = models.NullBooleanField(verbose_name = _("View Domain"),
+        help_text = _("User can view the domain in the administration"))
+    change_domain = models.NullBooleanField(verbose_name = _("Change Domain"),
+        help_text = _("User can change domain"))
+    delete_domain = models.NullBooleanField(verbose_name = _("Delete Domain"),
+        help_text = _("User can delete the domain"))
+
+    migrate_domain = models.NullBooleanField(verbose_name = _("Migrate Domain"),
+        help_text = _("User can migrate the domain"))
+
+    reboot_domain = models.NullBooleanField(verbose_name = _("Reboot Domain"),
+        help_text = _("User can reboot the domain"))
+    resume_domain = models.NullBooleanField(verbose_name = _("Resume Domain"),
+        help_text = _("User can resume the domain"))
+    suspend_domain = models.NullBooleanField(verbose_name = _("Suspend Domain"),
+        help_text = _("User can suspend the domain"))
+    shutdown_domain = models.NullBooleanField(verbose_name = _("Shutdown Domain"),
+        help_text = _("User can shutdown the domain"))
+    save_domain = models.NullBooleanField(verbose_name = _("Save Domain"),
+        help_text = _("User can save the domain to disk"))
+    restore_domain = models.NullBooleanField(verbose_name = _("Restore Domain"),
+        help_text = _("User can restore the domain from disk"))
+
+    class Meta:
+        abstract = True
+
+#endclass
+
+class UserDomainAcl(DomainAcl):
+
+    user = models.ForeignKey(User)
+
+    class Meta:
+        unique_together = ("domain", "user")
+
+#endclass
+
+class GroupDomainAcl(DomainAcl):
+
+    group = models.ForeignKey(Group)
+
+    class Meta:
+        unique_together = ("domain", "group")
+
+#endclass

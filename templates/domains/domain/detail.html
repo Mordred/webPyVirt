@@ -1,0 +1,72 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Domain Detail" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.check_status.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/check_status.js"></script>
+{% endblock custom_js %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Domain Detail" %} :: {{ managedDomain.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <div id="domainDetail">
+
+        <div id="snapshot">
+            <h3 class="center">{% trans "Snapshot" %}</h3>
+            <div id="snapshot-image">
+            </div>
+        </div>
+
+        <div>
+            <h3 class="center">{% trans "Domain Information" %}</h3>
+
+            <table>
+                <tr>
+                    <td class="bold">{% trans "ID" %}:</td>
+                    <td>{{ managedDomain.id }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "Name" %}:</td>
+                    <td>{{ managedDomain.name }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "UUID" %}:</td>
+                    <td class="small">{{ managedDomain.uuid }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "Type" %}:</td>
+                    <td>{{ managedDomain.hypervisor_type }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "Description" %}:</td>
+                    <td>{{ managedDomain.description|default:_("N/A") }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "Memory" %}:</td>
+                    <td>{{ managedDomain.getMemory }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "vCPU" %}:</td>
+                    <td>{{ managedDomain.vcpu }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "Status" %}:</td>
+                    <td>
+                        <input type="hidden" class="domain-status" name="domain-status" value="{{ managedDomain.id }}" />
+                        <img class="loader" src="{{ MEDIA_URL }}img/icons/load-roller-2.gif" alt="" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+{% endblock content_body %}

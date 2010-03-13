@@ -71,3 +71,6 @@ form .accordion div.submit      { margin: 0 0 0 0; }
 #autoimport .error              { color: #ee0000; }
 #autoimport .message            { color: #0000ee; }
 
+#snapshot                       { width: 320px; float: left; margin-right: 25px; }
+#snapshot-image                 { border: 3px solid #999; background: #000 url("../img/snapshot_none.jpg") 0 0 no-repeat;
+                                  height: 240px; width: 320px; }

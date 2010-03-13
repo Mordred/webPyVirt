@@ -11,6 +11,14 @@ import parse
 LIST_DOMAINS_ACTIVE     = 0x1
 LIST_DOMAINS_INACTIVE   = 0x2
 
+DOMAIN_STATE_NOSTATE    = 0
+DOMAIN_STATE_RUNNING    = 1
+DOMAIN_STATE_BLOCKED    = 2
+DOMAIN_STATE_PAUSED     = 3
+DOMAIN_STATE_SHUTDOWN   = 4
+DOMAIN_STATE_SHUTOFF    = 5
+DOMAIN_STATE_CRASHED    = 6
+
 # ----------------------------------------------------------------
 
 class ErrorException(Exception):
@@ -167,11 +175,17 @@ class virNode(object):
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))
-        else:
-            connection.close()
         #endtry
+    #enddef
 
-        return xml
+    def getDomainConnection(self, model):
+        try:
+            connection = self.getConnection()
+            return connection.lookupByUUIDString(model.uuid)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
     #enddef
 
 #endclass
@@ -194,7 +208,7 @@ class virDomain(object):
     #enddef
 
     def __del__(self):
-        if self._connection: self._connection.close()
+        if self._connection: del self._connection
     #enddef
 
     def getConnection(self):
@@ -203,7 +217,7 @@ class virDomain(object):
         model = self.getModel()
 
         node = self.getNode()
-        self._connection = node.getDomain(model.uuid)
+        self._connection = node.getDomainConnection(model)
 
         return self._connection
     #enddef
@@ -280,6 +294,24 @@ class virDomain(object):
                 device.save()
             #endfor
         #endfor
-
     #enddef
+
+    def getInfo(self):
+        con = self.getConnection()
+
+        try:
+            info = con.info()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return info
+    #enddef
+
+    def getState(self):
+        info = self.getInfo()
+        return info[0]
+    #enddef
+
 #endclass

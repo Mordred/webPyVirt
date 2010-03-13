@@ -1,3 +1,4 @@
 $(function() {
-    $("button.node-check").checkStatus();
+    $("button.node-check").checkNodeStatus();
+    $(".domain-status").checkDomainStatus();
 });

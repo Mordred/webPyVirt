@@ -1,49 +1,53 @@
 {% extends "base_administration.html" %}
 {% load i18n webPyVirt_extras %}
 
-{% block subtitle %}{% trans "Select Node" %}{% endblock subtitle %}
+{% block subtitle %}{% trans "Select Domain" %}{% endblock subtitle %}
 
 {% block content_body %}
-    <h1 class="center">{% trans "Select Node" %}</h1>
+    <h1 class="center">{% trans "Select Domain" %}</h1>
 
     <p class="indent">
         {% blocktrans %}
-        Select a node from list or type name.
+        Select a domain from list or type name.
         {% endblocktrans %}
     </p>
 
     <br />
 
-    {% with nodes as pagination %}
+    {% with domains as pagination %}
         {% include "includes/pagination.html" %}
     {% endwith %}
 
     <table class="white-stripe w100p">
-        <col width="90%" />
-        <col width="10%" />
+        <col width="60%" />
+        <col width="20%" />
+        <col width="20%" />
         <tr>
-            <th>{% trans "Node Name" %}</th>
-            <th class="center">{% trans "Domains" %}</th>
+            <th>{% trans "Domain Name" %}</th>
+            <th class="center">{% trans "Node Name" %}</th>
+            <th class="center">{% trans "Status" %}</th>
         </tr>
-        {% for node in nodes.object_list %}
+        {% for domain in domains.object_list %}
         <tr>
-            <td><a href="{% urlWithVar next nodeId=node.id, *next_args **next_kwargs %}">{{ node.name }}</a></td>
-            <td class="center">{{ node.domain_set.count }}</td>
+            <td><a href="{% urlWithVar next domainId=domain.id, *next_args **next_kwargs %}">{{ domain.name }}</a></td>
+            <td class="center">{{ domain.node.name }}</td>
+            <!-- TODO: Vypis status -->
+            <td class="center">not available</td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="2" class="center">{% trans "There is no nodes." %}</td>
+            <td colspan="3" class="center">{% trans "There is no domains." %}</td>
         </tr>
         {% endfor %}
     </table>
 
-    {% with nodes as pagination %}
+    {% with domains as pagination %}
         {% include "includes/pagination.html" %}
     {% endwith %}
 
     <br />
 
-    <form action="" method="post" id="frmSelectNode">
+    <form action="" method="post" id="frmSelectDomain">
         <div class="form">
             {% csrf_token %}
 
@@ -59,6 +63,7 @@
                 {{ form.name.errors }}
                 <label for="id_name">{{ form.name.label }}:</label>
                 {{ form.name }}
+                {{ form.id }}
                 <input type="hidden" id="autocomplete_permission" name="permission" value="{{ permission }}" />
             </div>
 
@@ -66,7 +71,7 @@
 
             <div class="submit right">
                 <input type="hidden" name="next" value="{{ next }}" />
-                <input type="submit" value="{% trans "Select node" %}" />
+                <input type="submit" value="{% trans "Select domain" %}" />
             </div>
 
         </div>

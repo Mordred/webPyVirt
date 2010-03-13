@@ -4,6 +4,7 @@ import sha, time
 
 from django.core.urlresolvers   import reverse
 from django.core.paginator      import Paginator, InvalidPage, EmptyPage
+from django.forms.util          import ErrorList
 from django.http                import HttpResponseRedirect, HttpResponse
 from django.shortcuts           import render_to_response, get_object_or_404
 from django.template            import RequestContext
@@ -172,7 +173,7 @@ def select(request, next, nodeFilter, permission = None, *args, **kwargs):
             node = get_object_or_404(Node, name=form.cleaned_data['name'])
             if node not in nodes.object_list:
                 # User doesn't have permission to view this node
-                form._errors['name'] = _("A node with that name does not exist.")
+                form._errors['name'] = ErrorList([ _("A node with that name does not exist.") ])
                 del form.cleaned_data['name']
             else:
                 kwargs['nodeId'] = node.id

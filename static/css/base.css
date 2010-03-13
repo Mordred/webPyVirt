@@ -38,6 +38,7 @@ td.description                  { font-style: italic; font-size: 0.7em; cursor: 
 .indent                         { text-indent: 25px; }
 .small                          { font-size: 0.7em; }
 .smaller                        { font-size: 0.85em; }
+.bold                           { font-weight: bold; }
 
 .hide                           { display: none; }
 
