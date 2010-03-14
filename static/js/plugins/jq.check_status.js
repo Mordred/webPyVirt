@@ -56,7 +56,7 @@
 
         var defaults = {
             url:                "/domains/domain/checkStatus/",
-            updateTime:         10000
+            updateTime:         30000
         };
 
         var settings = $.extend(defaults, options);
@@ -70,6 +70,21 @@
                     if (oldStatus != data['domain']['status']) {
                         canvas.fadeOut(500, function() {
                             canvas.html(data['domain']['status']);
+                            canvas.fadeIn(500);
+                        });
+                    }
+                });
+
+                setTimeout(function() { sendRequest(domain, loader, canvas); }, settings['updateTime']);
+            } else if (data['status'] == 503) {
+
+                var oldStatus = canvas.html();
+                var newStatus = "<span class=\"error\">" + data['statusMessage'] + "</span>";
+
+                loader.fadeOut(500, function() {
+                    if (oldStatus != newStatus) {
+                        canvas.fadeOut(500, function() {
+                            canvas.html(newStatus);
                             canvas.fadeIn(500);
                         });
                     }

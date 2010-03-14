@@ -15,10 +15,23 @@ from django.views.decorators.cache  import never_cache
 
 from webPyVirt.decorators       import secure
 from webPyVirt.libs             import virtualization
+from webPyVirt.menu             import generateMenu
 
 from webPyVirt.domains.misc     import getDomains
 from webPyVirt.domains.forms    import SelectDomainForm
 from webPyVirt.domains.models   import Domain
+
+@secure
+def index(request):
+    leftMenu = generateMenu(request)['left_menu']
+
+    if not len(leftMenu):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    # Redirect to first available page
+    return HttpResponseRedirect(leftMenu[0]['items'][0]['url'])
+#enddef
 
 @secure
 def add(request):

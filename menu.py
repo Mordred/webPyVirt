@@ -44,7 +44,7 @@ def MENU(request):
             "label":        _("Domains"),
             "module":       "domains",
             "namespace":    "domains",
-            "url":          "home",
+            "url":          "domain_index",
             "selected":     r"^/domains/"
         }
     ]

@@ -622,7 +622,7 @@ class DomainAcl(models.Model):
         help_text = _("User can change ACL for the domain"))
 
     view_domain = models.NullBooleanField(verbose_name = _("View Domain"),
-        help_text = _("User can view the domain in the administration"))
+        help_text = _("User can view the domain in the administration and check detail information"))
     change_domain = models.NullBooleanField(verbose_name = _("Change Domain"),
         help_text = _("User can change domain"))
     delete_domain = models.NullBooleanField(verbose_name = _("Delete Domain"),

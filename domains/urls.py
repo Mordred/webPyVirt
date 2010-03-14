@@ -4,6 +4,12 @@ from django.conf.urls.defaults          import *
 from webPyVirt.domains.permissions      import *
 
 urlpatterns = patterns("webPyVirt.domains",
+    # Domain
+    url(
+        r"^$",
+        "views.domain.index",
+        name="domain_index"
+    ),
     url(
         r"^domain/add/$",
         "views.domain.add",
@@ -20,8 +26,7 @@ urlpatterns = patterns("webPyVirt.domains",
         {
             "next":         "domains:domain_detail",
             "domainFilter": "view_domain",
-            # TODO: Pridat opravenia
-#            "permission":   canEditNodes
+            "permission":   canViewDomains
         },
         name="domain_detail__select_domain"
     ),
@@ -40,12 +45,58 @@ urlpatterns = patterns("webPyVirt.domains",
         "views.domain.checkStatus",
         name="domain_check_status"
     ),
+
+    # ACL
+    url(
+        r"^acl/user/$",
+        "views.domain.select",
+        {
+            "next":         "domains:acl_user__select_user",
+            "domainFilter":   "change_acl",
+            "permission":   canChangeAcls
+        },
+        name="acl_user__select_domain"
+    ),
+    url(
+        r"^acl/user/(?P<domainId>\d+)/(?P<userId>\d+)/$",
+        "views.acl.user",
+        name="acl_user"
+    ),
+    url(
+        r"^acl/group/$",
+        "views.domain.select",
+        {
+            "next":         "domains:acl_group__select_group",
+            "domainFilter":   "change_acl",
+            "permission":   canChangeAcls
+        },
+        name="acl_group__select_domain"
+    ),
+    url(
+        r"^acl/group/(?P<domainId>\d+)/(?P<groupId>\d+)/$",
+        "views.acl.group",
+        name="acl_group"
+    ),
+
 )
 
-urlpatterns += patterns("",
+urlpatterns += patterns("webPyVirt.accounts",
     url(
-        r"^$", 
-        "webPyVirt.views.home",
-        name="home"
+        r"^acl/user/(?P<domainId>\d+)/$",
+        "views.user.select",
+        {
+            "next":         "domains:acl_user",
+            "permission":   canChangeDomainAcl
+        },
+        name="acl_user__select_user"
+    ),
+    url(
+        r"^acl/group/(?P<domainId>\d+)/$",
+        "views.group.select",
+        {
+            "next":         "domains:acl_group",
+            "permission":   canChangeDomainAcl
+        },
+        name="acl_group__select_group"
     ),
 )

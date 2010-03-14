@@ -1,0 +1,59 @@
+{% extends "base_administration.html" %}
+{% load i18n webPyVirt_extras %}
+
+{% block subtitle %}{% trans "Group ACL" %}{% endblock subtitle %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Group ACL" %} :: {{ managedDomain.name }} :: {{ managedGroup.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        Group permissions for domain.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmGroupDomainAcl">
+        <div class="form">
+            {% csrf_token %}
+
+            {% if form.errors %}
+            <div class="errornote">
+                {% trans "There are errors in the form." %}
+            </div>
+
+            <br />
+            {% endif %}
+
+            <table class="w100p white-stripe">
+                <col width="40%" />
+                <col width="40%" />
+                <col width="20%" />
+                <tr>
+                    <th>{% trans "Permission" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th></th>
+                </tr>
+                {% for field in form %}
+                <tr>
+                    <td>{{ field.label_tag }}</td>
+                    <td class="description">
+                        {{ field.help_text }}.
+                    </td>
+                    <td class="center">{{ field }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <br />
+
+            <div class="submit right">
+                <input type="submit" value="{% trans "Save" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

@@ -4,8 +4,7 @@ from django                         import forms
 from django.utils.translation       import ugettext_lazy as _
 from django.forms.widgets           import HiddenInput
 
-
-from webPyVirt.domains.models       import Domain
+from webPyVirt.domains.models       import Domain, DomainAcl
 
 class SelectDomainForm(forms.Form):
 
@@ -42,3 +41,10 @@ class SelectDomainForm(forms.Form):
     #enddef
 #endclass
 
+class DomainAclForm(forms.ModelForm):
+
+    class Meta:
+        model = DomainAcl
+        exclude = [ "domain" ]
+
+#endclass

@@ -4,13 +4,23 @@ from django.db.models           import Q
 
 from webPyVirt.domains.models   import Domain
 
-def getDomains(request, domainFilter, search = None):
+def getDomains(request, domainFilter, search = None, order = [ "name", "node__name" ]):
 
     if domainFilter == "view_domain":
         userDomainAclQ = Q(userdomainacl__view_domain=True)
         groupDomainAclQ = Q(groupdomainacl__view_domain=True)
         exUserDomainAclQ = Q(userdomainacl__view_domain=False)
         exGroupDomainAclQ = Q(groupdomainacl__view_domain=False)
+    elif domainFilter == "change_acl":
+        userDomainAclQ = Q(userdomainacl__change_acl=True)
+        groupDomainAclQ = Q(groupdomainacl__change_acl=True)
+        exUserDomainAclQ = Q(userdomainacl__change_acl=False)
+        exGroupDomainAclQ = Q(groupdomainacl__change_acl=False)
+    elif domainFilter == "change_domain":
+        userDomainAclQ = Q(userdomainacl__change_domain=True)
+        groupDomainAclQ = Q(groupdomainacl__change_domain=True)
+        exUserDomainAclQ = Q(userdomainacl__change_domain=False)
+        exGroupDomainAclQ = Q(groupdomainacl__change_domain=False)
     elif domainFilter != "owner":
         raise ValueError("Unknown domain filter: `%s`" % (domainFilter))
     #endif
@@ -37,6 +47,14 @@ def getDomains(request, domainFilter, search = None):
 
     if search:
        domains = domains.filter(name__icontains=search)
+    #endif
+
+    if order:
+        if type(order) is list:
+            domains = domains.order_by(*order)
+        else:
+            domains = domains.order_by(order)
+        #endif
     #endif
 
     return domains

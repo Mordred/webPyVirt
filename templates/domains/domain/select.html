@@ -3,6 +3,11 @@
 
 {% block subtitle %}{% trans "Select Domain" %}{% endblock subtitle %}
 
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.check_status.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/check_status.js"></script>
+{% endblock custom_js %}
+
 {% block content_body %}
     <h1 class="center">{% trans "Select Domain" %}</h1>
 
@@ -19,9 +24,9 @@
     {% endwith %}
 
     <table class="white-stripe w100p">
-        <col width="60%" />
+        <col width="40%" />
         <col width="20%" />
-        <col width="20%" />
+        <col width="40%" />
         <tr>
             <th>{% trans "Domain Name" %}</th>
             <th class="center">{% trans "Node Name" %}</th>
@@ -31,8 +36,10 @@
         <tr>
             <td><a href="{% urlWithVar next domainId=domain.id, *next_args **next_kwargs %}">{{ domain.name }}</a></td>
             <td class="center">{{ domain.node.name }}</td>
-            <!-- TODO: Vypis status -->
-            <td class="center">not available</td>
+            <td class="center smaller">
+                <input type="hidden" class="domain-status" name="domain-status" value="{{ domain.id }}" />
+                <img class="loader" src="{{ MEDIA_URL }}img/icons/load-roller-2.gif" alt="" />
+            </td>
         </tr>
         {% empty %}
         <tr>

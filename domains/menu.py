@@ -3,7 +3,12 @@
 from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
+from webPyVirt.domains.permissions  import *
+
 def MENU(request):
+    changeAcls = canChangeAcls(request)
+    viewDomains = canViewDomains(request)
+
     return [
         {   # Section domain
             "hide":         False,
@@ -15,7 +20,7 @@ def MENU(request):
                     "url":      "domain_add"
                 },
                 {   # Domain detail
-                    "hide":     False,
+                    "hide":     not viewDomains,
                     "label":    _("Domain detail"),
                     "url":      "domain_detail__select_domain"
                 },
@@ -25,7 +30,19 @@ def MENU(request):
             "hide":         False,
             "label":        _("Permissions"),
             "items":        [
-                # TODO: Pridat opravnenia
+                {   # User ACL
+                    "hide":     not changeAcls,
+                    "label":    _("User ACL"),
+                    "selected": r"acl/user/",
+                    "url":      "acl_user__select_domain"
+                },
+                {   # Group ACL
+                    "hide":     not changeAcls,
+                    "label":    _("Group ACL"),
+                    "selected": r"acl/group/",
+                    "url":      "acl_group__select_domain"
+                },
+
             ]
         }
     ]

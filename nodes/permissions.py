@@ -2,7 +2,7 @@
 
 from django.shortcuts               import render_to_response, get_object_or_404
 
-from webPyVirt.nodes.models         import Node
+from webPyVirt.nodes.models         import Node, UserNodeAcl
 from webPyVirt.nodes.misc           import getNodes
 
 def canChangeAcls(request, *args, **kwargs):
@@ -56,13 +56,18 @@ def isAllowedTo(request, node, acl):
 
     allowed = None
 
-    userNodeAcl = node.usernodeacl_set.get(user=request.user)
-    if hasattr(userNodeAcl, acl):
-        if getattr(userNodeAcl, acl) == False: return False
-        allowed = getattr(userNodeAcl, acl)
+    try:
+        userNodeAcl = node.usernodeacl_set.get(user=request.user)
+    except UserNodeAcl.DoesNotExist:
+        pass # Skip UserNodeAcl
     else:
-        return False
-    #endif
+        if hasattr(userNodeAcl, acl):
+            if getattr(userNodeAcl, acl) == False: return False
+            allowed = getattr(userNodeAcl, acl)
+        else:
+            return False
+        #endif
+    #endtry
 
     groupNodeAcls = node.groupnodeacl_set.filter(group__in=request.user.groups.all())
     for groupAcl in groupNodeAcls:
@@ -89,9 +94,6 @@ def canChangeNodeAcl(request, nodeId = None, *args, **kwargs):
     except Node.DoesNotExist:
         return False
     #endtry
-
-    # Superuser
-    if request.user.is_superuser: return True
 
     return isAllowedTo(request, node, "change_acl")
 #enddef

@@ -4,7 +4,7 @@ from django.db.models           import Q
 
 from webPyVirt.nodes.models     import Node
 
-def getNodes(request, nodeFilter, search=None):
+def getNodes(request, nodeFilter, search=None, order = "name"):
     if nodeFilter == "change_acl":
         userNodeAclQ = Q(usernodeacl__change_acl=True)
         groupNodeAclQ = Q(groupnodeacl__change_acl=True)
@@ -51,6 +51,14 @@ def getNodes(request, nodeFilter, search=None):
 
     if search:
        nodes = nodes.filter(name__icontains=search)
+    #endif
+
+    if order:
+        if type(order) is list:
+            nodes = nodes.order_by(*order)
+        else:
+            nodes = nodes.order_by(order)
+        #endif
     #endif
 
     return nodes
