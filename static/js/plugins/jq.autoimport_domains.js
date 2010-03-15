@@ -47,7 +47,8 @@
 
                 var show = function() {
                     getDialog().find(".import-status-" + uuid).html(gettext("OK")).css("color", "#00ee00");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            };
+                };
+
                 getDialog().find(".import-load-" + uuid).fadeOut(500, show);
 
                 delete domains[uuid];
@@ -58,7 +59,7 @@
                 var uuid = data['uuid'];
                 var show = function() {
                     getDialog().find(".import-status-" + uuid).html(gettext("Failed")).css("color", "#ee0000");
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            };
+                };
                 getDialog().find(".import-load-" + uuid).fadeOut(500, show);
             }
         };

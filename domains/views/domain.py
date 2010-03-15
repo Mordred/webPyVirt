@@ -208,10 +208,25 @@ def detail(request, domainId):
 
     # TODO: Test permissions "can view"
 
+    secrets = request.session.get("domains.domain.detail", {})
+    secret = sha.sha(str(domain.id) + ":" + str(time.time())).hexdigest()
+    secrets[secret] = (domainId, time.time())
+
+    # Session cleanup
+    hashes = secrets.keys()
+    for per in hashes:
+        if (time.time() - secrets[per][1]) > 1800:
+            del secrets[per]
+        #endif
+    #endfor
+
+    request.session['domains.domain.detail'] = secrets
+
     return render_to_response(
         "domains/domain/detail.html",
         {
             "managedDomain":    domain,
+            "secret":           secret
         },
         context_instance=RequestContext(request)
     )
@@ -239,15 +254,66 @@ def checkStatus(request, domainId):
         return HttpResponse(simplejson.dumps(data))
     #endtry
 
-    import logging
-    logging.debug("Check Status: %s" % (status))
-
-    textStatus = [ _("No state"), _("Running"), _("Blocked"),
+    textStatus = [ _("No state"), _("Running"), _("Idle"),
         _("Paused"), _("Shutdown"), _("Shutoff"), _("Crashed") ][status]
     data['domain'] = {
         "textStatus":   textStatus,
         "status":       status
     }
+
+    return HttpResponse(simplejson.dumps(data))
+#enddef
+
+@secure
+@never_cache
+def command(request):
+    if not request.method == "POST" or not "command" in request.POST \
+        or not "secret" in request.POST:
+        raise Http404
+    #endif
+
+    secret = request.POST['secret']
+    command = request.POST['command']
+
+    if command not in [ "run", "shutdown", "pause", "reboot", "suspend" ]:
+        raise Http404
+    #endif
+
+    secrets = request.session.get("domains.domain.detail", {})
+    if not secret in secrets or (time.time() - secrets[secret][1]) > 1800:
+        raise Http404
+    #endif
+
+    domainId = secrets[secret][0]
+
+    domain = get_object_or_404(Domain, id=domainId)
+
+    data = {
+        "status":           200,
+        "statusMessage":    _("OK")
+    }
+
+    try:
+        virDomain = virtualization.virDomain(domain)
+        if command == "run":
+            # TODO: If domain is shutoff --> start it (or recreate)
+            virDomain.resume()
+        elif command == "shutdown":
+            virDomain.shutdown()
+        elif command == "pause":
+            virDomain.pause()
+        elif command == "reboot":
+            virDomain.reboot()
+        elif command == "suspend":
+            # TODO: Generate some name for the file
+            # where the domain will be saved
+            # Not Implemented
+            pass
+        #endif
+    except virtualization.ErrorException, e:
+        data['status'] = 503
+        data['statusMessage'] = _(unicode(e))
+    #endtry
 
     return HttpResponse(simplejson.dumps(data))
 #enddef

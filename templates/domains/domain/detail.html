@@ -27,20 +27,21 @@
             <div id="screenshot-image">
                 <div class="buttons">
                     <a href="#" class="button button-shutdown tooltipBlock">
-                        <span class="tooltipText">{% trans "Shutdown the Domain" %}</span>
+                        <span class="tooltipText">{% trans "Shutdown" %}</span>
                     </a>
                     <a href="#" class="button button-suspend tooltipBlock">
-                        <span class="tooltipText">{% trans "Suspend the Domain" %}</span>
+                        <span class="tooltipText">{% trans "Suspend" %}</span>
                     </a>
                     <a href="#" class="button button-reboot tooltipBlock">
-                        <span class="tooltipText">{% trans "Reboot the Domain" %}</span>
+                        <span class="tooltipText">{% trans "Reboot" %}</span>
                     </a>
                     <a href="#" class="button button-pause tooltipBlock">
-                        <span class="tooltipText">{% trans "Pause the Domain" %}</span>
+                        <span class="tooltipText">{% trans "Pause" %}</span>
                     </a>
                     <a href="#" class="button button-run tooltipBlock">
-                        <span class="tooltipText">{% trans "Run or resume the Domain" %}</span>
+                        <span class="tooltipText">{% trans "Run or resume" %}</span>
                     </a>
+                    <input type="hidden" id="secret" name="secret" value="{{ secret }}" />
                 </div>
             </div>
         </div>

@@ -81,14 +81,15 @@
                     }
                 });
 
-                if (settings['fireStatus'] != null) {
-                    settings['fireStatus'](data['domain']['status']);
+                var fireStatus = domain.data(PLUGIN_NAME + ".fireStatus");
+                if (fireStatus) {
+                    fireStatus(data['domain']['status']);
                 }
 
             } else if (data['status'] == 503) {
 
                 var oldStatus = canvas.html();
-                var newStatus = "<span class=\"error\">" + data['statusMessage'] + "</span>";
+                var newStatus = "<span class=\"error smaller\">" + data['statusMessage'] + "</span>";
 
                 loader.fadeOut(500, function() {
                     if (oldStatus != newStatus) {
@@ -99,6 +100,8 @@
                     }
                 });
             }
+            domain.data(PLUGIN_NAME + ".loading", false); // Now we can again send new requests
+
             var timeout = setTimeout(function() { 
                     sendRequest(domain, loader, canvas); 
                 }, settings['updateTime']);
@@ -106,8 +109,9 @@
         }
 
         var sendRequest = function(domain) {
-            var loader = domain.data(PLUGIN_NAME + ".loader");
-            var canvas = domain.data(PLUGIN_NAME + ".canvas");
+            // Prevent multiple requests
+            if (domain.data(PLUGIN_NAME + ".loading")) return;
+            domain.data(PLUGIN_NAME + ".loading", true);
 
             var domId = domain.val();
 
@@ -119,6 +123,19 @@
             });
         }
 
+        var forceReload = function(domain) {
+            var loader = domain.data(PLUGIN_NAME + ".loader");
+            var canvas = domain.data(PLUGIN_NAME + ".canvas");
+
+            canvas.fadeOut(500, function() {
+                loader.fadeIn(500, function() {
+                    canvas.html("");
+                    sendRequest(domain);
+                });
+            });
+
+        };
+
         var fireEvent = function(element, event) {
             switch (event) {
                 case "stop":
@@ -127,7 +144,7 @@
                     break;
                 case "restart":
                     fireEvent(element, "stop");
-                    sendRequest(element);
+                    forceReload(element);
                     break;
             }
         };
@@ -139,6 +156,11 @@
 
             element.data(PLUGIN_NAME + ".loader", loader);
             element.data(PLUGIN_NAME + ".canvas", canvas);
+
+            if (settings['fireStatus'] != null)
+                element.data(PLUGIN_NAME + ".fireStatus", settings['fireStatus'])
+            else
+                element.data(PLUGIN_NAME + ".fireStatus", false)
 
             canvas.fadeOut(500, function() {
                 loader.fadeIn(500, function() {

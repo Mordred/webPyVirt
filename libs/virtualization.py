@@ -314,4 +314,60 @@ class virDomain(object):
         return info[0]
     #enddef
 
+    def pause(self):
+        con = self.getConnection()
+
+        try:
+            con.suspend()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    def resume(self):
+        con = self.getConnection()
+
+        try:
+            con.resume()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    def shutdown(self):
+        con = self.getConnection()
+
+        try:
+            con.shutdown()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    def reboot(self):
+        con = self.getConnection()
+
+        try:
+            con.reboot(0)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    def save(self):
+        raise NotImplementedError
+    #enddef
+
 #endclass

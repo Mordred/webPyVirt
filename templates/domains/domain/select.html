@@ -38,7 +38,7 @@
             <td class="center">{{ domain.node.name }}</td>
             <td class="center smaller">
                 <input type="hidden" class="domain-status" name="domain-status" value="{{ domain.id }}" />
-                <img class="loader" src="{{ MEDIA_URL }}img/icons/load-roller-2.gif" alt="" />
+                <img class="loader" src="{{ MEDIA_URL }}img/icons/load-roller-{% cycle "1" "2" %}.gif" alt="" />
             </td>
         </tr>
         {% empty %}

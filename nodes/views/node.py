@@ -208,8 +208,6 @@ def select_autocomplete(request, permission):
         return HttpResponse(simplejson.dumps([]))
     #endif
 
-    request.session['nodes.node.select'] = permis
-
     search = request.GET['term']
 
     nodeFilter = request.session.get('nodes.node.select.nodeFilter', None)

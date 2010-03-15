@@ -24,6 +24,7 @@ td.description                  { font-style: italic; font-size: 0.7em; cursor: 
 .error                          { color: #ff0000; }
 .field-error label              { color: #ff0000; }
 .field-error input              { background-color: #ffaaaa; border-color: #ff0000; }
+.success                        { color: #00ee00; }
 
 .placeholder                    { display: block; }
 

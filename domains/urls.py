@@ -45,6 +45,11 @@ urlpatterns = patterns("webPyVirt.domains",
         "views.domain.checkStatus",
         name="domain_check_status"
     ),
+    url(
+        r"^domain/command/$",
+        "views.domain.command",
+        name="domain_command"
+    ),
 
     # ACL
     url(
