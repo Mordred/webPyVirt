@@ -54,6 +54,8 @@
 
     $.fn.checkDomainStatus = function(options) {
 
+        var PLUGIN_NAME = "checkDomainStatus";
+
         var defaults = {
             url:                "/domains/domain/checkStatus/",
             updateTime:         30000
@@ -61,7 +63,10 @@
 
         var settings = $.extend(defaults, options);
 
-        var responseSuccess = function(data, domain, loader, canvas) {
+        var responseSuccess = function(data, domain) {
+            var loader = domain.data(PLUGIN_NAME + ".loader");
+            var canvas = domain.data(PLUGIN_NAME + ".canvas");
+
             if (data['status'] == 200) {
 
                 var oldStatus = canvas.html();
@@ -75,7 +80,6 @@
                     }
                 });
 
-                setTimeout(function() { sendRequest(domain, loader, canvas); }, settings['updateTime']);
             } else if (data['status'] == 503) {
 
                 var oldStatus = canvas.html();
@@ -89,34 +93,63 @@
                         });
                     }
                 });
-
-                setTimeout(function() { sendRequest(domain, loader, canvas); }, settings['updateTime']);
             }
+            var timeout = setTimeout(function() { 
+                    sendRequest(domain, loader, canvas); 
+                }, settings['updateTime']);
+            $(domain).data(PLUGIN_NAME + ".timeout", timeout);
         }
 
-        var sendRequest = function(domain, loader, canvas) {
+        var sendRequest = function(domain) {
+            var loader = domain.data(PLUGIN_NAME + ".loader");
+            var canvas = domain.data(PLUGIN_NAME + ".canvas");
+
             var domId = domain.val();
 
             $.ajax({
                 type:       "GET",
                 url:        settings['url'] + domId + "/",
                 dataType:   "json",
-                success:    function(data, textStatus) { responseSuccess(data, domain, loader, canvas); }
+                success:    function(data, textStatus) { responseSuccess(data, domain); }
             });
         }
 
-        return this.each(function() {
-            var loader = $(this).siblings(".loader");
+        var fireEvent = function(element, event) {
+            switch (event) {
+                case "stop":
+                    clearTimeout(element.data(PLUGIN_NAME + ".timeout"));
+                    element.removeData(PLUGIN_NAME + ".timeout");
+                    break;
+                case "restart":
+                    fireEvent(element, "stop");
+                    sendRequest(element);
+                    break;
+            }
+        };
+
+        var create = function(element) {
+            var loader = element.siblings(".loader");
             var canvas = $("<span />");
-            var domain = $(this);
-            $(this).parent().append(canvas);
+            element.parent().append(canvas);
+
+            element.data(PLUGIN_NAME + ".loader", loader);
+            element.data(PLUGIN_NAME + ".canvas", canvas);
 
             canvas.fadeOut(500, function() {
                 loader.fadeIn(500, function() {
-                    sendRequest(domain, loader, canvas);
+                    sendRequest(element);
                 })
             });
 
+        };
+
+        return this.each(function() {
+
+            if (typeof options === "string") {
+                fireEvent($(this), options);
+            } else {
+                create($(this));
+            }
         });
     };
 
