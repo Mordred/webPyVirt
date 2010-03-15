@@ -4,8 +4,10 @@
 {% block subtitle %}{% trans "Domain Detail" %}{% endblock subtitle %}
 
 {% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.tooltips.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.check_status.js"></script>
-        <script type="text/javascript" src="{{ MEDIA_URL }}js/check_status.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.domain_buttons.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/domain_detail.js"></script>
 {% endblock custom_js %}
 
 {% block content_body %}
@@ -20,9 +22,26 @@
 
     <div id="domainDetail">
 
-        <div id="snapshot">
-            <h3 class="center">{% trans "Snapshot" %}</h3>
-            <div id="snapshot-image">
+        <div id="screenshot">
+            <h3 class="center">{% trans "Screenshot" %}</h3>
+            <div id="screenshot-image">
+                <div class="buttons">
+                    <a href="#" class="button button-shutdown tooltipBlock">
+                        <span class="tooltipText">{% trans "Shutdown the Domain" %}</span>
+                    </a>
+                    <a href="#" class="button button-suspend tooltipBlock">
+                        <span class="tooltipText">{% trans "Suspend the Domain" %}</span>
+                    </a>
+                    <a href="#" class="button button-reboot tooltipBlock">
+                        <span class="tooltipText">{% trans "Reboot the Domain" %}</span>
+                    </a>
+                    <a href="#" class="button button-pause tooltipBlock">
+                        <span class="tooltipText">{% trans "Pause the Domain" %}</span>
+                    </a>
+                    <a href="#" class="button button-run tooltipBlock">
+                        <span class="tooltipText">{% trans "Run or resume the Domain" %}</span>
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -66,6 +85,31 @@
                     </td>
                 </tr>
             </table>
+        </div>
+
+        <div class="clear">
+            <h3 class="center">{% trans "Additional Information" %}</h3>
+
+            <table>
+                <tr>
+                    <td class="bold">{% trans "On poweroff" %}:</td>
+                    <td>{{ managedDomain.poweroff|default:"-" }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "On reboot" %}:</td>
+                    <td>{{ managedDomain.reboot|default:"-" }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{% trans "On crash" %}:</td>
+                    <td>{{ managedDomain.crash|default:"-" }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <br />
+
+        <div>
+            <h3 class="center">{% trans "Statistics" %}</h3>
         </div>
     </div>
 

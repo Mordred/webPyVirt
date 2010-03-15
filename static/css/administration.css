@@ -71,6 +71,15 @@ form .accordion div.submit      { margin: 0 0 0 0; }
 #autoimport .error              { color: #ee0000; }
 #autoimport .message            { color: #0000ee; }
 
-#snapshot                       { width: 320px; float: left; margin-right: 25px; }
-#snapshot-image                 { border: 3px solid #999; background: #000 url("../img/snapshot_none.jpg") 0 0 no-repeat;
+#screenshot                     { width: 320px; float: left; margin: 0 25px 25px; }
+#screenshot-image               { border: 3px solid #999; background: #000 url("../img/snapshot_none.jpg") 0 0 no-repeat;
                                   height: 240px; width: 320px; }
+#screenshot .buttons            { padding: 205px 5px 5px 5px; float: right; }
+#screenshot .buttons .button    { display: block; width: 30px; height: 30px; margin-left: 3px;
+                                  background-image: url("../img/buttons.png"); float: right; }
+
+.button-run                     { background-position: 0 0; }
+.button-pause                   { background-position: -30px 0; }
+.button-suspend                 { background-position: -60px 0; }
+.button-reboot                  { background-position: -90px 0; }
+.button-shutdown                { background-position: -120px 0; }

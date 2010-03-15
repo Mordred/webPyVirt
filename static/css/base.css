@@ -75,3 +75,17 @@ th.last, td.last                { padding-right: 10px; }
                                   color: #fff; background-color: #000; }
 #debug div.sql-query            { margin-bottom: 10px; }
 /* DEBUG */
+
+.clear                          { float: none; clear: both; }
+
+/* TOOLTIPS */
+.tooltipCanvas                  { overflow: hidden; z-index: 100; color: #fff; }
+.tooltipCanvas td,
+ .tooltipCanvas th              { background: url("../img/tooltip.png") 0 0 repeat; overflow: hidden;
+                                  background-color: transparent; }
+.tooltipCanvas td               { padding: 5px 5px 0 10px; white-space: nowrap; }
+.tooltipCanvas th               { line-height: 4px; font-size: 0.9em; }
+.tooltipCanvas td.last,
+ .tooltipCanvas th.last         { padding: 0 !important; }
+.tooltipText                    { display: none; }
+/* TOOLTIPS */

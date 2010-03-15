@@ -244,7 +244,10 @@ def checkStatus(request, domainId):
 
     textStatus = [ _("No state"), _("Running"), _("Blocked"),
         _("Paused"), _("Shutdown"), _("Shutoff"), _("Crashed") ][status]
-    data['domain'] = { "status": textStatus }
+    data['domain'] = {
+        "textStatus":   textStatus,
+        "status":       status
+    }
 
     return HttpResponse(simplejson.dumps(data))
 #enddef

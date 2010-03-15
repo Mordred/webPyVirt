@@ -58,7 +58,8 @@
 
         var defaults = {
             url:                "/domains/domain/checkStatus/",
-            updateTime:         30000
+            updateTime:         30000,
+            fireStatus:         null
         };
 
         var settings = $.extend(defaults, options);
@@ -72,13 +73,17 @@
                 var oldStatus = canvas.html();
 
                 loader.fadeOut(500, function() {
-                    if (oldStatus != data['domain']['status']) {
+                    if (oldStatus != data['domain']['textStatus']) {
                         canvas.fadeOut(500, function() {
-                            canvas.html(data['domain']['status']);
+                            canvas.html(data['domain']['textStatus']);
                             canvas.fadeIn(500);
                         });
                     }
                 });
+
+                if (settings['fireStatus'] != null) {
+                    settings['fireStatus'](data['domain']['status']);
+                }
 
             } else if (data['status'] == 503) {
 
