@@ -102,14 +102,17 @@ INSTALLED_APPS = (
     'django.contrib.sites',
 #    "django_extensions",
     "webPyVirt.accounts",
-    "webPyVirt.nodes",
     "webPyVirt.domains",
+    "webPyVirt.monitor",
+    "webPyVirt.nodes",
     "webPyVirt.conf"
 )
 
 INTERNAL_IPS = ("127.0.0.1", "127.0.1.1", )
 
 DEFAULT_CHARSET = "utf-8"
+
+MONITOR_PID = "/tmp/webPyVirt-monitor.pid"
 
 LOG_FILENAME = "/tmp/webPyVirt-server.log"
 

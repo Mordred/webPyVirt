@@ -58,7 +58,7 @@ class Domain(models.Model):
     hypervisor_type = models.CharField(max_length = 6, choices = Node.DRIVERS,
         verbose_name = _("Hypervisor Driver Type"))
     name = models.CharField(max_length = 255, verbose_name = _("Domain Name"))
-    uuid = models.CharField(max_length = 40, verbose_name = _("UUID"), unique = True)
+    uuid = models.CharField(max_length = 40, verbose_name = _("UUID"))
     description = models.TextField(verbose_name = _("Description"),
         help_text = _("Human readable description of the virtual machine"),
         blank = True, null = True)

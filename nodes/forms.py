@@ -7,9 +7,9 @@ from webPyVirt.nodes.models         import Node, NodeAcl
 
 class NodeForm(forms.ModelForm):
 
-    name = forms.RegexField(label = _("Node Name"), max_length = 255, regex = r"^\w+$",
+    name = forms.RegexField(label = _("Node Name"), max_length = 255, regex = r"^[\w\-\.]+$",
         help_text = _("Only letters, digits and underscores"),
-        error_message = _("This value must contain only letters, numbers and underscores."))
+        error_message = _("This value must contain only letters, numbers, dots and underscores."))
 
     class Meta:
         model = Node

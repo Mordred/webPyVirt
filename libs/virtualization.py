@@ -301,17 +301,28 @@ class virDomain(object):
 
         try:
             info = con.info()
+            if info[1] == -1:           # Max memory not set ... so get memory from node
+                node = self.getNode()
+                nodeInfo = node.getInfo()
+                info[1] = nodeInfo['memory'] * 1024
+            #endif
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))
         #endtry
 
-        return info
+        return {
+            "state":        info[0],
+            "maxMemory":    info[1],
+            "memory":       info[2],
+            "vcpu":         info[3],
+            "cpuTime":      info[4]
+        }
     #enddef
 
     def getState(self):
         info = self.getInfo()
-        return info[0]
+        return info['state']
     #enddef
 
     def pause(self):
@@ -358,6 +369,19 @@ class virDomain(object):
 
         try:
             con.reboot(0)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    def ID(self):
+        con = self.getConnection()
+
+        try:
+            con.ID()
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))
