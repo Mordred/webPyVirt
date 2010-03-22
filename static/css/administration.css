@@ -83,3 +83,6 @@ form .accordion div.submit      { margin: 0 0 0 0; }
 .button-suspend                 { background-position: -60px 0; }
 .button-reboot                  { background-position: -90px 0; }
 .button-shutdown                { background-position: -120px 0; }
+
+.gauge                          { width: 150px; height: 150px; float: left; padding-top: 25px; }
+.area-chart                     { width: 550px; height: 200px; padding-left: 160px; }

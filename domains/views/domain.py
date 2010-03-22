@@ -1,6 +1,6 @@
 # -*- coding: UTF-8 -*-
 
-import sha, time
+import sha, time ,datetime
 
 from django.core.urlresolvers       import reverse
 from django.core.paginator          import Paginator, InvalidPage, EmptyPage
@@ -314,6 +314,61 @@ def command(request):
         data['status'] = 503
         data['statusMessage'] = _(unicode(e))
     #endtry
+
+    return HttpResponse(simplejson.dumps(data))
+#enddef
+
+@secure
+def statistics(request, statisticsType):
+    if request.method == "GET" or not "visualization" in request.POST \
+        or not "domainId" in request.POST:
+        raise Http404
+    #endif
+
+    visualization = request.POST['visualization']
+    domainId = int(request.POST['domainId'])
+
+    domain = get_object_or_404(Domain, id=domainId)
+
+    #TODO: Test if user has permission to the domain
+    #TODO: Check if monitor is running
+
+    data = {
+        "status":           200,
+        "statusMessage":    _("OK")
+    }
+
+    if visualization.lower() == "gauge":
+        stats = domain.statistics_set.order_by("-datetime")[0]
+        if statisticsType.lower() == "cpu":
+            data['data'] = "%.2f" % (stats.percentage_cpu)
+        elif statisticsType.lower() == "memory":
+            data['data'] =  "%.2f" % (stats.percentage_memory)
+        #endif
+    elif visualization.lower() == "areachart":
+        lastId = int(request.POST['lastId'])
+
+        now = datetime.datetime.now()
+        # Select only last 1,5 minute
+        stats = domain.statistics_set.filter(datetime__range=(now - datetime.timedelta(minutes=1), now))\
+            .filter(id__gt=lastId).order_by("-datetime")[:20]
+        if statisticsType.lower() == "cpu":
+            data['data'] = [ {
+                "time":     str(stat.datetime),
+                "value":    "%.2f" % (stat.percentage_cpu),
+                "id":       stat.id
+                } for stat in stats ]
+        elif statisticsType.lower() == "memory":
+            data['data'] = [ {
+                "time":     str(stat.datetime),
+                "value":    "%.2f" % (stat.percentage_memory),
+                "id":       stat.id
+                } for stat in stats ]
+        #endif
+    else:
+        data['status'] == 404
+        data['statusMessage'] = _("Unsupported visualization")
+    #endif
 
     return HttpResponse(simplejson.dumps(data))
 #enddef

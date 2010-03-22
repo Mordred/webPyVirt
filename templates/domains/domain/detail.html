@@ -4,9 +4,11 @@
 {% block subtitle %}{% trans "Domain Detail" %}{% endblock subtitle %}
 
 {% block custom_js %}
+        <script type="text/javascript" src="http://www.google.com/jsapi"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.tooltips.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.check_status.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.domain_buttons.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.google_visualization.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/domain_detail.js"></script>
 {% endblock custom_js %}
 
@@ -111,6 +113,23 @@
 
         <div>
             <h3 class="center">{% trans "Statistics" %}</h3>
+
+            <div>
+                <input id="domainId" type="hidden" name="domainId" value="{{ managedDomain.id }}">
+
+                <h4>{% trans "CPU Usage" %}:</h4>
+
+                <div class="gauge" id="gauge_cpu"></div>
+                <div class="area-chart" id="area_chart_cpu"></div>
+
+                <br />
+
+                <h4>{% trans "Memory Usage" %}:</h4>
+
+                <div class="gauge" id="gauge_memory"></div>
+                <div class="area-chart" id="area_chart_memory"></div>
+
+            </div>
         </div>
     </div>
 

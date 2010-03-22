@@ -58,7 +58,7 @@ class DomainMonitor(threading.Thread):
                     stats.current_id = self.virDomain.ID()
 
                     stats.percentage_cpu = self.calculateCPUUsage(time.time() - self.time, info['cpuTime'] - self.cpuTime)
-                    stats.percentage_memory = float(info['memory']) / float(info['maxMemory'])
+                    stats.percentage_memory = 100 * float(info['memory']) / float(info['maxMemory'])
 
                     stats.save()
                     transaction.commit()

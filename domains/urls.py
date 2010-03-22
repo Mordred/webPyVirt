@@ -51,6 +51,13 @@ urlpatterns = patterns("webPyVirt.domains",
         name="domain_command"
     ),
 
+    # Statistics
+    url(
+        r"^domain/statistics/(?P<statisticsType>(cpu|memory))/$",
+        "views.domain.statistics",
+        name="domain_statistics_cpu"
+    ),
+
     # ACL
     url(
         r"^acl/user/$",
@@ -82,7 +89,6 @@ urlpatterns = patterns("webPyVirt.domains",
         "views.acl.group",
         name="acl_group"
     ),
-
 )
 
 urlpatterns += patterns("webPyVirt.accounts",
