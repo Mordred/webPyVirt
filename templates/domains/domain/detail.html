@@ -28,21 +28,31 @@
             <h3 class="center">{% trans "Screenshot" %}</h3>
             <div id="screenshot-image">
                 <div class="buttons">
+                    {% if shutdown %}
                     <a href="#" class="button button-shutdown tooltipBlock">
                         <span class="tooltipText">{% trans "Shutdown" %}</span>
                     </a>
-                    <a href="#" class="button button-suspend tooltipBlock">
-                        <span class="tooltipText">{% trans "Suspend" %}</span>
+                    {% endif %}
+                    {% if save %}
+                    <a href="#" class="button button-save tooltipBlock">
+                        <span class="tooltipText">{% trans "Save" %}</span>
                     </a>
+                    {% endif %}
+                    {% if reboot %}
                     <a href="#" class="button button-reboot tooltipBlock">
                         <span class="tooltipText">{% trans "Reboot" %}</span>
                     </a>
-                    <a href="#" class="button button-pause tooltipBlock">
-                        <span class="tooltipText">{% trans "Pause" %}</span>
+                    {% endif %}
+                    {% if suspend %}
+                    <a href="#" class="button button-suspend tooltipBlock">
+                        <span class="tooltipText">{% trans "Suspend" %}</span>
                     </a>
+                    {% endif %}
+                    {% if run %}
                     <a href="#" class="button button-run tooltipBlock">
                         <span class="tooltipText">{% trans "Run or resume" %}</span>
                     </a>
+                    {% endif %}
                     <input type="hidden" id="secret" name="secret" value="{{ secret }}" />
                 </div>
             </div>

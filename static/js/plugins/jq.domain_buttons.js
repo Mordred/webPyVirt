@@ -114,8 +114,8 @@
             var status = $(element).data(PLUGIN_NAME + ".status");
 
             switch (command) {
-                case "pause":
-                    return gettext("Pause");
+                case "suspend":
+                    return gettext("Suspend");
                 case "reboot":
                     return gettext("Reboot");
                 case "run":
@@ -126,8 +126,8 @@
                     }
                 case "shutdown":
                     return gettext("Shutdown");
-                case "suspend":
-                    return gettext("Suspend");
+                case "save":
+                    return gettext("Save");
             }
         };
 
@@ -192,12 +192,12 @@
         var create = function(element) {
             if ($(element).hasClass("button-run")) {
                 $(element).data(PLUGIN_NAME + ".command", "run");
-            } else if ($(element).hasClass("button-pause")) {
-                $(element).data(PLUGIN_NAME + ".command", "pause");
-            } else if ($(element).hasClass("button-reboot")) {
-                $(element).data(PLUGIN_NAME + ".command", "reboot");
             } else if ($(element).hasClass("button-suspend")) {
                 $(element).data(PLUGIN_NAME + ".command", "suspend");
+            } else if ($(element).hasClass("button-reboot")) {
+                $(element).data(PLUGIN_NAME + ".command", "reboot");
+            } else if ($(element).hasClass("button-save")) {
+                $(element).data(PLUGIN_NAME + ".command", "save");
             } else if ($(element).hasClass("button-shutdown")) {
                 $(element).data(PLUGIN_NAME + ".command", "shutdown");
             }

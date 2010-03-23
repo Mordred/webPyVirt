@@ -17,9 +17,10 @@ from webPyVirt.decorators       import secure
 from webPyVirt.libs             import virtualization
 from webPyVirt.menu             import generateMenu
 
-from webPyVirt.domains.misc     import getDomains
-from webPyVirt.domains.forms    import SelectDomainForm
-from webPyVirt.domains.models   import Domain
+from webPyVirt.domains.misc         import getDomains
+from webPyVirt.domains.forms        import SelectDomainForm
+from webPyVirt.domains.models       import Domain
+from webPyVirt.domains.permissions  import isAllowedTo
 
 @secure
 def index(request):
@@ -184,7 +185,6 @@ def select_autocomplete(request, permission):
         return HttpResponse(simplejson.dumps([]))
     #endif
 
-    # TODO: Send also ID
     request.session['domains.domain.select'] = permis
 
     search = request.GET['term']
@@ -206,7 +206,9 @@ def select_autocomplete(request, permission):
 def detail(request, domainId):
     domain = get_object_or_404(Domain, id=domainId)
 
-    # TODO: Test permissions "can view"
+    if not isAllowedTo(request, domain, "view_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
 
     secrets = request.session.get("domains.domain.detail", {})
     secret = sha.sha(str(domain.id) + ":" + str(time.time())).hexdigest()
@@ -226,7 +228,12 @@ def detail(request, domainId):
         "domains/domain/detail.html",
         {
             "managedDomain":    domain,
-            "secret":           secret
+            "secret":           secret,
+            "run":              isAllowedTo(request, domain, "resume_domain"),
+            "shutdown":         isAllowedTo(request, domain, "shutdown_domain"),
+            "suspend":          isAllowedTo(request, domain, "suspend_domain"),
+            "reboot":           isAllowedTo(request, domain, "reboot_domain"),
+            "save":             isAllowedTo(request, domain, "save_domain")
         },
         context_instance=RequestContext(request)
     )
@@ -237,7 +244,9 @@ def detail(request, domainId):
 def checkStatus(request, domainId):
     domain = get_object_or_404(Domain, id=domainId)
 
-    # TODO: Test permissions "can view"
+    if not isAllowedTo(request, domain, "view_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
 
     data = {
         "status":           200,
@@ -275,7 +284,7 @@ def command(request):
     secret = request.POST['secret']
     command = request.POST['command']
 
-    if command not in [ "run", "shutdown", "pause", "reboot", "suspend" ]:
+    if command not in [ "run", "shutdown", "suspend", "reboot", "save" ]:
         raise Http404
     #endif
 
@@ -293,6 +302,16 @@ def command(request):
         "statusMessage":    _("OK")
     }
 
+    # Test Permissions
+    if (command == "run" and not isAllowedTo(request, domain, "resume_domain")) \
+        or (command == "shutdown" and not isAllowedTo(request, domain, "shutdown_domain")) \
+        or (command == "suspend" and not isAllowedTo(request, domain, "suspend_domain")) \
+        or (command == "reboot" and not isAllowedTo(request, domain, "reboot_domain")) \
+        or (command == "save" and not isAllowedTo(request, domain, "save_domain")):
+        data['status'] = 403
+        data['statusMessage'] = _("You don't have permission to do this.")
+    #endif
+
     try:
         virDomain = virtualization.virDomain(domain)
         if command == "run":
@@ -300,11 +319,11 @@ def command(request):
             virDomain.resume()
         elif command == "shutdown":
             virDomain.shutdown()
-        elif command == "pause":
-            virDomain.pause()
+        elif command == "suspend":
+            virDomain.suspend()
         elif command == "reboot":
             virDomain.reboot()
-        elif command == "suspend":
+        elif command == "save":
             # TODO: Generate some name for the file
             # where the domain will be saved
             # Not Implemented

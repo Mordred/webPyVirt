@@ -71,4 +71,3 @@ def canChangeDomainAcl(request, domainId = None, *args, **kwargs):
 
     return isAllowedTo(request, domain, "change_acl")
 #enddef
-

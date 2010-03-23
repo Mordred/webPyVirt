@@ -325,7 +325,7 @@ class virDomain(object):
         return info['state']
     #enddef
 
-    def pause(self):
+    def suspend(self):
         con = self.getConnection()
 
         try:
