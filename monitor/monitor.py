@@ -25,6 +25,7 @@ class Monitor(object):
 
         # Internal variables
         self._monitors = {}
+        self._timeouts = {}
     #enddef
 
     def __del__(self):
@@ -126,8 +127,6 @@ class Monitor(object):
 
             logging.warning("Pid file `%s` with `%d` found. Unclean shutdown of previous monitor run?" \
                 % (pidFile, othPid))
-
-            self.removePID()
         #endif
 
         return running
@@ -152,7 +151,7 @@ class Monitor(object):
 
         try:
             os.remove(pidFile)
-        except IOError, e:
+        except (IOError, OSError), e:
             message = "Can't remove stale pid file `%s` (reason: %s)" % (pidFile, e.strerror)
             logging.critical(message)
             raise MonitorException(message)
@@ -162,7 +161,10 @@ class Monitor(object):
     def run(self):
 
         # Test if monitor is running
-        if self.isRunning(): raise MonitorException("Already running under pid `%d`" % (self.readPID()))
+        if self.isRunning(): 
+            self.removePID()
+            raise MonitorException("Already running under pid `%d`" % (self.readPID()))
+        #endif
 
         if self.daemon:
             logging.info("Monitor: Forking to background.")
@@ -236,13 +238,25 @@ class Monitor(object):
                 if config.flags & MonitorConfig.FLAG_NEVER_START: continue
 
                 # Skip if NO_PING flag is set and update_time < now for 5 min
-                if config.flags & MonitorConfig.FLAG_NO_PING and \
-                    (datetime.datetime.now() - config.update_time) < datetime.timedelta(minutes=5):
-                    continue
+                if config.flags & MonitorConfig.FLAG_NO_PING:
+                    # Set first timeout
+                    if not domain.id in self._timeouts:
+                        self._timeouts[domain.id] = datetime.timedelta(seconds=30)
+                    #endif
+
+                    # Wait for timeout
+                    if (datetime.datetime.now() - config.update_time) < self._timeouts[domain.id]:
+                        continue
+                    # Remove flag
+                    else:
+                        self._timeouts[domain.id] *= 2
+                        config.flags &= ~MonitorConfig.FLAG_NO_PING
+                        config.save()
+                        transaction.commit()
+                    #endif
                 else:
-                    config.flags &= ~MonitorConfig.FLAG_NO_PING
-                    config.save()
-                    transaction.commit()
+                    # Reset timeout time
+                    if domain.id in self._timeouts: del self._timeouts[domain.id]
                 #endif
 
                 # Skip if end_time < now

@@ -35,8 +35,18 @@
                 chart.draw(dataTable, settings['gaugeOptions']);
 
                 timeout = setTimeout(updateRequest, settings['update']);
-            }
+            } else if (data['status'] == 503) {
+                var tempTable = new google.visualization.DataTable();
+                tempTable = new google.visualization.DataTable();
+                tempTable.addColumn("string", gettext("Label"));
+                tempTable.addColumn("number", gettext("Value"));
+                tempTable.addRows(1);
+                tempTable.setValue(0, 0, settings['name']);
+                tempTable.setValue(0, 1, NaN);
+                chart.draw(tempTable, settings['gaugeOptions']);
 
+                timeout = setTimeout(updateRequest, settings['update']);
+            }
         };
 
         var updateRequest = function() {
@@ -93,18 +103,42 @@
         var lastId = 0;
         var timeout = null;
 
+        var createTimeString = function(timestamp) {
+            var time = new Date();
+            time.setTime(timestamp * 1000);
+            var h = time.getHours();
+            var m = time.getMinutes();
+            var s = time.getSeconds();
+            var ret = "" + (h < 10 ? "0" + h : h)
+                + ":" + (m < 10 ? "0" + m : m)
+                + ":" + (s < 10 ? "0" + s : s);
+            return ret;
+        };
+
         var responseSuccess = function(data, textStatus) {
             if (data['status'] == 200) {
-                for (var i = 0; i < data['data'].length; i++) {
+                if (data['data'].length != 0) {
+                    lastId = data['data'][0]['id'];
+                }
+
+                for (var i = data['data'].length - 1; i >= 0; i--) {
                     var item = data['data'][i];
                     var value = parseFloat(item['value']);
-                    dataTable.addRow(["", value]);
+
+                    var time = createTimeString(item['time']);
+                    dataTable.addRow([time, value]);
                     if (dataTable.getNumberOfRows() >= settings['limit'])
                         dataTable.removeRow(0);
                 }
-                if (data['data'].length != 0)
-                    lastId = data['data'][0]['id'];
+
                 chart.draw(dataTable, settings['areaChartOptions']);
+
+                timeout = setTimeout(updateRequest, settings['update']);
+            } else if (data['status'] == 503) {
+                var tempTable = new google.visualization.DataTable();
+                tempTable.addColumn("string", gettext("Time"));
+                tempTable.addColumn("number", gettext("Usage"));
+                chart.draw(tempTable, settings['areaChartOptions']);
 
                 timeout = setTimeout(updateRequest, settings['update']);
             }

@@ -22,6 +22,8 @@ from webPyVirt.domains.forms        import SelectDomainForm
 from webPyVirt.domains.models       import Domain
 from webPyVirt.domains.permissions  import isAllowedTo
 
+from webPyVirt.monitor.monitor      import Monitor
+
 @secure
 def index(request):
     leftMenu = generateMenu(request)['left_menu']
@@ -350,12 +352,18 @@ def statistics(request, statisticsType):
     domain = get_object_or_404(Domain, id=domainId)
 
     #TODO: Test if user has permission to the domain
-    #TODO: Check if monitor is running
 
     data = {
         "status":           200,
         "statusMessage":    _("OK")
     }
+
+    monitor = Monitor()
+    if not monitor.isRunning():
+        data['status'] = 503,
+        data['statusMessage'] = _("Monitor is not running")
+        return HttpResponse(simplejson.dumps(data))
+    #endif
 
     if visualization.lower() == "gauge":
         stats = domain.statistics_set.order_by("-datetime")[0]
@@ -373,13 +381,13 @@ def statistics(request, statisticsType):
             .filter(id__gt=lastId).order_by("-datetime")[:20]
         if statisticsType.lower() == "cpu":
             data['data'] = [ {
-                "time":     str(stat.datetime),
+                "time":     time.mktime(stat.datetime.timetuple()),
                 "value":    "%.2f" % (stat.percentage_cpu),
                 "id":       stat.id
                 } for stat in stats ]
         elif statisticsType.lower() == "memory":
             data['data'] = [ {
-                "time":     str(stat.datetime),
+                "time":     time.mktime(stat.datetime.timetuple()),
                 "value":    "%.2f" % (stat.percentage_memory),
                 "id":       stat.id
                 } for stat in stats ]
