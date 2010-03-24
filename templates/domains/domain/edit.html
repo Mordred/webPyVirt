@@ -44,7 +44,7 @@
             <tr>
                 <td>{% trans "Virtual CPUs" %}:</td>
                 <td class="center">{{ managedDomain.vcpu }}</td>
-                <td>
+                <td class="center">
                     <input class="integer-field" type="text" id="vcpu" name="vcpu" value="" />
                 </td>
                 <td class="center"><button class="button-set">{% trans "Set" %}</button></td>
@@ -52,7 +52,7 @@
             <tr>
                 <td>{% trans "Maximum Memory (in KB)" %}:</td>
                 <td class="center">{{ managedDomain.memory }}</td>
-                <td>
+                <td class="center">
                     <input class="integer-field" type="text" id="max_memory" name="max_memory" value="" />
                 </td>
                 <td class="center"><button class="button-set">{% trans "Set" %}</button></td>
@@ -60,7 +60,7 @@
             <tr>
                 <td>{% trans "Memory (in KB)" %}:</td>
                 <td class="center">{{ managedDomain.memory_current }}</td>
-                <td>
+                <td class="center">
                     <input class="integer-field" type="text" id="cur_memory" name="cur_memory" value="" />
                 </td>
                 <td class="center"><button class="button-set">{% trans "Set" %}</button></td>

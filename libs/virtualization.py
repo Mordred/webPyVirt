@@ -425,14 +425,14 @@ class virDomain(object):
 
         try:
             con.setMaxMemory(memory)
+            maxMemory = self.getInfo()['maxMemory']
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))
         #endtry
 
         model = self.getModel()
-        newData = self.getModel(True)
-        model.memory = newData.memory
+        model.memory = maxMemory
         model.save()
         return True
     #enddef
@@ -442,14 +442,14 @@ class virDomain(object):
 
         try:
             con.setMemory(memory)
+            memory = self.getInfo()['memory']
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))
         #endtry
 
         model = self.getModel()
-        newData = self.getModel(True)
-        model.memory_current = newData.memory_current
+        model.memory_current = memory
         model.save()
         return True
     #enddef
