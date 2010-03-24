@@ -377,6 +377,19 @@ class virDomain(object):
         return True
     #enddef
 
+    def destroy(self):
+        con = self.getConnection()
+
+        try:
+            con.destroy()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
     def ID(self):
         con = self.getConnection()
 

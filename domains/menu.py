@@ -8,6 +8,7 @@ from webPyVirt.domains.permissions  import *
 def MENU(request):
     changeAcls = canChangeAcls(request)
     viewDomains = canViewDomains(request)
+    removeDomains = canRemoveDomains(request)
 
     return [
         {   # Section domain
@@ -23,6 +24,11 @@ def MENU(request):
                     "hide":     not viewDomains,
                     "label":    _("Domain detail"),
                     "url":      "domain_detail__select_domain"
+                },
+                {   # Remove domain
+                    "hide":     not removeDomains,
+                    "label":    _("Remove domain"),
+                    "url":      "domain_remove__select_domain"
                 },
             ]
         },

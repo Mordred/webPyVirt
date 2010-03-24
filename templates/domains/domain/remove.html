@@ -1,0 +1,41 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Remove Domain" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.domain_buttons.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/domain_remove.js"></script>
+{% endblock custom_js %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Remove Domain" %} :: {{ managedDomain.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        Do you really want to remove this domain? If you click on "Yes" domain
+        will be removed from database, but it still exists on the node, so
+        if you want to also destroy domain, click on "First destroy" and
+        then to "Yes" button.
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <form action="" method="post" id="frmRemoveDomain">
+        <div class="form">
+            {% csrf_token %}
+
+            <div class="submit right">
+                <input type="hidden" name="domainId" value="{{ managedDomain.id }}" />
+                <input type="hidden" id="secret" name="secret" value="{{ secret }}" />
+                <button class="button-destroy">{% trans "First destroy" %}</button>
+                <input type="submit" name="yes" value="{% trans "Yes" %}" />
+                <input type="submit" name="no" value="{% trans "No" %}" />
+            </div>
+
+        </div>
+
+    </form>
+
+{% endblock content_body %}

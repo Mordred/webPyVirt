@@ -212,7 +212,7 @@ def detail(request, domainId):
         return HttpResponseRedirect("%s" % (reverse("403")))
     #endif
 
-    secrets = request.session.get("domains.domain.detail", {})
+    secrets = request.session.get("domains.domain.command", {})
     secret = sha.sha(str(domain.id) + ":" + str(time.time())).hexdigest()
     secrets[secret] = (domainId, time.time())
 
@@ -224,7 +224,7 @@ def detail(request, domainId):
         #endif
     #endfor
 
-    request.session['domains.domain.detail'] = secrets
+    request.session['domains.domain.command'] = secrets
 
     return render_to_response(
         "domains/domain/detail.html",
@@ -286,11 +286,11 @@ def command(request):
     secret = request.POST['secret']
     command = request.POST['command']
 
-    if command not in [ "run", "shutdown", "suspend", "reboot", "save" ]:
+    if command not in [ "run", "shutdown", "suspend", "reboot", "save", "destroy" ]:
         raise Http404
     #endif
 
-    secrets = request.session.get("domains.domain.detail", {})
+    secrets = request.session.get("domains.domain.command", {})
     if not secret in secrets or (time.time() - secrets[secret][1]) > 1800:
         raise Http404
     #endif
@@ -309,7 +309,8 @@ def command(request):
         or (command == "shutdown" and not isAllowedTo(request, domain, "shutdown_domain")) \
         or (command == "suspend" and not isAllowedTo(request, domain, "suspend_domain")) \
         or (command == "reboot" and not isAllowedTo(request, domain, "reboot_domain")) \
-        or (command == "save" and not isAllowedTo(request, domain, "save_domain")):
+        or (command == "save" and not isAllowedTo(request, domain, "save_domain")) \
+        or (command == "destroy" and not isAllowedTo(request, domain, "delete_domain")):
         data['status'] = 403
         data['statusMessage'] = _("You don't have permission to do this.")
     #endif
@@ -330,6 +331,8 @@ def command(request):
             # where the domain will be saved
             # Not Implemented
             pass
+        elif command == "destroy":
+            virDomain.destroy()
         #endif
     except virtualization.ErrorException, e:
         data['status'] = 503
@@ -398,4 +401,46 @@ def statistics(request, statisticsType):
     #endif
 
     return HttpResponse(simplejson.dumps(data))
+#enddef
+
+@secure
+def remove(request, domainId):
+    domain = get_object_or_404(Domain, id=domainId)
+
+    if not isAllowedTo(request, domain, "delete_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    secrets = request.session.get("domains.domain.command", {})
+    secret = sha.sha(str(domain.id) + ":" + str(time.time())).hexdigest()
+    secrets[secret] = (domainId, time.time())
+
+    # Session cleanup
+    hashes = secrets.keys()
+    for per in hashes:
+        if (time.time() - secrets[per][1]) > 1800:
+            del secrets[per]
+        #endif
+    #endfor
+
+    request.session['domains.domain.command'] = secrets
+
+    if request.method == "POST":
+        if "yes" in request.POST and domain.id == int(request.POST['domainId']):
+            domain.delete()
+        #endif
+
+        return HttpResponseRedirect(
+            reverse("domains:domain_remove__select_domain")
+        )
+    #endif
+
+    return render_to_response(
+        "domains/domain/remove.html",
+        {
+            "managedDomain":    domain,
+            "secret":           secret
+        },
+        context_instance=RequestContext(request)
+    )
 #enddef

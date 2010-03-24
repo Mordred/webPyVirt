@@ -36,6 +36,21 @@ urlpatterns = patterns("webPyVirt.domains",
         name="domain_detail"
     ),
     url(
+        r"^domain/remove/$",
+        "views.domain.select",
+        {
+            "next":         "domains:domain_remove",
+            "domainFilter": "delete_domain",
+            "permission":   canRemoveDomains
+        },
+        name="domain_remove__select_domain"
+    ),
+    url(
+        r"^domain/remove/(?P<domainId>\d+)/$",
+        "views.domain.remove",
+        name="domain_remove"
+    ),
+    url(
         r"^domain/select/autocomplete/(?P<permission>[\dabcdef]+)/$",
         "views.domain.select_autocomplete",
         name="domain_select_autocomplete"

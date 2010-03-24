@@ -21,6 +21,11 @@ def getDomains(request, domainFilter, search = None, order = [ "name", "node__na
         groupDomainAclQ = Q(groupdomainacl__change_domain=True)
         exUserDomainAclQ = Q(userdomainacl__change_domain=False)
         exGroupDomainAclQ = Q(groupdomainacl__change_domain=False)
+    elif domainFilter == "delete_domain":
+        userDomainAclQ = Q(userdomainacl__delete_domain=True)
+        groupDomainAclQ = Q(groupdomainacl__delete_domain=True)
+        exUserDomainAclQ = Q(userdomainacl__delete_domain=False)
+        exGroupDomainAclQ = Q(groupdomainacl__delete_domain=False)
     elif domainFilter != "owner":
         raise ValueError("Unknown domain filter: `%s`" % (domainFilter))
     #endif
