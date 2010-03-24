@@ -444,3 +444,79 @@ def remove(request, domainId):
         context_instance=RequestContext(request)
     )
 #enddef
+
+@secure
+def edit(request, domainId):
+    domain = get_object_or_404(Domain, id=domainId)
+
+    if not isAllowedTo(request, domain, "change_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    secrets = request.session.get("domains.domain.edit", {})
+    secret = sha.sha(str(domain.id) + ":" + str(time.time())).hexdigest()
+    secrets[secret] = (domainId, time.time())
+
+    # Session cleanup
+    hashes = secrets.keys()
+    for per in hashes:
+        if (time.time() - secrets[per][1]) > 1800:
+            del secrets[per]
+        #endif
+    #endfor
+
+    request.session['domains.domain.edit'] = secrets
+
+    return render_to_response(
+        "domains/domain/edit.html",
+        {
+            "managedDomain":    domain,
+            "secret":           secret
+        },
+        context_instance=RequestContext(request)
+    )
+#enddef
+
+@secure
+def edit_ajax(request):
+    if request.method != "POST" or "secret" not in request.POST:
+        raise Http404
+    #endif
+
+    secret = request.POST['secret']
+    secrets = request.session.get("domains.domain.edit", {})
+    if not secret in secrets or (time.time() - secrets[secret][1]) > 1800:
+        raise Http404
+    #endif
+
+    domainId = secrets[secret][0]
+
+    domain = get_object_or_404(Domain, id=domainId)
+
+    data = {
+        "status":           200,
+        "statusMessage":    _("OK")
+    }
+
+    try:
+        virDomain = virtualization.virDomain(domain)
+        if "vcpu" in request.POST:
+            vcpus = int(request.POST['vcpu'])
+            virDomain.setVCPUs(vcpus)
+        elif "max_memory" in request.POST:
+            memory = int(request.POST['max_memory'])
+            virDomain.setMaxMemory(memory)
+        elif "cur_memory" in request.POST:
+            memory = int(request.POST['cur_memory'])
+            virDomain.setMemory(memory)
+        else:
+            data['status'] = 404
+            data['statusMessage'] = _("Parameter not found!")
+        #endif
+    except virtualization.ErrorException, e:
+        data['status'] = 503
+        data['statusMessage'] = _(unicode(e))
+    #endtry
+
+    return HttpResponse(simplejson.dumps(data))
+#enddef

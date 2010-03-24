@@ -51,6 +51,21 @@ urlpatterns = patterns("webPyVirt.domains",
         name="domain_remove"
     ),
     url(
+        r"^domain/edit/$",
+        "views.domain.select",
+        {
+            "next":         "domains:domain_edit",
+            "domainFilter": "change_domain",
+            "permission":   canEditDomains
+        },
+        name="domain_edit__select_domain"
+    ),
+    url(
+        r"^domain/edit/(?P<domainId>\d+)/$",
+        "views.domain.edit",
+        name="domain_edit"
+    ),
+    url(
         r"^domain/select/autocomplete/(?P<permission>[\dabcdef]+)/$",
         "views.domain.select_autocomplete",
         name="domain_select_autocomplete"
@@ -71,6 +86,13 @@ urlpatterns = patterns("webPyVirt.domains",
         r"^domain/statistics/(?P<statisticsType>(cpu|memory))/$",
         "views.domain.statistics",
         name="domain_statistics_cpu"
+    ),
+
+    # AJAX
+    url(
+        r"^domain/ajax/edit/$",
+        "views.domain.edit_ajax",
+        name="domain_edit_ajax"
     ),
 
     # ACL

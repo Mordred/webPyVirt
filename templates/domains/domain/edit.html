@@ -1,0 +1,72 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Edit Domain" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.validation.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.domain_set.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $(".button-set").domainSet();
+                $("input.integer-field").integerField();
+            });
+        </script>
+{% endblock custom_js %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Edit Domain" %} :: {{ managedDomain.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        You can change some parameters of the domain dynamically. 
+        {% endblocktrans %}
+    </p>
+
+    <br />
+
+    <div>
+
+        <input type="hidden" id="secret" name="secret" value="{{ secret }}" />
+
+        <table class="white-stripe w100p">
+            <col width="35%" />
+            <col width="20%" />
+            <col width="25%" />
+            <col width="15%" />
+            <tr>
+                <th>{% trans "Parameter" %}</th>
+                <th class="center">{% trans "Actual value" %}</th>
+                <th class="center">{% trans "New value" %}</th>
+                <th></th>
+            </tr>
+
+            <tr>
+                <td>{% trans "Virtual CPUs" %}:</td>
+                <td class="center">{{ managedDomain.vcpu }}</td>
+                <td>
+                    <input class="integer-field" type="text" id="vcpu" name="vcpu" value="" />
+                </td>
+                <td class="center"><button class="button-set">{% trans "Set" %}</button></td>
+            </tr>
+            <tr>
+                <td>{% trans "Maximum Memory (in KB)" %}:</td>
+                <td class="center">{{ managedDomain.memory }}</td>
+                <td>
+                    <input class="integer-field" type="text" id="max_memory" name="max_memory" value="" />
+                </td>
+                <td class="center"><button class="button-set">{% trans "Set" %}</button></td>
+            </tr>
+            <tr>
+                <td>{% trans "Memory (in KB)" %}:</td>
+                <td class="center">{{ managedDomain.memory_current }}</td>
+                <td>
+                    <input class="integer-field" type="text" id="cur_memory" name="cur_memory" value="" />
+                </td>
+                <td class="center"><button class="button-set">{% trans "Set" %}</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+{% endblock content_body %}

@@ -403,6 +403,57 @@ class virDomain(object):
         return True
     #enddef
 
+    def setVCPUs(self, vcpus):
+        con = self.getConnection()
+
+        try:
+            con.setVcpus(vcpus)
+            vcpu = self.getInfo()['vcpu']
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        model = self.getModel()
+        model.vcpu = vcpu
+        model.save()
+        return True
+    #enddef
+
+    def setMaxMemory(self, memory):
+        con = self.getConnection()
+
+        try:
+            con.setMaxMemory(memory)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        model = self.getModel()
+        newData = self.getModel(True)
+        model.memory = newData.memory
+        model.save()
+        return True
+    #enddef
+
+    def setMemory(self, memory):
+        con = self.getConnection()
+
+        try:
+            con.setMemory(memory)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        model = self.getModel()
+        newData = self.getModel(True)
+        model.memory_current = newData.memory_current
+        model.save()
+        return True
+    #enddef
+
     def save(self):
         raise NotImplementedError
     #enddef

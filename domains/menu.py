@@ -9,6 +9,7 @@ def MENU(request):
     changeAcls = canChangeAcls(request)
     viewDomains = canViewDomains(request)
     removeDomains = canRemoveDomains(request)
+    editDomains = canEditDomains(request)
 
     return [
         {   # Section domain
@@ -24,6 +25,11 @@ def MENU(request):
                     "hide":     not viewDomains,
                     "label":    _("Domain detail"),
                     "url":      "domain_detail__select_domain"
+                },
+                {   # Edit domain
+                    "hide":     not editDomains,
+                    "label":    _("Edit domain"),
+                    "url":      "domain_edit__select_domain"
                 },
                 {   # Remove domain
                     "hide":     not removeDomains,

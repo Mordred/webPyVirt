@@ -200,13 +200,21 @@ class Domain(models.Model):
         return ret
     #enddef
 
-    def getMemory(self):
-        mem = self.memory
+    def getMemory(self, current = False):
+        if current:
+            mem = self.memory_current
+        else:
+            mem = self.memory
+        #endif
         if mem > (10*1024*1024):
             return "%2.2f GB" % (mem/(1024.0*1024.0))
         else:
             return "%2.0f MB" % (mem/1024.0)
         #endif
+    #enddef
+
+    def getCurrentMemory(self):
+        return self.getMemory(True)
     #enddef
 
     def getDevices(self):
