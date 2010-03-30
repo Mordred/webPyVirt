@@ -1,0 +1,174 @@
+<domain type="{{ domain.hypervisor_type }}" {% ifnotequal domain.current_id -1 %}id="{{ domain.current_id }}"{% endifnotequal %}>
+    <name>{{ domain.name }}</name>
+    {% if domain.uuid %}<uuid>{{ domain.uuid }}</uuid>{% endif %}
+    <description>{{ domain.description|default:"" }}</description>
+    <memory>{{ domain.memory }}</memory>
+    {% if domain.memory_current %}<currentMemory>{{ domain.memory_current }}</currentMemory>{% endif %}
+    <vcpu>{{ domain.vcpu }}</vcpu>
+
+    {% if domain.os_type or domain.loader or domain.os_architecture or domain.os_machine or domain.os_kernel or domain.os_initrd or domain.os_cmdline or domain.os_boot %}
+    <os>
+        {% if domain.os_type or domain.os_architecture or domain.os_machine %}<type{% if domain.os_architecture %} arch="{{ domain.os_architecture }}"{% endif %}{% if domain.os_machine %} machine="{{ domain.os_machine }}"{% endif %}>{{ domain.os_type|default:"" }}</type>{% endif %}
+        {% if domain.loader %}<loader>{{ domain.loader }}</loader>{% endif %}
+        {% if domain.os_kernel %}<kernel>{{ domain.os_kernel }}</kernel>{% endif %}
+        {% if domain.os_initrd %}<initrd>{{ domain.os_initrd }}</initrd>{% endif %}
+        {% if domain.os_cmdline %}<cmdline>{{ domain.os_cmdline }}</cmdline>{% endif %}
+        {% for boot in domain.getOSBoot %}
+        <boot dev="{{ boot }}" />
+        {% endfor %}
+    </os>
+    {% endif %}
+
+    {% if domain.bootloader %}<bootloader>{{ domain.bootloader }}</bootloader>{%endif%}
+    {% if domain.bootloader_args %}<bootloader_args>{{ domain.bootloader_args }}</bootloader_args>{%endif%}
+
+    {% if domain.cpu_match or domain.cpu_model or domain.getCPUTopology or domain.getCPUFeatures %}
+    <cpu{% if domain.cpu_match %} match="{{ domain.cpu_match }}"{% endif %}>
+        {% if domain.cpu_model %}<model>{{ domain.cpu_model }}</model>{% endif %}
+        {% if domain.getCPUTopology %}<topology{% for key, value in domain.getCPUTopology.items %} {{ key }}="{{ value }}"{% endfor %} />{% endif %}
+        {% for key, value in domain.getCPUFeatures.items %}
+        <feature policy="{{ value }}" name="{{ key }}" />
+        {% endfor %}
+    </cpu>
+    {% endif %}
+
+    {% if domain.clock %}<clock offset="{{ domain.clock }}" />{% endif %}
+
+    {% if domain.poweroff %}<on_poweroff>{{ domain.poweroff }}</on_poweroff>{% endif %}
+    {% if domain.reboot %}<on_reboot>{{ domain.reboot }}</on_reboot>{% endif %}
+    {% if domain.crash %}<on_crash>{{ domain.crash }}</on_crash>{% endif %}
+
+    {% if domain.pae or domain.acpi or domain.apic %}
+    <features>
+        {% if domain.pae %}<pae />{% endif %}
+        {% if domain.acpi %}<acpi />{% endif %}
+        {% if domain.apic %}<apic />{% endif %}
+    </features>
+    {% endif %}
+
+    <devices>
+        {% if domain.emulator %}<emulator>{{ domain.emulator }}</emulator>{% endif %}
+
+        {% for disk in domain.disk_set.all %}
+        <disk type="{{ disk.type }}"{% if disk.device %} device="{{ disk.device }}"{% endif %}>
+            {% if disk.driver_name or disk.driver_type or disk.driver_cache %}
+            <driver{% if disk.driver_name %} name="{{ disk.driver_name }}"{% endif %}{% if disk.driver_type %} type="{{ disk.driver_type }}"{% endif %}{% if disk.driver_cache %} cache="{{ disk.driver_cache }}"{% endif %} />
+            {% endif %}
+            <source {% ifequal disk.type "file" %}file={% else %}dev={% endifequal %}"{{ disk.source }}" />
+            <target dev="{{ disk.target_dev }}"{% if disk.target_bus %} bus="{{ disk.target_bus }}"{% endif %}/>
+            {% comment %}TODO: Pridat encryption{% endcomment %}
+            {% if disk.shareable %}<shareable />{% endif %}
+        </disk>
+        {% endfor %}
+
+        {% for hostdev in domain.hostdevice_set.all %}
+        <hostdev mode="subsystem" type="{{ hostdev.type }}">
+            <source>
+                {% if hostdev.vendor or hostdev.product %}
+                {% if hostdev.vendor %}<vendor id="{{ hostdev.vendor }}">{% endif %}
+                {% if hostdev.product %}<product id="{{ hostdev.product }}">{% endif %}
+                {% else %}
+                <address bus="{{ hostdev.address_bus }}" {% ifequal hostdev.type "usb" %}device="{{ hostdev.address_device }}"{% else %}slot="{{ hostdev.address_slot }}" function="{{ hostdev.address_function }}"{% endifequal %} />
+                {% endif %}
+            </source>
+        </hostdev>
+        {% endfor %}
+
+        {% for interface in domain.interface_set.all %}
+        <interface{% if interface.type %} type="{{ interface.type }}"{% endif %}>
+            {% if interface.mac_address %}<mac address="{{ interface.mac_address }}" />{% endif %}
+
+            {% if interface.source_bridge or interface.source_network or interface.source_dev or interface.source_mode or interface.source_address or interface.source_port %}
+            <source{% if interface.bridge %} bridge="{{ interface.source_bridge }}"{% endif %}{% if interface.source_network %} network="{{ interface.source_network }}"{% endif %}{%if interface.source_dev %} dev="{{ interface.source_dev }}"{% endif %}{% if interface.source_mode %} mode="{{ interface.source_mode }}"{% endif %}{% if interface.source_address %} address="{{ interface.source.address }}"{% endif %}{% if interface.source_port %} port="{{ interface.source_port }}"{% endif %}>
+            {% endif %}
+
+            {% if interface.target_dev %}<target dev="{{ interface.target_dev }}" />{% endif %}
+
+            {% if interface.script %}<script path="{{ interface.script }}" />{% endif %}
+
+            {% if interface.model %}<model type="{{ interface.type }}" />{% endif %}
+        </interface>
+        {% endfor %}
+
+        {% for input in domain.inputdevice_set.all %}
+        <input type="{{ input.type }}"{% if input.bus %} bus="{{ input.bus }}"{% endif %} />
+        {% endfor %}
+
+        {% for graphics in domain.graphics_set.all %}
+        {% ifequal graphics.type "sdl" %}
+        <graphics type="{{ graphics.type }}"{% if graphics.display %} display="{{ graphics.display }}"{% endif %}{% if graphics.xauth %} xauth="{{ graphics.xauth }}"{% endif %} fullscreen="{{ graphics.fullscreen|yesno:"yes,no" }}" />
+        {% endifequal %}
+
+        {% ifequal graphics.type "vnc" %}
+        <graphics type="{{ graphics.type }}"{% if graphics.port %} port="{{ graphics.port }}"{% endif %} autoport="{{ graphics.autoport|yesno:"yes,no" }}"{% if graphics.listen %} listen="{{ graphics.listen }}"{% endif %}{% if graphics.password %} passwd="{{ graphics.password }}"{% endif %}{% if graphics.keymap %} keymap="{{ graphics.keymap }}"{% endif %} />
+        {% endifequal %}
+
+        {% ifequal graphics.type "rdp" %}
+        <graphics type="{{ graphics.type }}"{% if graphics.port %} port="{{ graphics.port }}"{% endif %} autoport="{{ graphics.autoport|yesno:"yes,no" }}" multiUser="{{ graphics.multi_user|yesno:"yes,no" }}" replaceUser="{{ graphics.replace_user|yesno:"yes,no" }}" />
+        {% endifequal %}
+
+        {% ifequal graphics.type "desktop" %}
+        <graphics type="{{ graphics.type }}"{% if graphics.display %} display="{{ graphics.display }}"{% endif %} fullscreen="{{ graphics.fullscreen|yesno:"yes,no" }}" />
+        {% endifequal %}
+        {% endfor %}
+
+        {% for video in domain.video_set.all %}
+        <video>
+            <model type="{{ video.type }}"{% if video.vram %} vram="{{ video.vram }}"{% endif %}{% if video.heads %} heads="{{ video.heads }}"{% endif %}>
+                <acceleration accel3d="{{ video.acceleration_3d|yesno:"yes,no" }}" accel2d="{{ video.acceleration_2d|yesno:"yes,no" }}" />
+            </model>
+        </video>
+        {% endfor %}
+
+        {% for port in domain.port_set.all %}
+        {% ifequal port.port_type "parallel" %}
+        <parallel type="{{ port.type }}">
+            {% if port.source_path or port.source_mode %}
+            <source{% if port.source_path %} path="{{ port.source_path }}"{% endif %}{% if port.source_mode %} mode="{{ port.source_mode }}"{% endif %} />
+            {% endif %}
+            <target port="{{ port.target_port }}" />
+        </parallel>
+        {% endifequal %}
+
+        {% ifequal port.port_type "serial" %}
+        <serial type="{{ port.type }}">
+            {% if port.source_path or port.source_mode %}
+            <source{% if port.source_path %} path="{{ port.source_path }}"{% endif %}{% if port.source_mode %} mode="{{ port.source_mode }}"{% endif %} />
+            {% endif %}
+            <target port="{{ port.target_port }}" />
+            {% if port.protocol %}
+            <protocol type="{{ port.protocol }}" />
+            {% endif %}
+        </serial>
+        {% endifequal %}
+
+        {% ifequal port.port_type "console" %}
+        <console type="{{ port.type }}">
+            {% if port.source_path or port.source_mode %}
+            <source{% if port.source_path %} path="{{ port.source_path }}"{% endif %}{% if port.source_mode %} mode="{{ port.source_mode }}"{% endif %} />
+            {% endif %}
+            <target port="{{ port.target_port }}" />
+        </console>
+        {% endifequal %}
+
+        {% ifequal port.port_type "channel" %}
+        <channel type="{{ port.type }}">
+            {% if port.source_path or port.source_mode %}
+            <source{% if port.source_path %} path="{{ port.source_path }}"{% endif %}{% if port.source_mode %} mode="{{ port.source_mode }}"{% endif %} />
+            {% endif %}
+            {% if port.target_port or port.target_type or port.target_address %}
+            <target type="{{ port.target_type }}" address="{{ port.target_address }}" port="{{ port.target_port }}" />
+            {% endif %}
+        </channel>
+        {% endifequal %}
+        {% endfor %}
+
+        {% for sound in domain.sound_set.all %}
+        <sound model="{{ sound.model }}" />
+        {% endfor %}
+
+        {% for watchdog in domain.watchdog_set.all %}
+        <watchdog model="{{ watchdog.model }}"{% if watchdog.action %} action="{{ watchdog.action }}"{% endif %} />
+        {% endfor %}
+    </devices>
+</domain>

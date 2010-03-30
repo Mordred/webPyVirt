@@ -166,9 +166,9 @@ class Domain(models.Model):
     def getCPUTopology(self):
         topology = self.cpu_topology.split(",")
         ret = {}
-        if topology[0] != -1: ret['sockets'] = int(topology[0])
-        if topology[1] != -1: ret['cores'] = int(topology[1])
-        if topology[2] != -1: ret['threads'] = int(topology[2])
+        if int(topology[0]) != -1: ret['sockets'] = int(topology[0])
+        if int(topology[1]) != -1: ret['cores'] = int(topology[1])
+        if int(topology[2]) != -1: ret['threads'] = int(topology[2])
         return ret
     #enddef
 
@@ -192,6 +192,7 @@ class Domain(models.Model):
         policies = self.cpu_features_policies.split(",")
 
         if len(features) != len(policies): return None
+        if len(features) == 1 and features[0] == "": return None
 
         ret = {}
         for index in range(len(features)):
