@@ -17,9 +17,42 @@
         var nodeInfo = null;
         var loading = false;
 
+        var memory = function(data) {
+            if (data['status'] == 200) {
+                var buttons = getButtons(
+                    null,
+                    function() { if (saveMemory()) loadMetadata(); }
+                );
+
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    interpolate(
+                        "Choose memory and CPU settings: "
+                    )
+                );
+                content.append(text);
+
+                var form = createForm("id_frmMemory");
+                form.append(createSlider("memory", gettext("Memory (RAM)"),
+                    50, nodeInfo['memory'],
+                    (data['memory'] != null) ? data['memory'] : Math.ceil(nodeInfo['memory'] / 2), "MB"));
+                form.append(createSlider("vcpu", gettext("CPUs"),
+                    1, nodeInfo['cpus'],
+                    (data['vcpu'] != null) ? data['vcpu'] : Math.ceil(nodeInfo['cpus'] / 2)));
+
+                content.append(form);
+
+                setContent(content, gettext("Memory"), buttons);
+
+            } else {
+                showError(data, loadMetadata);
+            }
+        }
+
         var metadata = function(data) {
             if (data['status'] == 200) {
-                var buttons = getButtons(null, 
+                var buttons = getButtons(
+                    function() { if (saveMetadata()) loadMemory(); },
                     function() { if (saveMetadata()) introduction(); }
                 );
                 var content = $("<div />");
@@ -33,7 +66,7 @@
 
                 var form = createForm("id_frmMetadata");
                 form.append(createInput("input", "name", data['name'], gettext("Domain Name"), [ "required" ]));
-                form.append(createInput("input", "uuid", data['uuid'], gettext("UUID")));
+                form.append(createInput("input", "uuid", data['uuid'], gettext("UUID"), [ "uuid" ]));
                 form.append(createInput("textarea", "description", data['description'], gettext("Description")));
 
                 content.append(form);
@@ -46,7 +79,7 @@
 
         var createInput = function(type, inpName, inpValue, label, validation) {
             var id = "id_" + inpName;
-            var field = $("<div />").addClass("field");
+            var field = $("<div />").addClass("field").css("margin-top", "5px");
             var label = $("<label />").attr("for", id).html(label + ":");
 
             var input = null;
@@ -69,9 +102,52 @@
                     var validat = validation[i];
                     if (validat == "required") {
                         field.append($("<span />").addClass("required").html("*"));
+                    } else if (validat == "uuid") {
+                        input.UUIDField();
                     }
                 }
             }
+
+            return field;
+        }
+
+        var createSlider = function(sliderName, label, minValue, maxValue, currentValue, units) {
+            var id = "id_" + sliderName;
+            var field = $("<div />").addClass("field").css("margin-top", "15px");
+            var label = $("<label />").attr("for", id).html(label + ": ");
+
+            var slider = $("<div />").css({
+                    "block":    "inline-block"
+                }).slider({
+                    value:      currentValue,
+                    min:        minValue,
+                    max:        maxValue,
+                    step:       1,
+                    slide:      function(event, ui) {
+                        $("#"+id).val(ui.value);
+                    }
+            });
+
+            var value = $("<input />").attr("name", sliderName).attr("type", "text")
+                .css({
+                    "text-align":       "right",
+                    "margin-bottom":    "10px"
+                })
+                .attr("id", id).val(currentValue)
+                .integerField().change(function() {
+                    if ($(this).val() < minValue) {
+                        $(this).val(minValue);
+                    }
+                    if ($(this).val() > maxValue) {
+                        $(this).val(maxValue);
+                    }
+                    slider.slider("value", $(this).val());
+                });
+
+            field.append(label);
+            field.append(value);
+            if (typeof units != "undefined") field.append(" " + units);
+            field.append(slider);
 
             return field;
         }
@@ -123,7 +199,25 @@
             } else {
                 showError(data, introduction);
             }
-        }
+        };
+
+        var saveMemory = function() {
+            var data = {
+                "action":       "saveMemory",
+                "memory":       $("#id_memory").val(),
+                "vcpu":         $("#id_vcpu").val()
+            }
+            send(data, null);
+
+            return true;
+        };
+
+        var loadMemory = function() {
+            var data = {
+                "action":       "loadMemory",
+            }
+            send(data, memory);
+        };
 
         var saveMetadata = function() {
             var inpName = $("#id_name");
@@ -131,6 +225,15 @@
             if (domName.length == 0 || domName == "") {
                 alert(gettext("Name is required!"));
                 inpName.parent().addClass("error");
+                return false;
+            }
+
+            var inpUuid = $("#id_uuid");
+            var domUuid = inpUuid.val();
+            if (!((/^[\da-fA-F]{8}\-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}$/).test(domUuid) ||
+                (/^[\da-fA-F]{32}$/).test(domUuid)) && domUuid.length != 0) {
+                alert(gettext("UUID is invalid!"));
+                inpUuid.parent().addClass("error");
                 return false;
             }
 

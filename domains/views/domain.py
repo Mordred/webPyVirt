@@ -130,6 +130,14 @@ def wizard(request):
         domain.description = request.POST['description']
         permis[secret] = (time.time(), domain)
         request.session['domains.domain.add'] = permis
+    elif action == "loadMemory":
+        data['memory'] = domain.memory
+        data['vcpu'] = domain.vcpu
+    elif action == "saveMemory":
+        domain.memory = request.POST['memory']
+        domain.vcpu = request.POST['vcpu']
+        permis[secret] = (time.time(), domain)
+        request.session['domains.domain.add'] = permis
     else:
         data['status'] = 404
         data['statusMessage'] = _("Action not found!")
