@@ -18,11 +18,14 @@ from webPyVirt.libs             import virtualization
 from webPyVirt.menu             import generateMenu
 
 from webPyVirt.domains.misc         import getDomains
-from webPyVirt.domains.forms        import SelectDomainForm
+from webPyVirt.domains.forms        import SelectDomainForm, AddDomainForm
 from webPyVirt.domains.models       import Domain
 from webPyVirt.domains.permissions  import isAllowedTo
 
 from webPyVirt.monitor.monitor      import Monitor
+
+from webPyVirt.nodes.permissions    import isAllowedTo as nodeIsAllowedTo
+from webPyVirt.nodes.models         import Node
 
 @secure
 def index(request):
@@ -37,13 +40,102 @@ def index(request):
 #enddef
 
 @secure
-def add(request):
+def add(request, nodeId):
+    node = get_object_or_404(Node, id=nodeId)
+
+    if not nodeIsAllowedTo(request, node, "add_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    newDomain = Domain()
+    newDomain.node = node
+    newDomain.hypervisor_type = node.driver
+
+    permis = request.session.get("domains.domain.add", {})
+    permisHash = sha.sha(request.user.username.upper() + ":" + str(time.time())).hexdigest()
+    permis[permisHash] = (time.time(), newDomain)
+
+    # Session cleanup
+    hashes = permis.keys()
+    for per in hashes:
+        if (time.time() - permis[per][0]) > 3600:
+            del permis[per]
+        #endif
+    #endfor
+
+    request.session['domains.domain.add'] = permis
+
     return render_to_response(
         "domains/domain/add.html",
         {
+            "hash":     permisHash,
+            "node":     node
         },
         context_instance=RequestContext(request)
     )
+#enddef
+
+def wizard(request):
+    if request.method != "POST" or "secret" not in request.POST or "action" not in request.POST:
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    secret = request.POST['secret']
+    action = request.POST['action']
+
+    permis = request.session.get("domains.domain.add", {})
+    if secret not in permis:
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    domain = permis[secret][1]
+    node = domain.node
+
+    if not nodeIsAllowedTo(request, node, "add_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    data = {
+        "status":           200,
+        "statusMessage":    _("OK")
+    }
+
+    if action == "nodeCheck":
+        try:
+            virNode = virtualization.virNode(node)
+            result = virNode.getInfo()
+        except virtualization.ErrorException, e:
+            data['nodeStatus'] = False
+            data['error'] = unicode(e)
+        else:
+            data['nodeStatus'] = True
+            data['info'] = result
+            try:
+                freeMemory = virNode.getFreeMemory()
+            except virtualization.ErrorException, e:
+                data['info']['freeMemory'] = -1
+            else:
+                data['info']['freeMemory'] = freeMemory
+            #endtry
+        #endtry
+        data['name'] = node.name
+        data['uri'] = node.getURI()
+    elif action == "loadMetadata":
+        data['name'] = domain.name
+        data['uuid'] = domain.uuid
+        data['description'] = domain.description
+    elif action == "saveMetadata":
+        domain.name = request.POST['name']
+        domain.uuid = request.POST['uuid']
+        domain.description = request.POST['description']
+        permis[secret] = (time.time(), domain)
+        request.session['domains.domain.add'] = permis
+    else:
+        data['status'] = 404
+        data['statusMessage'] = _("Action not found!")
+    #endif
+
+    return HttpResponse(simplejson.dumps(data))
 #enddef
 
 @secure

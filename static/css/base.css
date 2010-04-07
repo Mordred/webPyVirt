@@ -50,6 +50,7 @@ td.description                  { font-style: italic; font-size: 0.7em; cursor: 
 .vcenter                        { vertical-align: middle; }
 .right                          { text-align: right; }
 .left                           { text-align: left; }
+.align-justify                  { text-align: justify; }
 
 /* tables */
 table th, td                    { vertical-align: middle; }

@@ -147,6 +147,18 @@ class virNode(object):
         }
     #enddef
 
+    def getFreeMemory(self):
+        try:
+            connection = self.getConnection()
+            freeMemory = connection.getFreeMemory()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return freeMemory
+    #enddef
+
     def listDomains(self, listFilter = LIST_DOMAINS_ACTIVE):
         active = []
         inactive = []

@@ -46,5 +46,16 @@ class DomainAclForm(forms.ModelForm):
     class Meta:
         model = DomainAcl
         exclude = [ "domain" ]
+    #endclass
+
+#endclass
+
+class AddDomainForm(forms.ModelForm):
+
+    class Meta:
+        model = Domain
+        exclude = [ "node", "owner", "current_id", "hypervisor_type", 
+            "os_type", "os_boot", "cpu_features", "cpu_features_policies" ]
+    #endclass
 
 #endclass

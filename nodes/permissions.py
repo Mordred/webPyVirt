@@ -37,6 +37,10 @@ def canRemoveNodes(request, *args, **kwargs):
     #endif
 #enddef
 
+def canAddDomains(request, *args, **kwargs):
+    return bool(getNodes(request, "add_domain").count() != 0)
+#enddef
+
 def canAutoimportDomains(request, *args, **kwargs):
     if not getNodes(request, "owner").count():
         return False        # No Nodes

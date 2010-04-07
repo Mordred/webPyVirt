@@ -2,6 +2,7 @@
 from django.conf.urls.defaults          import *
 
 from webPyVirt.domains.permissions      import *
+from webPyVirt.nodes.permissions        import *
 
 urlpatterns = patterns("webPyVirt.domains",
     # Domain
@@ -9,11 +10,6 @@ urlpatterns = patterns("webPyVirt.domains",
         r"^$",
         "views.domain.index",
         name="domain_index"
-    ),
-    url(
-        r"^domain/add/$",
-        "views.domain.add",
-        name="domain_add"
     ),
     url(
         r"^domain/autoimport/$",
@@ -29,6 +25,16 @@ urlpatterns = patterns("webPyVirt.domains",
             "permission":   canViewDomains
         },
         name="domain_detail__select_domain"
+    ),
+    url(
+        r"^domain/add/(?P<nodeId>\d+)/$",
+        "views.domain.add",
+        name="domain_add"
+    ),
+    url(
+        r"^domain/add/wizard/$",
+        "views.domain.wizard",
+        name="domain_wizard"
     ),
     url(
         r"^domain/detail/(?P<domainId>\d+)/$",
@@ -146,5 +152,18 @@ urlpatterns += patterns("webPyVirt.accounts",
             "permission":   canChangeDomainAcl
         },
         name="acl_group__select_group"
+    ),
+)
+
+urlpatterns += patterns("webPyVirt.nodes",
+    url(
+        r"^domain/add/$",
+        "views.node.select",
+        {
+            "next":         "domains:domain_add",
+            "nodeFilter":   "add_domain",
+            "permission":   canAddDomains
+        },
+        name="domain_add__select_node"
     ),
 )

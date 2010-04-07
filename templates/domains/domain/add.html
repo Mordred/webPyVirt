@@ -1,36 +1,42 @@
 {% extends "base_administration.html" %}
 {% load i18n %}
 
-{% block subtitle %}{% trans "Add Domain" %}{% endblock subtitle %}
+{% block subtitle %}{% trans "Create Domain" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.validation.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.domain_wizard.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $("#startWizard").click(function() {
+                    $("#addDomainWizard").domainWizard();
+                });
+            });
+        </script>
+{% endblock custom_js %}
 
 {% block content_body %}
-    <h1 class="center">{% trans "Add Domain" %}</h1>
+    <h1 class="center">{% trans "Create Domain" %} :: {{ node.name }}</h1>
 
     <p class="indent">
         {% blocktrans %}
         {% endblocktrans %}
     </p>
 
+    <div id="addDomainWizard"></div>
+    <input type="hidden" name="secret" id="secret" value="{{ hash }}" />
+
+    <br />
+    <br />
+    <br />
+    <br />
     <br />
 
-    <form action="" method="post" id="frmAddDomain">
-        <div class="form">
-            {% csrf_token %}
-
-            {% if form.errors %}
-            <div class="errornote">
-                {% trans "There are errors in the form." %}
-            </div>
-
-            <br />
-            {% endif %}
-
-            <div class="submit right">
-                <input type="submit" value="{% trans "Add domain" %}" />
-            </div>
-
-        </div>
-
-    </form>
+    <div class="center">
+        {% trans "If you want to create new domain, please click on the 'Create Domain Wizard' button. It will guide you throught whole process." %}
+        <br />
+        <br />
+        <button id="startWizard">{% trans "Create Domain Wizard" %}</button>
+    </div>
 
 {% endblock content_body %}

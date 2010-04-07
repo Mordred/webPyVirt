@@ -4,12 +4,14 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
 from webPyVirt.domains.permissions  import *
+from webPyVirt.nodes.permissions    import *
 
 def MENU(request):
     changeAcls = canChangeAcls(request)
     viewDomains = canViewDomains(request)
     removeDomains = canRemoveDomains(request)
     editDomains = canEditDomains(request)
+    addDomains = canAddDomains(request)
 
     return [
         {   # Section domain
@@ -17,9 +19,9 @@ def MENU(request):
             "label":        _("Domains"),
             "items":        [
                 {   # Add domain
-                    "hide":     True,
+                    "hide":     not addDomains,
                     "label":    _("Add domain"),
-                    "url":      "domain_add"
+                    "url":      "domain_add__select_node"
                 },
                 {   # Domain detail
                     "hide":     not viewDomains,

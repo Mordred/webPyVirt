@@ -51,9 +51,10 @@ span.border-bottom span         { background: url("../img/border-right.png") no-
 #tabs a:hover                   { background-position: 0 -70px; }
 #tabs a:hover span              { background-position: 100% -70px; }
 
-form div.field label            { width: 200px; display: block; float: left; }
+form div.field label            { width: 200px; display: inline-block; }
 form div.field input,            
  form div.field select          { width: 300px; }
+form div.field textarea         { width: 300px; vertical-align: top; }
 form div.submit                 { margin-right: 80px; }
 
 form .accordion div.submit      { margin: 0 0 0 0; }
@@ -86,3 +87,5 @@ form .accordion div.submit      { margin: 0 0 0 0; }
 
 .gauge                          { width: 150px; height: 150px; float: left; padding-top: 25px; }
 .area-chart                     { width: 550px; height: 200px; padding-left: 160px; }
+
+#id_description                 { height: 100px; width: 300px; }

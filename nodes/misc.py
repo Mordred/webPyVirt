@@ -20,6 +20,11 @@ def getNodes(request, nodeFilter, search=None, order = "name"):
         groupNodeAclQ = Q(groupnodeacl__change_node=True)
         exUserNodeAclQ = Q(usernodeacl__change_node=False)
         exGroupNodeAclQ = Q(groupnodeacl__change_node=False)
+    elif nodeFilter == "add_domain":
+        userNodeAclQ = Q(usernodeacl__add_domain=True)
+        groupNodeAclQ = Q(groupnodeacl__add_domain=True)
+        exUserNodeAclQ = Q(usernodeacl__add_domain=False)
+        exGroupNodeAclQ = Q(groupnodeacl__add_domain=False)
     elif nodeFilter == "delete_node":
         userNodeAclQ = Q(usernodeacl__delete_node=True)
         groupNodeAclQ = Q(groupnodeacl__delete_node=True)
