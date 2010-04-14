@@ -17,10 +17,114 @@
         var nodeInfo = null;
         var loading = false;
 
-        var memory = function(data) {
+        var storagePools = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    interpolate(
+                        "Select storage pool where disk for this virtual machine will be saved: "
+                    )
+                );
+
+                var form = createForm("id_frmStoragePool");
+                // TODO: Allow creating pools
+                var createStoragePool = $("<input />").attr("type", "radio").attr("name", "poolAction")
+                    .val(0).attr("selected", "selected");
+
+                form.append(createStoragePool);
+                form.append(gettext("Create a new storage pool.<br />"));
+
+                var subData = $("<div />").css("padding-left", "25px");
+                var inpName = createInput("input", "name", "", gettext("Storage Pool Name"));
+                var selType = createSelect("type", [
+                        { "value": "dir", "label": "Filesystem Directory" }
+                    ], gettext("Storage Pool Type"));
+
+                createStoragePool.change(function() {
+                    $("#id_name").removeAttr("disabled");
+                    $("#id_type").removeAttr("disabled");
+                    $("#id_pool").attr("disabled", "disabled");
+                });
+
+                subData.append(inpName);
+                subData.append(selType);
+
+                form.append(subData);
+
+                var selectStoragePool = $("<input />").attr("type", "radio").attr("name", "poolAction")
+                   .val(1);
+
+                selectStoragePool.change(function() {
+                    $("#id_name").attr("disabled", "disabled");
+                    $("#id_type").attr("disabled", "disabled");
+                    $("#id_pool").removeAttr("disabled");
+                });
+
+                form.append(selectStoragePool);
+                form.append(gettext("Select existing storage pool.<br />"));
+
+                var subData = $("<div />").css("padding-left", "25px");
+                var selPool = createSelect("pool", data['storagePools'], gettext("Existing pools"), data['pool']);
+                subData.append(selPool);
+
+                form.append(subData);
+
+                content.append(text);
+                content.append(form);
+
+                var buttons = getButtons(
+                    null,
+                    function() { if (saveStoragePools()) loadMemory(); }
+                );
+                setContent(content, gettext("Storage Pool"), buttons);
+
+                // Select second option at start
+                selectStoragePool.attr("checked", "checked").change();
+            } else {
+                showError(data, loadMemory);
+            }
+        }
+
+        var disk = function(data) {
             if (data['status'] == 200) {
                 var buttons = getButtons(
                     null,
+                    function() { if (saveDisk()) loadMemory(); }
+                );
+
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    interpolate(
+                        "Select storage for this virtual machine: "
+                    )
+                );
+
+                var form = createForm("id_frmDisk");
+                var createStorage = $("<input />").attr("type", "radio").attr("name", "diskAction")
+                    .val(0).attr("selected", "selected");
+
+                form.append(createStorage);
+                form.append(gettext("Create a disk image on the computer's hard drive.<br />"));
+
+                var selectStorage = $("<input />").attr("type", "radio").attr("name", "diskAction")
+                    .val(1);
+                form.append(selectStorage);
+                form.append(gettext("Select managed or other existing storage.<br />"));
+
+                content.append(text);
+                content.append(form);
+
+                setContent(content, gettext("Disk"), buttons);
+
+            } else {
+                showError(data, loadMemory);
+            }
+        }
+
+        var memory = function(data) {
+            if (data['status'] == 200) {
+                var buttons = getButtons(
+                    function() { if (saveMemory()) loadStoragePools(); },
                     function() { if (saveMemory()) loadMetadata(); }
                 );
 
@@ -107,6 +211,34 @@
                     }
                 }
             }
+
+            return field;
+        }
+
+        var createSelect = function(selName, items, label, selected) {
+            var id = "id_" + selName;
+            var field = $("<div />").addClass("field").css("margin-top", "5px");
+            var label = $("<label />").attr("for", id).html(label + ":");
+
+            var select = $("<select />").attr("name", selName).attr("id", id);
+
+            for (var i = 0; i < items.length; i++) {
+                var item = items[i];
+                var option = null;
+                if (typeof item == "string") {
+                    option = $("<option />").val(item).append(item);
+                } else {
+                    option = $("<option />").val(item['value']).append(item['label']);
+                }
+
+                if (typeof selected != "undefined" && option.val() == selected)
+                    option.attr("selected", "selected");
+
+                select.append(option);
+            }
+
+            field.append(label);
+            field.append(select);
 
             return field;
         }
@@ -199,6 +331,55 @@
             } else {
                 showError(data, introduction);
             }
+        };
+
+        var saveDisk = function() {
+            var data = {
+                "action":       "saveDisk"
+            }
+            send(data, null);
+            return true;
+        }
+
+        var loadDisk = function() {
+            var data = {
+                "action":       "loadDisk"
+            }
+            send(data, disk);
+        };
+
+        var saveStoragePools = function() {
+            var formData = $("#id_frmStoragePool").serializeArray();
+            var poolAction = null;
+
+            for (var i = 0; i < formData.length; i++) {
+                var item = formData[i];
+                if (item['name'] == "poolAction") {
+                    poolAction = item['value'];
+                }
+            }
+
+            var data = {
+                "action":       "saveStoragePools",
+                "poolAction":   poolAction
+            }
+
+            if (poolAction == 0) {
+                data['pool'] = $("#id_name").val();
+                data['type'] = $("#id_type").val();
+            } else if (poolAction == 1) {
+                data['pool'] = $("#id_pool").val();
+            }
+
+            send(data, null);
+            return true;
+        }
+
+        var loadStoragePools = function() {
+            var data = {
+                "action":       "loadStoragePools"
+            }
+            send(data, storagePools);
         };
 
         var saveMemory = function() {

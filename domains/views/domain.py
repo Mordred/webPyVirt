@@ -53,7 +53,7 @@ def add(request, nodeId):
 
     permis = request.session.get("domains.domain.add", {})
     permisHash = sha.sha(request.user.username.upper() + ":" + str(time.time())).hexdigest()
-    permis[permisHash] = (time.time(), newDomain)
+    permis[permisHash] = (time.time(), { "domain": newDomain })
 
     # Session cleanup
     hashes = permis.keys()
@@ -88,7 +88,8 @@ def wizard(request):
         return HttpResponseRedirect("%s" % (reverse("403")))
     #endif
 
-    domain = permis[secret][1]
+    domainData = permis[secret][1]
+    domain = domainData['domain']
     node = domain.node
 
     if not nodeIsAllowedTo(request, node, "add_domain"):
@@ -128,20 +129,43 @@ def wizard(request):
         domain.name = request.POST['name']
         domain.uuid = request.POST['uuid']
         domain.description = request.POST['description']
-        permis[secret] = (time.time(), domain)
-        request.session['domains.domain.add'] = permis
     elif action == "loadMemory":
         data['memory'] = domain.memory
         data['vcpu'] = domain.vcpu
     elif action == "saveMemory":
         domain.memory = request.POST['memory']
         domain.vcpu = request.POST['vcpu']
-        permis[secret] = (time.time(), domain)
-        request.session['domains.domain.add'] = permis
+    elif action == "loadDisk":
+        pass
+    elif action == "saveDisk":
+        pass
+    elif action == "loadStoragePools":
+        try:
+            virNode = virtualization.virNode(node)
+            result = virNode.listStoragePools()
+        except virtualization.ErrorException, e:
+            data['nodeStatus'] = False
+            data['error'] = unicode(e)
+        else:
+            data['storagePools'] = result
+        #endtry
+
+        if "pool" in domainData:
+            data['pool'] = domainData['pool']
+        #endif
+    elif action == "saveStoragePools":
+        domainData['pool'] = request.POST['pool']
+        if "type" in request.POST:
+            domainData['poolType'] = request.POST['poolType']
+        #endif
     else:
         data['status'] = 404
         data['statusMessage'] = _("Action not found!")
     #endif
+
+    domainData['domain'] = domain
+    permis[secret] = (time.time(), domainData)
+    request.session['domains.domain.add'] = permis
 
     return HttpResponse(simplejson.dumps(data))
 #enddef

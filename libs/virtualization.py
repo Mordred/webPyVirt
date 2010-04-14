@@ -11,6 +11,9 @@ import parse
 LIST_DOMAINS_ACTIVE     = 0x1
 LIST_DOMAINS_INACTIVE   = 0x2
 
+LIST_POOLS_ACTIVE       = 0x1
+LIST_POOLS_INACTIVE     = 0x2
+
 DOMAIN_STATE_NOSTATE    = 0
 DOMAIN_STATE_RUNNING    = 1
 DOMAIN_STATE_BLOCKED    = 2
@@ -171,6 +174,26 @@ class virNode(object):
             if listFilter & LIST_DOMAINS_INACTIVE:
                 inactive = [ connection.lookupByName(domName).UUIDString()
                     for domName in connection.listDefinedDomains() ]
+            #endif
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return active + inactive
+    #enddef
+
+    def listStoragePools(self, listFilter = LIST_POOLS_ACTIVE):
+        active = []
+        inactive = []
+
+        try:
+            connection = self.getConnection()
+            if listFilter & LIST_POOLS_ACTIVE:
+                active = connection.listStoragePools()
+            #endif
+            if listFilter & LIST_POOLS_INACTIVE:
+                inactive = connection.listDefinedStoragePools()
             #endif
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
