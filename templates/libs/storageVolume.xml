@@ -1,0 +1,7 @@
+<volume>
+    <name>{{ name }}</name>
+    <capacity unit="G">{{ capacity }}</capacity>
+    <target>
+        <format type="{{ format }}" />
+    </target>
+</volume>

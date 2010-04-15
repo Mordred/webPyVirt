@@ -78,19 +78,59 @@ def wizard(request):
     elif action == "saveMemory":
         domain.memory = request.POST['memory']
         domain.vcpu = request.POST['vcpu']
-    elif action == "loadDisk":
-        pass
-    elif action == "saveDisk":
-        pass
+    elif action == "loadVolumes":
+        pool = domainData['pool']
+        try:
+            virNode = virtualization.virNode(node)
+            poolInfo = virNode.getStoragePoolInfo(pool)
+            result = virNode.listStorageVolumes(pool)
+            volumes = [ {
+                    "value":        volume,
+                    "label":        "%s (%.2f GB)" % \
+                        (volume, (float(virNode.getStorageVolumeInfo(pool, volume)['capacity']) / (1024 * 1024 * 1024)))
+                } for volume in result ]
+        except virtualization.ErrorException, e:
+            data['error'] = unicode(e)
+        else:
+            data['poolInfo'] = poolInfo
+            data['volumes'] = volumes
+        #endtry
+
+        if "volume" in domainData:
+            data['volume'] = domainData['volume']
+        #endif
+    elif action == "saveVolumes":
+        domainData['volume'] = request.POST['volume']
+        volumeAction = int(request.POST['volumeAction'])
+        if volumeAction == 0:
+            volSize = float(request.POST['size'])
+            format = request.POST['format']
+        #endif
+
+        newVolume = toxml.newStorageVolumeXML(domainData['volume'], volSize, format)
+        try:
+            virNode = virtualization.virNode(node)
+            result = virNode.createStorageVolume(domainData['pool'], newVolume)
+        except virtualization.ErrorException, e:
+            data['created'] = False
+            data['error'] = unicode(e)
+        else:
+            data['created'] = True
+        #endtry
     elif action == "loadStoragePools":
         try:
             virNode = virtualization.virNode(node)
             result = virNode.listStoragePools()
+            pools = [ {
+                "value":    poolName,
+                "label":    "%s (free %.2f GB)" % \
+                    (poolName, (float(virNode.getStoragePoolInfo(poolName)['available']) / (1024 * 1024 * 1024)))
+                } for poolName in result ]
         except virtualization.ErrorException, e:
             data['nodeStatus'] = False
             data['error'] = unicode(e)
         else:
-            data['storagePools'] = result
+            data['storagePools'] = pools
         #endtry
 
         if "pool" in domainData:

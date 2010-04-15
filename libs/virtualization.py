@@ -244,6 +244,75 @@ class virNode(object):
         }
     #enddef
 
+    def createStorageVolume(self, poolName, xml):
+        try:
+            connection = self.getConnection()
+            storagePool = connection.storagePoolLookupByName(poolName)
+            storagePool.createXML(xml, 0)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    # Chcelo by to vlastnu triedu
+    def getStoragePoolInfo(self, poolName):
+        try:
+            connection = self.getConnection()
+            storagePool = connection.storagePoolLookupByName(poolName)
+            info = storagePool.info()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return {
+            "state":        info[0],
+            "capacity":     info[1],
+            "allocation":   info[2],
+            "available":    info[3]
+        }
+    #enddef
+
+    # Chcelo by to vlastnu triedu
+    def listStorageVolumes(self, poolName):
+        try:
+            connection = self.getConnection()
+            storagePool = connection.storagePoolLookupByName(poolName)
+            storagePool.refresh(0)
+            volumes = storagePool.listVolumes()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return volumes
+    #enddef
+
+    # Chcelo by to vlastnu triedu
+    def getStorageVolumeInfo(self, poolName, volumeName):
+        try:
+            connection = self.getConnection()
+            storagePool = connection.storagePoolLookupByName(poolName)
+            storagePool.refresh(0)
+            volume = storagePool.storageVolLookupByName(volumeName)
+            info = volume.info()
+            path = volume.path()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return {
+            "type":         info[0],
+            "capacity":     info[1],
+            "allocation":   info[2],
+            "path":         path
+        }
+    #enddef
+
 #endclass
 
 # ----------------------------------------------------------------

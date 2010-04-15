@@ -19,6 +19,46 @@
 
         var createNewPool = false;
         var poolType = null;
+        var createNewVolume = false;
+
+        var newStorageVolumeResult = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Result: ")
+                );
+
+                var para = $("<p />").css("text-indent", "25px");
+
+                if (data['created']) {
+                    para.html(
+                        gettext(
+                            "Storage volume created."
+                        )
+                    );
+                } else {
+                    para.addClass("error").html(
+                        interpolate(
+                            "During process there was an error, so the volume is not created."
+                            + " (error = %s)", [ data['error'] ]
+                        )
+                    );
+                }
+
+                content.append(text);
+                content.append(para);
+
+                var buttons = getButtons(
+                    (data['created']) ? loadNetwork : null,
+                    loadVolumes
+                );
+
+                setContent(content, gettext("New Storage Volume"), buttons);
+
+            } else {
+                showError(data, loadVolumes);
+            }
+        };
 
         var newStoragePoolResult = function(data) {
             if (data['status'] == 200) {
@@ -58,7 +98,7 @@
                 content.append(para);
 
                 var buttons = getButtons(
-                    (data['poolCreated']) ? loadDisk : null,
+                    (data['poolCreated']) ? loadVolumes : null,
                     loadStoragePools
                 );
 
@@ -220,7 +260,7 @@
                             if (createNewPool)
                                 windowCreateNewPool();
                             else
-                                loadDisk();
+                                loadVolumes();
                         }
                     },
                     function() { if (saveStoragePools())
@@ -236,11 +276,17 @@
             }
         }
 
-        var disk = function(data) {
+        var volumes = function(data) {
             if (data['status'] == 200) {
                 var buttons = getButtons(
-                    null,
-                    function() { if (saveDisk()) loadStoragePools(); }
+                    function() { if (saveVolumes()) {
+                            if (!createNewVolume)
+                                loadNetwork();
+                        }
+                    },
+                    function() { if (saveVolumes())
+                        loadStoragePools();
+                    }
                 );
 
                 var content = $("<div />");
@@ -250,23 +296,77 @@
                     )
                 );
 
-                var form = createForm("id_frmDisk");
-                var createStorage = $("<input />").attr("type", "radio").attr("name", "diskAction")
-                    .val(0).attr("selected", "selected");
+                if (typeof data['error'] != "undefined") {
+                    var para = $("<p />").addClass("error").css("text-indent", "25px")
+                        .html(data['error']);
+                    content.append(para);
+                    setContent(content, gettext("Volumes"), buttons);
+                    return;
+                }
+
+                var form = createForm("id_frmVolumes");
+                var createStorage = $("<input />").attr("type", "radio").attr("name", "volumeAction")
+                    .val(0);
 
                 form.append(createStorage);
                 form.append(gettext("Create a disk image on the computer's hard drive.<br />"));
 
-                var selectStorage = $("<input />").attr("type", "radio").attr("name", "diskAction")
+                var subData = $("<div />").css("padding-left", "25px");
+
+                subData.append(
+                    createInput("input", "name", "", gettext("Volume Name"), [ "required" ])
+                );
+                subData.append(
+                    createSelect("format", [ 
+                        "raw", "bochs", "cloop", "cow", "dmg", "iso", "qcow",
+                        "qcow2", "vmdk", "vpc"
+                        ], gettext("Format"))
+                );
+
+                // To format of %0.1f
+                var freeSpace = data['poolInfo']['available'] / (1024 * 1024 * 1024);
+                freeSpace = Math.round(freeSpace * 100) / 100;
+                subData.append(
+                    createSlider("volumeSize", gettext("Size of the volume"), 1,
+                        freeSpace, (freeSpace > 8) ? 8 : freeSpace, "GB", 0.01)
+                );
+
+                createStorage.change(function() {
+                    $("#id_slider_volumeSize").slider("enable");
+                    $("#id_name").removeAttr("disabled");
+                    $("#id_format").removeAttr("disabled");
+                    $("#id_volumeSize").removeAttr("disabled");
+                    $("#id_volume").attr("disabled", "disabled");
+                });
+
+                form.append(subData);
+
+                var selectStorage = $("<input />").attr("type", "radio").attr("name", "volumeAction")
                     .val(1);
                 form.append(selectStorage);
                 form.append(gettext("Select managed or other existing storage.<br />"));
 
+                var subData = $("<div />").css("padding-left", "25px");
+                var selVolume = createSelect("volume", data['volumes'], gettext("Existing volumes"), data['volume']);
+                subData.append(selVolume);
+
+                form.append(subData);
+
+                selectStorage.change(function() {
+                    $("#id_slider_volumeSize").slider("disable");
+                    $("#id_volumeSize").attr("disabled", "disabled");
+                    $("#id_name").attr("disabled", "disabled");
+                    $("#id_format").attr("disabled", "disabled");
+                    $("#id_volume").removeAttr("disabled");
+                });
+
                 content.append(text);
                 content.append(form);
 
-                setContent(content, gettext("Disk"), buttons);
+                setContent(content, gettext("Volumes"), buttons);
 
+                // Select second option on start
+                selectStorage.attr("checked", "checked").change();
             } else {
                 showError(data, loadStoragePools);
             }
@@ -401,18 +501,18 @@
             return field;
         }
 
-        var createSlider = function(sliderName, label, minValue, maxValue, currentValue, units) {
+        var createSlider = function(sliderName, label, minValue, maxValue, currentValue, units, step) {
             var id = "id_" + sliderName;
             var field = $("<div />").addClass("field").css("margin-top", "15px");
             var label = $("<label />").attr("for", id).html(label + ": ");
 
             var slider = $("<div />").css({
                     "block":    "inline-block"
-                }).slider({
+                }).attr("id", "id_slider_" + sliderName).slider({
                     value:      currentValue,
                     min:        minValue,
                     max:        maxValue,
-                    step:       1,
+                    step:       (typeof step != "undefined") ? step : 1,
                     slide:      function(event, ui) {
                         $("#"+id).val(ui.value);
                     }
@@ -447,12 +547,21 @@
             return form;
         }
 
-        var showLoading = function() {
+        var showLoading = function(loadingMessage) {
             var buttons = getButtons(null, null);
+
+            var content = $("<div />").addClass("align-justify");
+
+            if (typeof loadingMessage != "undefined") {
+                content.append($("<p />").css("text-indent", "25px").html(loadingMessage));
+            }
+
             var loading = $("<div />").addClass("center").css("padding-top", "25px")
                 .html($("<img />").attr("src", settings['loadImg']));
 
-            setContent(loading, gettext("Loading..."), buttons);
+            content.append(loading);
+
+            setContent(content, gettext("Loading..."), buttons);
         };
 
         var showError = function(data, previous) {
@@ -491,19 +600,75 @@
             }
         };
 
-        var saveDisk = function() {
+        var saveVolumes = function() {
+            var formData = $("#id_frmVolumes").serializeArray();
+            var volumeAction = null;
+
+            for (var i = 0; i < formData.length; i++) {
+                var item = formData[i];
+                if (item['name'] == "volumeAction") {
+                    volumeAction = item['value'];
+                }
+            }
+
+            createNewVolume = (volumeAction == 0);
+
             var data = {
-                "action":       "saveDisk"
+                "action":       "saveVolumes",
+                "volumeAction": volumeAction
+            };
+
+            if (volumeAction == 0) {
+                var inpName = $("#id_name");
+                var volName = inpName.val();
+
+                if (volName.length == 0 || volName == "") {
+                    alert(gettext("Name is required!"));
+                    inpName.parent().addClass("error");
+                    return false;
+                }
+
+                data['format'] = $("#id_format").val();
+                data['volume'] = volName + "." + data['format'];
+                data['size'] = $("#id_volumeSize").val();
+
+            } else if (volumeAction == 1) {
+                data['volume'] = $("#id_volume").val();
+            }
+
+            if (volumeAction == 0) {
+                send(data, newStorageVolumeResult, 
+                    gettext(
+                        "This operation can take more time depending on the volume size."
+                        + " Please be patent and do not close this window."
+                    )
+                );
+            } else {
+                send(data, null);
+            }
+            return true;
+        }
+
+        var loadVolumes = function() {
+            var data = {
+                "action":       "loadVolumes"
+            }
+            send(data, volumes);
+        };
+
+        var saveNetwork = function() {
+            var data = {
+                "action":       "saveNetwork"
             }
             send(data, null);
             return true;
         }
 
-        var loadDisk = function() {
+        var loadNetwork = function() {
             var data = {
-                "action":       "loadDisk"
+                "action":       "loadNetwork"
             }
-            send(data, disk);
+            send(data, network);
         };
 
         var saveNewStoragePool = function() {
@@ -636,8 +801,8 @@
             send(data, nodeCheck);
         };
 
-        var send = function(data, callback) {
-            showLoading();
+        var send = function(data, callback, loadingMessage) {
+            showLoading(loadingMessage);
 
             data['secret'] = $(settings['secret']).val();
 

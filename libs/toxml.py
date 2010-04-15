@@ -38,3 +38,21 @@ def newStoragePoolXML(poolName, poolType, targetPath, format = None, hostname = 
     return xml
 
 #enddef
+
+def newStorageVolumeXML(name, capacity, format):
+
+    template = get_template("libs/storageVolume.xml")
+    context = Context({
+        "name":         name,
+        "capacity":     capacity,
+        "target":       {
+            "format":       format,
+        }
+    })
+
+    xml = template.render(context)
+    xml = re.sub("(?<=\n) *\n", "", xml)
+
+    return xml
+
+#enddef
