@@ -1,0 +1,35 @@
+<pool type="{{ type }}">
+    <name>{{ name }}</name>
+
+    {% if source.host or source.format or source.path %}
+    <source>
+        {% if source.host %}
+        <host name="{{ source.host }}" />
+        {% endif %}
+
+        {% if source.format %}
+        <format type="{{ source.format }}" />
+        {% endif %}
+
+        {% if source.path %}
+        {% ifequal type "disk" %}
+        <device path="{{ source.path }}" />
+        {% endifequal %}
+
+        {% ifequal type "dir" %}
+        <directory path="{{ source.path }}" />
+        {% endifequal %}
+
+        {% ifequal type "scsi" %}
+        <adapter name="{{ source.path }}" />
+        {% endifequal %}
+        {% endif %}
+    </source>
+    {% endif %}
+
+    {% if target or target.path %}
+    <target>
+        <path>{{ target.path }}</path>
+    </target>
+    {% endif %}
+</pool>

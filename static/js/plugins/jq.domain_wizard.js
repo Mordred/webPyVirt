@@ -17,6 +17,144 @@
         var nodeInfo = null;
         var loading = false;
 
+        var createNewPool = false;
+        var poolType = null;
+
+        var newStoragePoolResult = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Result: ")
+                );
+
+                var para = $("<p />").css("text-indent", "25px");
+
+                if (data['poolCreated']) {
+                    var freeSpace = data['poolInfo']['available'] / (1024 * 1024 * 1024);
+                    var size = data['poolInfo']['capacity'] / ( 1024 * 1024 * 1024);
+                    var allocation = data['poolInfo']['allocation'] / ( 1024 * 1024 * 1024);
+                    // To format of %0.2f
+                    freeSpace = Math.round(freeSpace * 100) / 100;
+                    size = Math.round(size * 100) / 100;
+                    allocation = Math.round(allocation * 100) / 100;
+
+                    para.html(
+                        interpolate(
+                            "Storage pool created and has %s GB of free space."
+                            + " (logical size = %s GB, current allocation = %s GB)",
+                            [ freeSpace, size, allocation ]
+                        )
+                    );
+                } else {
+                    para.addClass("error").html(
+                        interpolate(
+                            "During process there was an error, so the pool is not created."
+                            + " (error = %s)", [ data['error'] ]
+                        )
+                    );
+                }
+
+                content.append(text);
+                content.append(para);
+
+                var buttons = getButtons(
+                    (data['poolCreated']) ? loadDisk : null,
+                    loadStoragePools
+                );
+
+                setContent(content, gettext("New Storage Pool"), buttons);
+
+            } else {
+                showError(data, windowCreateNewPool);
+            }
+        }
+
+        var windowCreateNewPool = function() {
+            var content = $("<div />");
+            var text = $("<div />").addClass("align-justify").html(
+                interpolate(
+                    "Specify a storage location to be later split into virtual machine storage: "
+                )
+            );
+
+            var form = createForm("id_frmNewStoragePool");
+            var inpTargetPath = createInput("input", "targetPath", "", gettext("Target Path"), [ "required" ]);
+            form.append(inpTargetPath);
+
+            var formats = null;
+            if (poolType == "dir" || poolType == "iscsi" || poolType == "logical" || poolType == "scsi")
+                formats = [ "" ];
+            else if (poolType == "disk")
+                formats = [ "auto", "bsd", "dos", "dvh", "gpt", "mac", "pc98", "sun" ];
+            else if (poolType == "netfs")
+                formats = [ "auto", "nfs", "glusterfs" ];
+            else 
+                formats = [ "auto", "ext2", "ext3", "ext4", "ufs", "iso9660", "udf", "gfs", "gfs2",
+                    "vfat", "hfs+", "xfs" ];
+
+            var selFormat = createSelect("format", formats, gettext("Format"));
+            var inpHostName = createInput("input", "hostname", "", gettext("Host Name"));
+            var inpSourcePath = createInput("input", "sourcePath", "", gettext("Source Path"));
+
+            form.append(selFormat);
+            form.append(inpHostName);
+            form.append(inpSourcePath);
+
+            content.append(text);
+            content.append(form);
+
+            // Append help descriptions
+            if (poolType == "dir") {
+                addDescription(inpTargetPath, gettext("Directory to use for the storage pool."));
+            } else if (poolType == "disk") {
+                addDescription(inpTargetPath, gettext("Root location for identifying new storage volumes."));
+                addDescription(selFormat, gettext("Format of the source device's partition table."));
+                addDescription(inpSourcePath, gettext("Path to the existing disk device."));
+            } else if (poolType == "fs") {
+                addDescription(inpTargetPath, gettext("Location to mount the source device."));
+                addDescription(selFormat, gettext("Filesystem type of the source device."));
+                addDescription(inpSourcePath, gettext("The existing device to mount for the pool."));
+            } else if (poolType == "iscsi") {
+                addDescription(inpTargetPath, gettext("Root location for identifying new storage volumes."));
+                addDescription(inpHostName, gettext("Name of the host sharing the storage."));
+                addDescription(inpSourcePath, gettext("Path on the host that is being shared."));
+            } else if (poolType == "logical") {
+                addDescription(inpTargetPath, gettext("Location of the existing LVM volume group."));
+                addDescription(inpSourcePath, gettext("Optional device to build new LVM volume on."));
+            } else if (poolType == "netfs") {
+                addDescription(inpTargetPath, gettext("Location to mount the source device."));
+                addDescription(selFormat, gettext("Type of the network filesystem."));
+                addDescription(inpHostName, gettext("Name of the host sharing the storage."));
+                addDescription(inpSourcePath, gettext("Path on the host that is being shared."));
+            } else if (poolType == "scsi") {
+                addDescription(inpTargetPath, gettext("Root location for identifying new storage volumes."));
+                addDescription(inpSourcePath, gettext("Name of the SCSI adapter (ex. host2)."));
+            }
+
+            var buttons = getButtons(
+                saveNewStoragePool,
+                loadStoragePools
+            );
+            setContent(content, gettext("New Storage Pool"), buttons);
+
+            // Set disabled inputs for poolType
+            if (poolType == "dir") {
+                $("#id_format").attr("disabled", "disabled");
+                $("#id_hostname").attr("disabled", "disabled");
+                $("#id_sourcePath").attr("disabled", "disabled");
+            } else if (poolType == "disk") {
+                $("#id_hostname").attr("disabled", "disabled");
+//                $("#id_sourcePath").attr("disabled", "disabled");
+            } else if (poolType == "fs") {
+                $("#id_hostname").attr("disabled", "disabled");
+            } else if (poolType == "iscsi") {
+                $("#id_format").attr("disabled", "disabled");
+            } else if (poolType == "logical" || poolType == "scsi") {
+                $("#id_format").attr("disabled", "disabled");
+                $("#id_hostname").attr("disabled", "disabled");
+            }
+        }
+
         var storagePools = function(data) {
             if (data['status'] == 200) {
                 var content = $("<div />");
@@ -27,7 +165,6 @@
                 );
 
                 var form = createForm("id_frmStoragePool");
-                // TODO: Allow creating pools
                 var createStoragePool = $("<input />").attr("type", "radio").attr("name", "poolAction")
                     .val(0).attr("selected", "selected");
 
@@ -35,9 +172,15 @@
                 form.append(gettext("Create a new storage pool.<br />"));
 
                 var subData = $("<div />").css("padding-left", "25px");
-                var inpName = createInput("input", "name", "", gettext("Storage Pool Name"));
+                var inpName = createInput("input", "name", "", gettext("Storage Pool Name"), [ "required" ]);
                 var selType = createSelect("type", [
-                        { "value": "dir", "label": "Filesystem Directory" }
+                        { "value": "dir", "label": gettext("Filesystem Directory") },
+                        { "value": "disk", "label": gettext("Physical Disk Device") },
+                        { "value": "fs", "label": gettext("Pre-Formatted Block Device") },
+                        { "value": "iscsi", "label": gettext("iSCSI Target") },
+                        { "value": "logical", "label": gettext("LVM Volume Group") },
+                        { "value": "netfs", "label": gettext("Network Exported Directory") },
+                        { "value": "scsi", "label": gettext("SCSI Host Adapter") },
                     ], gettext("Storage Pool Type"));
 
                 createStoragePool.change(function() {
@@ -73,8 +216,16 @@
                 content.append(form);
 
                 var buttons = getButtons(
-                    null,
-                    function() { if (saveStoragePools()) loadMemory(); }
+                    function() { if (saveStoragePools()) {
+                            if (createNewPool)
+                                windowCreateNewPool();
+                            else
+                                loadDisk();
+                        }
+                    },
+                    function() { if (saveStoragePools())
+                        loadMemory();
+                    }
                 );
                 setContent(content, gettext("Storage Pool"), buttons);
 
@@ -89,7 +240,7 @@
             if (data['status'] == 200) {
                 var buttons = getButtons(
                     null,
-                    function() { if (saveDisk()) loadMemory(); }
+                    function() { if (saveDisk()) loadStoragePools(); }
                 );
 
                 var content = $("<div />");
@@ -117,7 +268,7 @@
                 setContent(content, gettext("Disk"), buttons);
 
             } else {
-                showError(data, loadMemory);
+                showError(data, loadStoragePools);
             }
         }
 
@@ -181,6 +332,13 @@
             }
         };
 
+        var addDescription = function(field, description) {
+            field.append("<br />");
+            field.append(
+                $("<div />").addClass("description").append(description)
+            );
+        }
+
         var createInput = function(type, inpName, inpValue, label, validation) {
             var id = "id_" + inpName;
             var field = $("<div />").addClass("field").css("margin-top", "5px");
@@ -201,7 +359,7 @@
             field.append(label);
             field.append(input);
 
-            if (typeof validation != "undefined") {
+            if (typeof validation != "undefined" && validation != null) {
                 for (var i = 0; i < validation.length; i++) {
                     var validat = validation[i];
                     if (validat == "required") {
@@ -348,6 +506,27 @@
             send(data, disk);
         };
 
+        var saveNewStoragePool = function() {
+            var inpTargetPath = $("#id_targetPath");
+            var targetPath = inpTargetPath.val();
+
+            if (targetPath.length == 0 || targetPath == "") {
+                alert(gettext("Target Path is required!"));
+                inpTargetPath.parent().addClass("error");
+                return false;
+            }
+
+            var data = {
+                "action":       "saveNewStoragePool",
+                "targetPath":   targetPath,
+                "format":       $("#id_format").val(),
+                "hostname":     $("#id_hostname").val(),
+                "sourcePath":   $("#id_sourcePath").val()
+            }
+            send(data, newStoragePoolResult);
+            return true;
+        }
+
         var saveStoragePools = function() {
             var formData = $("#id_frmStoragePool").serializeArray();
             var poolAction = null;
@@ -359,14 +538,28 @@
                 }
             }
 
+            createNewPool = (poolAction == 0);
+
             var data = {
                 "action":       "saveStoragePools",
                 "poolAction":   poolAction
             }
 
             if (poolAction == 0) {
+                var inpPoolName = $("#id_name");
+                var poolName = inpPoolName.val();
+
+                if (poolName.length == 0 || poolName == "") {
+                    alert(gettext("Name is required!"));
+                    inpPoolName.parent().addClass("error");
+                    return false;
+                }
+
                 data['pool'] = $("#id_name").val();
                 data['type'] = $("#id_type").val();
+
+                poolType = data['type'];
+
             } else if (poolAction == 1) {
                 data['pool'] = $("#id_pool").val();
             }

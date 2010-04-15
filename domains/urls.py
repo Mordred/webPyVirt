@@ -33,7 +33,7 @@ urlpatterns = patterns("webPyVirt.domains",
     ),
     url(
         r"^domain/add/wizard/$",
-        "views.domain.wizard",
+        "views.wizard.wizard",
         name="domain_wizard"
     ),
     url(

@@ -223,6 +223,27 @@ class virNode(object):
         #endtry
     #enddef
 
+    def createStoragePool(self, xml):
+        try:
+            connection = self.getConnection()
+            storagePool = connection.storagePoolDefineXML(xml, 0)
+            storagePool.build(0)
+            storagePool.setAutostart(1)
+            storagePool.create(0)
+            info = storagePool.info()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return {
+            "state":        info[0],
+            "capacity":     info[1],
+            "allocation":   info[2],
+            "available":    info[3]
+        }
+    #enddef
+
 #endclass
 
 # ----------------------------------------------------------------
