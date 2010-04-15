@@ -117,6 +117,44 @@
 
             return true;
         }
+    };
+
+    $.fn.MACAddressField = function(options, value) {
+
+        var PLUGIN_NAME = "MACAddressField";
+
+        var defaults = {
+        };
+
+        var settings = $.extend(defaults, options);
+
+        var fieldKeyPress = function(event) {
+            var key = event.which;
+            var value = $(this).val();
+            var len = value.length;
+
+            if (isSpecialKey(event)) return true;
+
+            switch(key) {
+                case 8:
+                case 9:
+                case 13:
+                    return true;
+                    break;
+            }
+
+            if (len == 2 || len == 5 || len == 8 || len == 11 || len == 14)
+                return (key == 58);
+
+            if (key < 48 || (key > 57 && key < 65) || (key > 70 && key < 97) || key > 102) {
+                return false;
+            } else {
+                if ((/^([\da-fA-F]{2}:){5}[\da-fA-F]{2}$/).test(value))
+                    return false;
+            }
+
+            return true;
+        }
 
         var create = function(element) {
             $(element).keypress(fieldKeyPress);

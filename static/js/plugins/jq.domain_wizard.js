@@ -21,6 +21,39 @@
         var poolType = null;
         var createNewVolume = false;
 
+        var network = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Please specify network settings (Currently only DHCP is supported): ")
+                );
+
+                var form = createForm("id_frmNetwork");
+                var inpTargetDev = createInput("input", "targetDev", data['targetDev'], gettext("Target Device Name"));
+                addDescription(inpTargetDev, gettext("(e.g. \"vnet2\")"));
+
+                var selNetwork = createSelect("network", data['networks'], gettext("Defined Networks"), data['name']);
+                var inpMAC = createInput("input", "mac", data['mac'], gettext("MAC Address"), [ "mac" ]);
+
+                form.append(selNetwork);
+                form.append(inpTargetDev);
+                form.append(inpMAC);
+
+                content.append(text);
+                content.append(form);
+
+                var buttons = getButtons(
+                    null,
+                    function() { saveNetwork(loadVolumes); }
+                );
+
+                setContent(content, gettext("Network"), buttons);
+
+            } else {
+                showError(data, loadVolumes);
+            }
+        }
+
         var newStorageVolumeResult = function(data) {
             if (data['status'] == 200) {
                 var content = $("<div />");
@@ -256,16 +289,8 @@
                 content.append(form);
 
                 var buttons = getButtons(
-                    function() { if (saveStoragePools()) {
-                            if (createNewPool)
-                                windowCreateNewPool();
-                            else
-                                loadVolumes();
-                        }
-                    },
-                    function() { if (saveStoragePools())
-                        loadMemory();
-                    }
+                    function() { saveStoragePools(createNewPool ? windowCreateNewPool : loadVolumes) },
+                    function() { saveStoragePools(loadMemory) }
                 );
                 setContent(content, gettext("Storage Pool"), buttons);
 
@@ -279,14 +304,8 @@
         var volumes = function(data) {
             if (data['status'] == 200) {
                 var buttons = getButtons(
-                    function() { if (saveVolumes()) {
-                            if (!createNewVolume)
-                                loadNetwork();
-                        }
-                    },
-                    function() { if (saveVolumes())
-                        loadStoragePools();
-                    }
+                    function() { saveVolumes(createNewVolume ? null : loadNetwork); },
+                    function() { saveVolumes(loadStoragePools); }
                 );
 
                 var content = $("<div />");
@@ -375,8 +394,8 @@
         var memory = function(data) {
             if (data['status'] == 200) {
                 var buttons = getButtons(
-                    function() { if (saveMemory()) loadStoragePools(); },
-                    function() { if (saveMemory()) loadMetadata(); }
+                    function() { saveMemory(loadStoragePools); },
+                    function() { saveMemory(loadMetadata); }
                 );
 
                 var content = $("<div />");
@@ -407,8 +426,8 @@
         var metadata = function(data) {
             if (data['status'] == 200) {
                 var buttons = getButtons(
-                    function() { if (saveMetadata()) loadMemory(); },
-                    function() { if (saveMetadata()) introduction(); }
+                    function() { saveMetadata(loadMemory); },
+                    function() { saveMetadata(introduction); }
                 );
                 var content = $("<div />");
                 var text = $("<div />").addClass("align-justify").html(
@@ -466,6 +485,8 @@
                         field.append($("<span />").addClass("required").html("*"));
                     } else if (validat == "uuid") {
                         input.UUIDField();
+                    } else if (validat == "mac") {
+                        input.MACAddressField();
                     }
                 }
             }
@@ -561,7 +582,7 @@
 
             content.append(loading);
 
-            setContent(content, gettext("Loading..."), buttons);
+            setContent(content, gettext("Loading, please wait..."), buttons);
         };
 
         var showError = function(data, previous) {
@@ -600,7 +621,7 @@
             }
         };
 
-        var saveVolumes = function() {
+        var saveVolumes = function(callback) {
             var formData = $("#id_frmVolumes").serializeArray();
             var volumeAction = null;
 
@@ -644,7 +665,7 @@
                     )
                 );
             } else {
-                send(data, null);
+                send(data, callback);
             }
             return true;
         }
@@ -656,11 +677,22 @@
             send(data, volumes);
         };
 
-        var saveNetwork = function() {
-            var data = {
-                "action":       "saveNetwork"
+        var saveNetwork = function(callback) {
+            var inpMac = $("#id_mac");
+            var mac = inpMac.val();
+            if (!((/^([\da-fA-F]{2}:){5}[\da-fA-F]{2}$/).test(mac)) && mac.length != 0) {
+                alert(gettext("MAC Address is invalid!"));
+                inpMac.parent().addClass("error");
+                return false;
             }
-            send(data, null);
+
+            var data = {
+                "action":       "saveNetwork",
+                "mac":          $("#id_mac").val(),
+                "network":      $("#id_network").val(),
+                "targetDev":    $("#id_targetDev").val()
+            }
+            send(data, callback);
             return true;
         }
 
@@ -692,7 +724,7 @@
             return true;
         }
 
-        var saveStoragePools = function() {
+        var saveStoragePools = function(callback) {
             var formData = $("#id_frmStoragePool").serializeArray();
             var poolAction = null;
 
@@ -729,7 +761,7 @@
                 data['pool'] = $("#id_pool").val();
             }
 
-            send(data, null);
+            send(data, callback);
             return true;
         }
 
@@ -740,13 +772,13 @@
             send(data, storagePools);
         };
 
-        var saveMemory = function() {
+        var saveMemory = function(callback) {
             var data = {
                 "action":       "saveMemory",
                 "memory":       $("#id_memory").val(),
                 "vcpu":         $("#id_vcpu").val()
             }
-            send(data, null);
+            send(data, callback);
 
             return true;
         };
@@ -758,7 +790,7 @@
             send(data, memory);
         };
 
-        var saveMetadata = function() {
+        var saveMetadata = function(callback) {
             var inpName = $("#id_name");
             var domName = inpName.val();
             if (domName.length == 0 || domName == "") {
@@ -782,7 +814,7 @@
                 "uuid":         $("#id_uuid").val(),
                 "description":  $("#id_description").val()
             }
-            send(data, null);
+            send(data, callback);
 
             return true;
         };
@@ -837,7 +869,7 @@
 
             canvas.dialog("option", "buttons", buttons);
             canvas.dialog("option", "height", height);
-            canvas.dialog("option", "position", "center");
+//            canvas.dialog("option", "position", [ "center" ]);
             canvas.dialog("option", "title", title);
         }
 
@@ -858,6 +890,7 @@
             canvas = $(element).addClass("dialog").addClass("smaller").dialog({
                     modal:          true,
                     width:          600,
+                    position:       [ "center", 50 ],
                     autoopen:       false
                 });
 

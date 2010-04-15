@@ -12,7 +12,7 @@ from django.utils.translation       import ugettext as _
 from webPyVirt.decorators       import secure
 from webPyVirt.libs             import virtualization, toxml
 
-from webPyVirt.domains.models       import Domain
+from webPyVirt.domains.models       import Domain, Disk
 from webPyVirt.domains.permissions  import isAllowedTo
 
 from webPyVirt.nodes.permissions    import isAllowedTo as nodeIsAllowedTo
@@ -105,18 +105,17 @@ def wizard(request):
         if volumeAction == 0:
             volSize = float(request.POST['size'])
             format = request.POST['format']
+            newVolume = toxml.newStorageVolumeXML(domainData['volume'], volSize, format)
+            try:
+                virNode = virtualization.virNode(node)
+                result = virNode.createStorageVolume(domainData['pool'], newVolume)
+            except virtualization.ErrorException, e:
+                data['created'] = False
+                data['error'] = unicode(e)
+            else:
+                data['created'] = True
+            #endtry
         #endif
-
-        newVolume = toxml.newStorageVolumeXML(domainData['volume'], volSize, format)
-        try:
-            virNode = virtualization.virNode(node)
-            result = virNode.createStorageVolume(domainData['pool'], newVolume)
-        except virtualization.ErrorException, e:
-            data['created'] = False
-            data['error'] = unicode(e)
-        else:
-            data['created'] = True
-        #endtry
     elif action == "loadStoragePools":
         try:
             virNode = virtualization.virNode(node)
@@ -171,6 +170,37 @@ def wizard(request):
             data['poolCreated'] = True
             data['poolInfo'] = result
         #endtry
+    elif action == "loadNetwork":
+        if "network" in domainData:
+            network = domainData['network']
+            data['mac'] = network['mac']
+            data['name'] = network['name']
+            data['targetDev'] = network['targetDev']
+        #endif
+        try:
+            virNode = virtualization.virNode(node)
+            result = virNode.listNetworks()
+        except virtualization.ErrorException, e:
+            data['error'] = unicode(e)
+        else:
+            data['networks'] = result
+        #endtry
+    elif action == "saveNetwork":
+        network = {
+            "name":         request.POST['network']
+        }
+        if "mac" in request.POST and len(request.POST['mac']):
+            network['mac'] = request.POST['mac']
+        else:
+            network['mac'] = None
+        #endif
+        if "targetDev" in request.POST and len(request.POST['targetDev']):
+            network['targetDev'] = request.POST['targetDev']
+        else:
+            network['targetDev'] = None
+        #endif
+
+        domainData['network'] = network
     else:
         data['status'] = 404
         data['statusMessage'] = _("Action not found!")

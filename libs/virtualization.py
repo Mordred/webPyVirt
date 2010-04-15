@@ -14,6 +14,9 @@ LIST_DOMAINS_INACTIVE   = 0x2
 LIST_POOLS_ACTIVE       = 0x1
 LIST_POOLS_INACTIVE     = 0x2
 
+STORAGE_VOL_FILE        = 0
+STORAGE_VOL_BLOCK       = 1
+
 DOMAIN_STATE_NOSTATE    = 0
 DOMAIN_STATE_RUNNING    = 1
 DOMAIN_STATE_BLOCKED    = 2
@@ -289,6 +292,18 @@ class virNode(object):
         #endtry
 
         return volumes
+    #enddef
+
+    def listNetworks(self):
+        try:
+            connection = self.getConnection()
+            networks = connection.listNetworks()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return networks
     #enddef
 
     # Chcelo by to vlastnu triedu
