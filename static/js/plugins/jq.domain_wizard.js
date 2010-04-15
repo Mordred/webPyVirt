@@ -21,6 +21,76 @@
         var poolType = null;
         var createNewVolume = false;
 
+        var createDomainResult = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Result: ")
+                );
+
+                content.append(text);
+
+                if (typeof data['error'] != "undefined") {
+                    content.append($("<p />").addClass("error").css("text-indent", "25px")
+                        .html(data['error']));
+                }
+
+                if (data['created']) {
+                    content.append($("<p />").css("text-indent", "25px")
+                        .html(gettext("Domain created and started successfully."))
+                    );
+                }
+
+                var buttons = getButtons(
+                    null,
+                    loadReview
+                );
+
+                setContent(content, gettext("Create Domain"), buttons);
+
+            } else {
+                showError(data, loadVolumes);
+            }
+        }
+
+        var review = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Ready to create domain: ")
+                );
+
+                var block = $("<div />").css("padding-left", "25px");
+
+                block.append(createInfo(gettext("Domain Name"), data['name']));
+                block.append(createInfo(gettext("UUID"), data['uuid']));
+                block.append(createInfo(gettext("Memory"), data['memory'] + " MB"));
+                block.append(createInfo(gettext("CPUs"), data['vcpu']));
+                var capacity = Math.ceil((data['volume']['capacity'] / (1024 * 1024 * 1024) * 100)) / 100;
+                var storage = createInfo(gettext("Storage"), capacity + " GB")
+                addDescription(storage, data['volume']['path']);
+                block.append(storage);
+
+                block.append(createInfo(gettext("Network"), data['network']['name']));
+                block.append(createInfo(gettext("Target Network Device"), data['network']['targetDev']));
+                block.append(createInfo(gettext("MAC Address"), data['network']['mac']));
+
+                content.append(text);
+                content.append(block);
+
+                var buttons = getButtons(
+                    createDomain,
+                    loadNetwork,
+                    gettext("Create") 
+                );
+
+                setContent(content, gettext("Review"), buttons);
+
+            } else {
+                showError(data, loadVolumes);
+            }
+        }
+
         var network = function(data) {
             if (data['status'] == 200) {
                 var content = $("<div />");
@@ -34,6 +104,7 @@
 
                 var selNetwork = createSelect("network", data['networks'], gettext("Defined Networks"), data['name']);
                 var inpMAC = createInput("input", "mac", data['mac'], gettext("MAC Address"), [ "mac" ]);
+                addDescription(inpMAC, gettext("(e.g. 00:11:22:33:44:55)"));
 
                 form.append(selNetwork);
                 form.append(inpTargetDev);
@@ -43,7 +114,7 @@
                 content.append(form);
 
                 var buttons = getButtons(
-                    null,
+                    function() { saveNetwork(loadReview); },
                     function() { saveNetwork(loadVolumes); }
                 );
 
@@ -458,6 +529,16 @@
             );
         }
 
+        var createInfo = function(label, data) {
+            var field = $("<div />").addClass("field");
+            var label = $("<label />").html(label + ":").addClass("bold");
+            var text = $("<span />").html(data);
+
+            field.append(label);
+            field.append(text);
+            return field;
+        };
+
         var createInput = function(type, inpName, inpValue, label, validation) {
             var id = "id_" + inpName;
             var field = $("<div />").addClass("field").css("margin-top", "5px");
@@ -586,7 +667,7 @@
         };
 
         var showError = function(data, previous) {
-            if (data['status'] == 500) {
+            if (data['status'] == 500 || data['status'] == 404) {
                 var buttons = getButtons(null, previous);
                 var error = $("<div />").addClass("align-justify").addClass("errornote")
                     .html(data['statusMessage']);
@@ -619,6 +700,13 @@
             } else {
                 showError(data, introduction);
             }
+        };
+
+        var createDomain = function() {
+            var data = {
+                "action":       "create"
+            }
+            send(data, createDomainResult);
         };
 
         var saveVolumes = function(callback) {
@@ -790,6 +878,13 @@
             send(data, memory);
         };
 
+        var loadReview = function() {
+            var data = {
+                "action":       "loadReview",
+            }
+            send(data, review);
+        };
+
         var saveMetadata = function(callback) {
             var inpName = $("#id_name");
             var domName = inpName.val();
@@ -874,14 +969,16 @@
         }
 
 
-        var getButtons = function(next, previous) {
+        var getButtons = function(next, previous, nextLabel, previousLabel) {
             var buttons = {};
             buttons[gettext("Close")] = function() {
                 $(this).dialog("close");
             };
 
-            if (next != null) buttons[gettext("Next")] = next;
-            if (previous != null) buttons[gettext("Previous")] = previous;
+            if (next != null) 
+                buttons[(typeof nextLabel == "undefined") ? gettext("Next") : nextLabel] = next;
+            if (previous != null) 
+                buttons[(typeof previousLabel == "undefined") ? gettext("Previous") : previousLabel] = previous;
 
             return buttons
         }

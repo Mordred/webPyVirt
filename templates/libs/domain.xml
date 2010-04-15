@@ -49,7 +49,7 @@
     <devices>
         {% if domain.emulator %}<emulator>{{ domain.emulator }}</emulator>{% endif %}
 
-        {% for disk in domain.disk_set.all %}
+        {% for disk in disks %}
         <disk type="{{ disk.type }}"{% if disk.device %} device="{{ disk.device }}"{% endif %}>
             {% if disk.driver_name or disk.driver_type or disk.driver_cache %}
             <driver{% if disk.driver_name %} name="{{ disk.driver_name }}"{% endif %}{% if disk.driver_type %} type="{{ disk.driver_type }}"{% endif %}{% if disk.driver_cache %} cache="{{ disk.driver_cache }}"{% endif %} />
@@ -61,7 +61,7 @@
         </disk>
         {% endfor %}
 
-        {% for hostdev in domain.hostdevice_set.all %}
+        {% for hostdev in hostdevices %}
         <hostdev mode="subsystem" type="{{ hostdev.type }}">
             <source>
                 {% if hostdev.vendor or hostdev.product %}
@@ -74,12 +74,12 @@
         </hostdev>
         {% endfor %}
 
-        {% for interface in domain.interface_set.all %}
+        {% for interface in interfaces %}
         <interface{% if interface.type %} type="{{ interface.type }}"{% endif %}>
             {% if interface.mac_address %}<mac address="{{ interface.mac_address }}" />{% endif %}
 
             {% if interface.source_bridge or interface.source_network or interface.source_dev or interface.source_mode or interface.source_address or interface.source_port %}
-            <source{% if interface.bridge %} bridge="{{ interface.source_bridge }}"{% endif %}{% if interface.source_network %} network="{{ interface.source_network }}"{% endif %}{%if interface.source_dev %} dev="{{ interface.source_dev }}"{% endif %}{% if interface.source_mode %} mode="{{ interface.source_mode }}"{% endif %}{% if interface.source_address %} address="{{ interface.source.address }}"{% endif %}{% if interface.source_port %} port="{{ interface.source_port }}"{% endif %}>
+            <source{% if interface.bridge %} bridge="{{ interface.source_bridge }}"{% endif %}{% if interface.source_network %} network="{{ interface.source_network }}"{% endif %}{%if interface.source_dev %} dev="{{ interface.source_dev }}"{% endif %}{% if interface.source_mode %} mode="{{ interface.source_mode }}"{% endif %}{% if interface.source_address %} address="{{ interface.source.address }}"{% endif %}{% if interface.source_port %} port="{{ interface.source_port }}"{% endif %} />
             {% endif %}
 
             {% if interface.target_dev %}<target dev="{{ interface.target_dev }}" />{% endif %}
@@ -90,29 +90,29 @@
         </interface>
         {% endfor %}
 
-        {% for input in domain.inputdevice_set.all %}
+        {% for input in inputdevices %}
         <input type="{{ input.type }}"{% if input.bus %} bus="{{ input.bus }}"{% endif %} />
         {% endfor %}
 
-        {% for graphics in domain.graphics_set.all %}
-        {% ifequal graphics.type "sdl" %}
-        <graphics type="{{ graphics.type }}"{% if graphics.display %} display="{{ graphics.display }}"{% endif %}{% if graphics.xauth %} xauth="{{ graphics.xauth }}"{% endif %} fullscreen="{{ graphics.fullscreen|yesno:"yes,no" }}" />
+        {% for graph in graphics %}
+        {% ifequal graph.type "sdl" %}
+        <graphics type="{{ graph.type }}"{% if graph.display %} display="{{ graph.display }}"{% endif %}{% if graph.xauth %} xauth="{{ graph.xauth }}"{% endif %} fullscreen="{{ graph.fullscreen|yesno:"yes,no" }}" />
         {% endifequal %}
 
-        {% ifequal graphics.type "vnc" %}
-        <graphics type="{{ graphics.type }}"{% if graphics.port %} port="{{ graphics.port }}"{% endif %} autoport="{{ graphics.autoport|yesno:"yes,no" }}"{% if graphics.listen %} listen="{{ graphics.listen }}"{% endif %}{% if graphics.password %} passwd="{{ graphics.password }}"{% endif %}{% if graphics.keymap %} keymap="{{ graphics.keymap }}"{% endif %} />
+        {% ifequal graph.type "vnc" %}
+        <graphics type="{{ graph.type }}"{% if graph.port %} port="{{ graph.port }}"{% endif %} autoport="{{ graph.autoport|yesno:"yes,no" }}"{% if graph.listen %} listen="{{ graph.listen }}"{% endif %}{% if graph.password %} passwd="{{ graph.password }}"{% endif %}{% if graph.keymap %} keymap="{{ graph.keymap }}"{% endif %} />
         {% endifequal %}
 
-        {% ifequal graphics.type "rdp" %}
-        <graphics type="{{ graphics.type }}"{% if graphics.port %} port="{{ graphics.port }}"{% endif %} autoport="{{ graphics.autoport|yesno:"yes,no" }}" multiUser="{{ graphics.multi_user|yesno:"yes,no" }}" replaceUser="{{ graphics.replace_user|yesno:"yes,no" }}" />
+        {% ifequal graph.type "rdp" %}
+        <graphics type="{{ graph.type }}"{% if graph.port %} port="{{ graph.port }}"{% endif %} autoport="{{ graph.autoport|yesno:"yes,no" }}" multiUser="{{ graph.multi_user|yesno:"yes,no" }}" replaceUser="{{ graph.replace_user|yesno:"yes,no" }}" />
         {% endifequal %}
 
-        {% ifequal graphics.type "desktop" %}
-        <graphics type="{{ graphics.type }}"{% if graphics.display %} display="{{ graphics.display }}"{% endif %} fullscreen="{{ graphics.fullscreen|yesno:"yes,no" }}" />
+        {% ifequal graph.type "desktop" %}
+        <graphics type="{{ graph.type }}"{% if graph.display %} display="{{ graph.display }}"{% endif %} fullscreen="{{ graph.fullscreen|yesno:"yes,no" }}" />
         {% endifequal %}
         {% endfor %}
 
-        {% for video in domain.video_set.all %}
+        {% for video in videos %}
         <video>
             <model type="{{ video.type }}"{% if video.vram %} vram="{{ video.vram }}"{% endif %}{% if video.heads %} heads="{{ video.heads }}"{% endif %}>
                 <acceleration accel3d="{{ video.acceleration_3d|yesno:"yes,no" }}" accel2d="{{ video.acceleration_2d|yesno:"yes,no" }}" />
@@ -120,7 +120,7 @@
         </video>
         {% endfor %}
 
-        {% for port in domain.port_set.all %}
+        {% for port in ports %}
         {% ifequal port.port_type "parallel" %}
         <parallel type="{{ port.type }}">
             {% if port.source_path or port.source_mode %}
@@ -163,11 +163,11 @@
         {% endifequal %}
         {% endfor %}
 
-        {% for sound in domain.sound_set.all %}
+        {% for sound in sounds %}
         <sound model="{{ sound.model }}" />
         {% endfor %}
 
-        {% for watchdog in domain.watchdog_set.all %}
+        {% for watchdog in watchdogs %}
         <watchdog model="{{ watchdog.model }}"{% if watchdog.action %} action="{{ watchdog.action }}"{% endif %} />
         {% endfor %}
     </devices>

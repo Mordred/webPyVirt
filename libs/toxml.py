@@ -7,7 +7,38 @@ def domainToXML(domain):
 
     template = get_template("libs/domain.xml")
     context = Context({ 
-        "domain":       domain
+        "domain":       domain,
+        "disks":        domain.disk_set.all(),
+        "hostdevices":  domain.hostdevice_set.all(),
+        "interfaces":   domain.interface_set.all(),
+        "inputdevices": domain.inputdevice_set.all(),
+        "graphics":     domain.graphics_set.all(),
+        "videos":       domain.video_set.all(),
+        "ports":        domain.port_set.all(),
+        "sounds":       domain.sound_set.all(),
+        "watchdogs":    domain.watchdog_set.all()
+    })
+
+    xml = template.render(context)
+    xml = re.sub("(?<=\n) *\n", "", xml)
+    return xml
+
+#enddef
+
+def newDomainXML(domain, disk, interface, inputDevice):
+
+    template = get_template("libs/domain.xml")
+    context = Context({ 
+        "domain":       domain,
+        "disks":        [ disk ],
+        "hostdevices":  [],
+        "interfaces":   [ interface ],
+        "inputdevices": [ inputDevice ],
+        "graphics":     [],
+        "videos":       [],
+        "ports":        [],
+        "sounds":       [],
+        "watchdogs":    []
     })
 
     xml = template.render(context)

@@ -3,6 +3,7 @@
 import sha, time ,datetime
 
 from django.core.urlresolvers       import reverse
+from django.db                      import transaction
 from django.http                    import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts               import render_to_response, get_object_or_404
 from django.template                import RequestContext
@@ -12,12 +13,13 @@ from django.utils.translation       import ugettext as _
 from webPyVirt.decorators       import secure
 from webPyVirt.libs             import virtualization, toxml
 
-from webPyVirt.domains.models       import Domain, Disk
+from webPyVirt.domains.models       import Domain, Disk, Interface, InputDevice
 from webPyVirt.domains.permissions  import isAllowedTo
 
 from webPyVirt.nodes.permissions    import isAllowedTo as nodeIsAllowedTo
 from webPyVirt.nodes.models         import Node
 
+@transaction.commit_on_success
 def wizard(request):
     if request.method != "POST" or "secret" not in request.POST or "action" not in request.POST:
         return HttpResponseRedirect("%s" % (reverse("403")))
@@ -73,11 +75,15 @@ def wizard(request):
         domain.uuid = request.POST['uuid']
         domain.description = request.POST['description']
     elif action == "loadMemory":
-        data['memory'] = domain.memory
+        if domain.memory:
+            data['memory'] = domain.memory / 1024
+        else:
+            data['memory'] = domain.memory
+        #endif
         data['vcpu'] = domain.vcpu
     elif action == "saveMemory":
-        domain.memory = request.POST['memory']
-        domain.vcpu = request.POST['vcpu']
+        domain.memory = int(request.POST['memory']) * 1024
+        domain.vcpu = int(request.POST['vcpu'])
     elif action == "loadVolumes":
         pool = domainData['pool']
         try:
@@ -201,6 +207,74 @@ def wizard(request):
         #endif
 
         domainData['network'] = network
+    elif action == "loadReview":
+        data['name'] = domain.name
+        data['uuid'] = domain.uuid
+        data['memory'] = domain.memory
+        data['vcpu'] = domain.vcpu
+        try:
+            virNode = virtualization.virNode(node)
+            result = virNode.getStorageVolumeInfo(domainData['pool'], domainData['volume'])
+        except virtualization.ErrorException, e:
+            data['error'] = unicode(e)
+        else:
+            data['volume'] = result
+        #endtry
+        data['network'] = domainData['network']
+    elif action == "create":
+        try:
+            virNode = virtualization.virNode(node)
+            volInfo = virNode.getStorageVolumeInfo(domainData['pool'], domainData['volume'])
+        except virtualization.ErrorException, e:
+            data['error'] = unicode(e)
+        else:
+            try:
+                if domain.hypervisor_type == "xen":
+                    domain.os_type = "xen"
+#                elif domain.hypervisor_type == "qemu":
+#                    domain.os_type = "qemu"
+                else:
+                    domain.os_type = "hvm"
+                #endif
+
+                disk = Disk()
+                disk.domain = domain
+
+                # Disk Type
+                if volInfo['type'] == virtualization.STORAGE_VOL_FILE:
+                    disk.type = "file"
+                elif volInfo['type'] == virtualization.STORAGE_VOL_BLOCK:
+                    disk.type = "block"
+                #endif
+
+                # Disk Device
+                disk.device = "disk"
+                disk.source = volInfo['path']
+                disk.target_dev = "hda"
+
+                # Network
+                interface = Interface()
+                interface.domain = domain
+                interface.type = "network"
+                interface.mac_address = domainData['network']['mac']
+                interface.source_network = domainData['network']['name']
+                interface.target_dev = domainData['network']['targetDev']
+
+                # Input device
+                inputDev = InputDevice()
+                inputDev.domain = domain
+                inputDev.type = "mouse"
+                inputDev.bus = "ps2"
+
+                newDomain = toxml.newDomainXML(domain, disk, interface, inputDev)
+                data['xml'] = newDomain
+                virNode.createDomain(newDomain)
+            except virtualization.ErrorException, e:
+                data['error'] = unicode(e)
+            else:
+                data['created'] = True
+            #endtry
+        #endtry
     else:
         data['status'] = 404
         data['statusMessage'] = _("Action not found!")

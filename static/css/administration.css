@@ -51,11 +51,11 @@ span.border-bottom span         { background: url("../img/border-right.png") no-
 #tabs a:hover                   { background-position: 0 -70px; }
 #tabs a:hover span              { background-position: 100% -70px; }
 
-form div.field label            { width: 200px; display: inline-block; }
-form div.field input,            
- form div.field select          { width: 300px; }
-form div.field textarea         { width: 300px; vertical-align: top; }
-form div.submit                 { margin-right: 80px; }
+div.field label                 { width: 200px; display: inline-block; }
+div.field input,            
+ div.field select               { width: 300px; }
+div.field textarea              { width: 300px; vertical-align: top; }
+div.submit                      { margin-right: 80px; }
 
 form .accordion div.submit      { margin: 0 0 0 0; }
 

@@ -328,6 +328,19 @@ class virNode(object):
         }
     #enddef
 
+    def createDomain(self, xml):
+        try:
+            connection = self.getConnection()
+            domain = connection.defineXML(xml)
+            domain.create()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return None
+    #enddef
+
 #endclass
 
 # ----------------------------------------------------------------
