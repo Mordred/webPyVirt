@@ -272,7 +272,7 @@ class Monitor(object):
 
             if len(self._monitors):
                 time.sleep(5)       # Sleep for 5 secs
-            else:
+            elif len(domains) != 0:
                 allDone = True      # All domains done
             #endif
 
