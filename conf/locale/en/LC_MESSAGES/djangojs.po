@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-08 20:40+0100\n"
+"POT-Creation-Date: 2010-05-20 13:17+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,8 +16,541 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: static/js/domain_detail.js:6 static/js/domain_detail.js.py:14
+msgid "CPU"
+msgstr ""
+
+#: static/js/domain_detail.js:15 static/js/domain_detail.js.py:36
+msgid "%"
+msgstr ""
+
+#: static/js/domain_detail.js:27 static/js/domain_detail.js.py:35
+#: static/js/plugins/jq.autoimport_domains.js:178
+#: static/js/plugins/jq.domain_wizard.js:69
+#: static/js/plugins/jq.domain_wizard.js:486
+msgid "Memory"
+msgstr ""
+
+#: static/js/domain_remove.js:15 static/js/plugins/jq.autoimport_domains.js:25
+#: static/js/plugins/jq.domain_buttons.js:93
+#: static/js/plugins/jq.domain_migrate_wizard.js:219
+#: static/js/plugins/jq.domain_set.js:22
+#: static/js/plugins/jq.domain_wizard.js:964
+#: static/js/plugins/jq.test_connection.js:129
+msgid "Close"
+msgstr ""
+
+#: static/js/domain_remove.js:33 static/js/plugins/jq.autoimport_domains.js:48
+#: static/js/plugins/jq.domain_buttons.js:135
+#: static/js/plugins/jq.domain_set.js:41
 #: static/js/plugins/jq.test_connection.js:47
 msgid "OK"
+msgstr ""
+
+#: static/js/domain_remove.js:46
+msgid "Destroy domain"
+msgstr ""
+
+#: static/js/domain_remove.js:55 static/js/plugins/jq.domain_buttons.js:163
+#, perl-format
+msgid "Trying to %s domain..."
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:44
+msgid "Imported"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:60
+#: static/js/plugins/jq.test_connection.js:75
+msgid "Failed"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:68
+#: static/js/plugins/jq.autoimport_domains.js:137
+msgid "Import"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:78
+msgid "Import All Domains"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:91
+#, fuzzy, perl-format
+msgid "Trying to import domain '<i>%s</i>'..."
+msgstr "Connecting ..."
+
+#: static/js/plugins/jq.autoimport_domains.js:126
+msgid "Recreate"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:129
+msgid "Remove"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:152
+msgid "Import All"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:160
+msgid "Recreate All"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:163
+msgid "Remove All"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:175
+#: static/js/plugins/jq.domain_wizard.js:67
+#: static/js/plugins/jq.domain_wizard.js:509
+msgid "Domain Name"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:176
+#: static/js/plugins/jq.domain_wizard.js:68
+#: static/js/plugins/jq.domain_wizard.js:510
+msgid "UUID"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:177
+msgid "vCPU"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:179
+msgid "Action"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:186
+msgid "Nothing to import or remove!"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:210
+#: static/js/plugins/jq.domain_migrate_wizard.js:172
+#: static/js/plugins/jq.domain_wizard.js:671
+msgid "Error"
+msgstr ""
+
+#: static/js/plugins/jq.autoimport_domains.js:216
+msgid "Status"
+msgstr ""
+
+#: static/js/plugins/jq.check_status.js:20
+msgid "running"
+msgstr ""
+
+#: static/js/plugins/jq.check_status.js:22
+msgid "cannot connect"
+msgstr ""
+
+#: static/js/plugins/jq.domain_buttons.js:115
+msgid "Suspend"
+msgstr ""
+
+#: static/js/plugins/jq.domain_buttons.js:117
+msgid "Reboot"
+msgstr ""
+
+#: static/js/plugins/jq.domain_buttons.js:120
+msgid "Resume"
+msgstr ""
+
+#: static/js/plugins/jq.domain_buttons.js:122
+msgid "Start"
+msgstr ""
+
+#: static/js/plugins/jq.domain_buttons.js:125
+msgid "Shutdown"
+msgstr ""
+
+#: static/js/plugins/jq.domain_buttons.js:127
+msgid "Save"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:163
+#: static/js/plugins/jq.domain_wizard.js:662
+msgid "Loading, please wait..."
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:197
+#: static/js/plugins/jq.domain_migrate_wizard.js:224
+#: static/js/plugins/jq.domain_wizard.js:942
+#: static/js/plugins/jq.domain_wizard.js:969
+msgid "Next"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:201
+#: static/js/plugins/jq.domain_wizard.js:946
+msgid "Introduction"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:226
+#: static/js/plugins/jq.domain_wizard.js:971
+msgid "Previous"
+msgstr ""
+
+#: static/js/plugins/jq.domain_set.js:63
+msgid "Virtual CPUs"
+msgstr ""
+
+#: static/js/plugins/jq.domain_set.js:64
+msgid "Maximum Memory"
+msgstr ""
+
+#: static/js/plugins/jq.domain_set.js:65
+msgid "Current Memory"
+msgstr ""
+
+#: static/js/plugins/jq.domain_set.js:68
+msgid "Set parameter"
+msgstr ""
+
+#: static/js/plugins/jq.domain_set.js:77
+#, perl-format
+msgid "Trying to set parameter \"%s\" to value \"%s\"..."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:27
+#: static/js/plugins/jq.domain_wizard.js:134
+#: static/js/plugins/jq.domain_wizard.js:173
+msgid "Result: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:40
+msgid "Domain created and started successfully."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:48
+msgid "Go to domain details"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:51
+msgid "Create Domain"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:62
+msgid "Ready to create domain: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:72
+msgid "Storage"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:76
+#: static/js/plugins/jq.domain_wizard.js:123
+msgid "Network"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:77
+msgid "Target Network Device"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:78
+#: static/js/plugins/jq.domain_wizard.js:108
+msgid "MAC Address"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:86
+msgid "Create"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:89
+msgid "Review"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:100
+msgid "Please specify network settings (Currently only DHCP is supported): "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:104
+msgid "Target Device Name"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:105
+msgid "(e.g. \"vnet2\")"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:107
+msgid "Defined Networks"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:109
+msgid "(e.g. 00:11:22:33:44:55)"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:142
+msgid "Storage volume created."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:148
+#, perl-format
+msgid ""
+"During process there was an error, so the volume is not created. (error = %s)"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:162
+msgid "New Storage Volume"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:189
+#, perl-format
+msgid ""
+"Storage pool created and has %s GB of free space. (logical size = %s GB, "
+"current allocation = %s GB)"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:196
+#, perl-format
+msgid ""
+"During process there was an error, so the pool is not created. (error = %s)"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:210
+#: static/js/plugins/jq.domain_wizard.js:282
+msgid "New Storage Pool"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:221
+msgid ""
+"Specify a storage location to be later split into virtual machine storage: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:226
+msgid "Target Path"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:240
+#: static/js/plugins/jq.domain_wizard.js:411
+msgid "Format"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:241
+msgid "Host Name"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:242
+msgid "Source Path"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:252
+msgid "Directory to use for the storage pool."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:254
+#: static/js/plugins/jq.domain_wizard.js:262
+#: static/js/plugins/jq.domain_wizard.js:274
+msgid "Root location for identifying new storage volumes."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:255
+msgid "Format of the source device's partition table."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:256
+msgid "Path to the existing disk device."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:258
+#: static/js/plugins/jq.domain_wizard.js:269
+msgid "Location to mount the source device."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:259
+msgid "Filesystem type of the source device."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:260
+msgid "The existing device to mount for the pool."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:263
+#: static/js/plugins/jq.domain_wizard.js:271
+msgid "Name of the host sharing the storage."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:264
+#: static/js/plugins/jq.domain_wizard.js:272
+msgid "Path on the host that is being shared."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:266
+msgid "Location of the existing LVM volume group."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:267
+msgid "Optional device to build new LVM volume on."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:270
+msgid "Type of the network filesystem."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:275
+msgid "Name of the SCSI adapter (ex. host2)."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:306
+msgid "Select storage pool where disk for this virtual machine will be saved: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:315
+msgid "Create a new storage pool.<br />"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:318
+msgid "Storage Pool Name"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:320
+msgid "Filesystem Directory"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:321
+msgid "Physical Disk Device"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:322
+msgid "Pre-Formatted Block Device"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:323
+msgid "iSCSI Target"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:324
+msgid "LVM Volume Group"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:325
+msgid "Network Exported Directory"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:326
+msgid "SCSI Host Adapter"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:327
+msgid "Storage Pool Type"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:350
+msgid "Select existing storage pool.<br />"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:353
+msgid "Existing pools"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:365
+msgid "Storage Pool"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:383
+msgid "Select storage for this virtual machine: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:391
+#: static/js/plugins/jq.domain_wizard.js:453
+msgid "Volumes"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:400
+msgid "Create a disk image on the computer's hard drive.<br />"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:405
+msgid "Volume Name"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:417
+msgid "Size of the volume"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:434
+msgid "Select managed or other existing storage.<br />"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:437
+msgid "Existing volumes"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:471
+msgid "Choose memory and CPU settings: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:477
+msgid "Memory (RAM)"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:502
+msgid "First we need some basic data: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:511
+msgid "Description"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:515
+msgid "Metadata"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:684
+#, perl-format
+msgid ""
+"Node \"%s\" with URI: \"%s\" is currently unavailable. Try it again later or "
+"check status of the node."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:689
+msgid "Node Status"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:726
+#: static/js/plugins/jq.domain_wizard.js:829
+#: static/js/plugins/jq.domain_wizard.js:883
+msgid "Name is required!"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:742
+msgid "This operation can take more time depending on the volume size."
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:763
+msgid "MAC Address is invalid!"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:790
+msgid "Target Path is required!"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:892
+msgid "UUID is invalid!"
+msgstr ""
+
+#: static/js/plugins/jq.domain_wizard.js:941
+#, perl-format
+msgid ""
+"This is domain creation wizard which will help you set necessary data so you "
+"will not have to fill everything alone. If you are ready click on \"%s\" "
+"button."
+msgstr ""
+
+#: static/js/plugins/jq.google_visualization.js:40
+#: static/js/plugins/jq.google_visualization.js:65
+msgid "Label"
+msgstr ""
+
+#: static/js/plugins/jq.google_visualization.js:41
+#: static/js/plugins/jq.google_visualization.js:66
+msgid "Value"
+msgstr ""
+
+#: static/js/plugins/jq.google_visualization.js:137
+#: static/js/plugins/jq.google_visualization.js:159
+msgid "Time"
+msgstr ""
+
+#: static/js/plugins/jq.google_visualization.js:138
+#: static/js/plugins/jq.google_visualization.js:160
+msgid "Usage"
 msgstr ""
 
 #: static/js/plugins/jq.test_connection.js:50
@@ -52,10 +585,6 @@ msgstr ""
 msgid "Threads per core"
 msgstr ""
 
-#: static/js/plugins/jq.test_connection.js:75
-msgid "Failed"
-msgstr ""
-
 #: static/js/plugins/jq.test_connection.js:78
 msgid "Error message: "
 msgstr ""
@@ -64,10 +593,6 @@ msgstr ""
 #, fuzzy, perl-format
 msgid "Connecting to '<i>%s</i>'..."
 msgstr "Connecting ..."
-
-#: static/js/plugins/jq.test_connection.js:129
-msgid "Close"
-msgstr ""
 
 #: static/js/plugins/jq.test_connection.js:135
 #, fuzzy

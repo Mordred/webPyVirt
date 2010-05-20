@@ -146,8 +146,8 @@
                 } else {
                     para.addClass("error").html(
                         interpolate(
-                            "During process there was an error, so the volume is not created."
-                            + " (error = %s)", [ data['error'] ]
+                            gettext("During process there was an error, so the volume is not created. (error = %s)"),
+                            [ data['error'] ]
                         )
                     );
                 }
@@ -187,16 +187,15 @@
 
                     para.html(
                         interpolate(
-                            "Storage pool created and has %s GB of free space."
-                            + " (logical size = %s GB, current allocation = %s GB)",
+                            gettext("Storage pool created and has %s GB of free space. (logical size = %s GB, current allocation = %s GB)"),
                             [ freeSpace, size, allocation ]
                         )
                     );
                 } else {
                     para.addClass("error").html(
                         interpolate(
-                            "During process there was an error, so the pool is not created."
-                            + " (error = %s)", [ data['error'] ]
+                            gettext("During process there was an error, so the pool is not created. (error = %s)"),
+                            [ data['error'] ]
                         )
                     );
                 }
@@ -220,7 +219,7 @@
             var content = $("<div />");
             var text = $("<div />").addClass("align-justify").html(
                 interpolate(
-                    "Specify a storage location to be later split into virtual machine storage: "
+                    gettext("Specify a storage location to be later split into virtual machine storage: ")
                 )
             );
 
@@ -307,7 +306,7 @@
                 var content = $("<div />");
                 var text = $("<div />").addClass("align-justify").html(
                     interpolate(
-                        "Select storage pool where disk for this virtual machine will be saved: "
+                        gettext("Select storage pool where disk for this virtual machine will be saved: ")
                     )
                 );
 
@@ -385,7 +384,7 @@
                 var content = $("<div />");
                 var text = $("<div />").addClass("align-justify").html(
                     interpolate(
-                        "Select storage for this virtual machine: "
+                        gettext("Select storage for this virtual machine: ")
                     )
                 );
 
@@ -475,7 +474,7 @@
                 var content = $("<div />");
                 var text = $("<div />").addClass("align-justify").html(
                     interpolate(
-                        "Choose memory and CPU settings: "
+                        gettext("Choose memory and CPU settings: ")
                     )
                 );
                 content.append(text);
@@ -506,7 +505,7 @@
                 var content = $("<div />");
                 var text = $("<div />").addClass("align-justify").html(
                     interpolate(
-                        "First we need some basic data: "
+                        gettext("First we need some basic data: ")
                     )
                 );
 
@@ -685,15 +684,10 @@
                     nodeInfo = data['info'];
                     loadMetadata();
                 } else {
-                    var buttons = getButtons(metadata, introduction);
+                    var buttons = getButtons(null, introduction);
                     var text = $("<div />").addClass("align-justify").addClass("errornote").html(
                         interpolate(
-                            "Node \"%s\" with URI: \"%s\" is currently"
-                            + " unavailable. You can continue, but"
-                            + " all data will be saved only to database"
-                            + " and the domain will not be created."
-                            + " You can create it later from record"
-                            + " in database if you decide to continue.",
+                            gettext("Node \"%s\" with URI: \"%s\" is currently unavailable. Try it again later or check status of the node."),
                             [ data['name'], data['uri'] ]
                         )
                     );
@@ -948,10 +942,9 @@
         var introduction = function() {
             var buttons = getButtons(sendNodeCheck, null);
             var content = $("<div />").addClass("align-justify").html(
+                
                 interpolate(
-                    "This is domain creation wizard which will help you set necessary"
-                    + " data so you will not have to fill everything alone."
-                    + " If you are ready click on \"%s\" button.",
+                    gettext("This is domain creation wizard which will help you set necessary data so you will not have to fill everything alone. If you are ready click on \"%s\" button."),
                     [ gettext("Next") ]
                 )
             );

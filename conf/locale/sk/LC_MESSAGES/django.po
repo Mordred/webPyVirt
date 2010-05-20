@@ -3,20 +3,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-23 13:56+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Martin Jantošovič <mordred@inmail.sk>\n"
+"POT-Creation-Date: 2010-05-20 14:12+0200\n"
+"PO-Revision-Date: 2010-05-20 14:22+0100\n"
+"Last-Translator: Martin Jantošovič <jantosovic.martin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: menu.py:13 templates/403.html:23 templates/404.html:23
+#: menu.py:13
+#: templates/403.html:23
+#: templates/404.html:23
 #: templates/home.html:4
 msgid "Home"
 msgstr "Domov"
@@ -29,34 +30,49 @@ msgstr "Rýchly prístup"
 msgid "Users & Groups"
 msgstr "Užívatelia & Skupiny"
 
-#: menu.py:36 nodes/menu.py:14 templates/nodes/index.html:4
+#: menu.py:36
+#: nodes/menu.py:18
+#: templates/nodes/index.html:4
 #: templates/nodes/index.html.py:7
 msgid "Nodes"
 msgstr "Uzly"
 
-#: menu.py:44 templates/nodes/node/select.html:26
+#: menu.py:44
+#: domains/menu.py:20
+#: templates/nodes/node/list.html:33
+#: templates/nodes/node/select.html:26
 msgid "Domains"
 msgstr "Domény"
 
-#: settings.py:90
+#: settings.py:94
 msgid "Slovak"
 msgstr "Slovensky"
 
-#: settings.py:91
+#: settings.py:95
 msgid "English"
 msgstr "Anglicky"
 
-#: accounts/forms.py:9 templates/accounts/user/select.html:69
+#: accounts/forms.py:9
+#: templates/accounts/user/select.html:69
 msgid "Select user"
 msgstr "Výber užívateľa"
 
-#: accounts/forms.py:10 accounts/forms.py:29 accounts/forms.py:78
-#: accounts/forms.py:102 nodes/forms.py:11 nodes/forms.py:31
+#: accounts/forms.py:10
+#: accounts/forms.py:29
+#: accounts/forms.py:78
+#: accounts/forms.py:102
+#: domains/forms.py:12
+#: nodes/forms.py:11
+#: nodes/forms.py:46
 msgid "Only letters, digits and underscores"
 msgstr "Iba písmená, číslice a podtržítka"
 
-#: accounts/forms.py:11 accounts/forms.py:30 accounts/forms.py:79
-#: accounts/forms.py:103 nodes/forms.py:12 nodes/forms.py:32
+#: accounts/forms.py:11
+#: accounts/forms.py:30
+#: accounts/forms.py:79
+#: accounts/forms.py:103
+#: domains/forms.py:13
+#: nodes/forms.py:47
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
 
@@ -64,12 +80,14 @@ msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
 msgid "A user with that username does not exist."
 msgstr "Užívateľ s týmto menom neexistuje."
 
-#: accounts/forms.py:28 nodes/models.py:50
+#: accounts/forms.py:28
+#: nodes/models.py:50
 #: templates/accounts/user/select.html:25
 msgid "Username"
 msgstr "Užívateľské meno"
 
 #: accounts/forms.py:31
+#: domains/models.py:468
 msgid "Password"
 msgstr "Heslo"
 
@@ -85,7 +103,8 @@ msgstr "Užívateľ s týmto menom už existuje."
 msgid "The two password fields didn't match."
 msgstr "Heslá sa nezhodujú."
 
-#: accounts/forms.py:77 templates/accounts/group/select.html:25
+#: accounts/forms.py:77
+#: templates/accounts/group/select.html:25
 msgid "Group name"
 msgstr "Názov skupiny"
 
@@ -93,7 +112,8 @@ msgstr "Názov skupiny"
 msgid "A group with that name already exists."
 msgstr "Skupina s týmto menom už existuje."
 
-#: accounts/forms.py:101 templates/accounts/group/select.html:69
+#: accounts/forms.py:101
+#: templates/accounts/group/select.html:69
 msgid "Select group"
 msgstr "Výber skupiny"
 
@@ -117,7 +137,8 @@ msgstr "Zmeniť oprávnenia"
 msgid "User can change global permissions of another users"
 msgstr "Užívateľ môže zmeniť globálne práva iného užívateľa"
 
-#: accounts/forms.py:126 accounts/menu.py:14 domains/menu.py:14
+#: accounts/forms.py:126
+#: accounts/menu.py:14
 #: templates/accounts/user/add.html:56
 msgid "Add user"
 msgstr "Pridať užívateľa"
@@ -134,7 +155,8 @@ msgstr "Zmeniť užívateľa"
 msgid "User can change information about users"
 msgstr "Užívateľ môže zmeniť informácie o užívateľoch"
 
-#: accounts/forms.py:130 accounts/menu.py:26
+#: accounts/forms.py:130
+#: accounts/menu.py:26
 msgid "Remove user"
 msgstr "Odstrániť užívateľa"
 
@@ -142,7 +164,8 @@ msgstr "Odstrániť užívateľa"
 msgid "User can remove users"
 msgstr "Užívateľ môže odstrániť užívateľov"
 
-#: accounts/forms.py:133 accounts/menu.py:38
+#: accounts/forms.py:133
+#: accounts/menu.py:38
 #: templates/accounts/group/add.html:39
 msgid "Add group"
 msgstr "Pridať skupinu"
@@ -159,7 +182,8 @@ msgstr "Zmeniť skupinu"
 msgid "User can change group members"
 msgstr "Užívateľ môže zmeniť členov skupiny"
 
-#: accounts/forms.py:137 accounts/menu.py:50
+#: accounts/forms.py:137
+#: accounts/menu.py:50
 msgid "Remove group"
 msgstr "Odstrániť skupinu"
 
@@ -167,7 +191,9 @@ msgstr "Odstrániť skupinu"
 msgid "User can remove groups"
 msgstr "Užívateľ môže odstrániť skupinu"
 
-#: accounts/forms.py:140 nodes/menu.py:24 templates/nodes/node/add.html:98
+#: accounts/forms.py:140
+#: nodes/menu.py:28
+#: templates/nodes/node/add.html:99
 msgid "Add node"
 msgstr "Pridať uzol"
 
@@ -175,7 +201,7 @@ msgstr "Pridať uzol"
 msgid "User can add new node"
 msgstr "Užívateľ môže pridať nový uzol"
 
-#: accounts/menu.py:10 domains/menu.py:10
+#: accounts/menu.py:10
 msgid "Users"
 msgstr "Užívatelia"
 
@@ -183,7 +209,8 @@ msgstr "Užívatelia"
 msgid "Manage users"
 msgstr "Správa užívateľov"
 
-#: accounts/menu.py:34 templates/accounts/permissions/show.html:27
+#: accounts/menu.py:34
+#: templates/accounts/permissions/show.html:27
 #: templates/accounts/user/manage.html:103
 msgid "Groups"
 msgstr "Skupiny"
@@ -208,43 +235,1091 @@ msgstr "Práva skupiny"
 msgid "Show permissions"
 msgstr "Zobraziť práva"
 
-#: domains/menu.py:19
-msgid "Edit user"
-msgstr "Upraviť užívateľa"
+#: domains/forms.py:11
+#: templates/domains/domain/select.html:81
+msgid "Select domain"
+msgstr "Výber domény"
+
+#: domains/forms.py:14
+msgid "Domain ID"
+msgstr "ID domény"
+
+#: domains/forms.py:15
+msgid "Used if 2 domains have the same name (e.g. Domain-0)"
+msgstr "Použité ak 2 domény majú rovnaký názov. (napr. Domain-0)"
+
+#: domains/forms.py:24
+#: domains/forms.py:37
+#: domains/views/domain.py:172
+msgid "A domain with that name does not exist."
+msgstr "Doména s týmto menom neexistuje."
 
 #: domains/menu.py:24
-msgid "Delete user"
-msgstr "Zmazať užívateľa"
+#: templates/domains/domain/add_backup.html:167
+msgid "Add domain"
+msgstr "Vytvoriť doménu"
 
-#: domains/menu.py:31 nodes/menu.py:32
+#: domains/menu.py:29
+msgid "Domain detail"
+msgstr "Detail domény"
+
+#: domains/menu.py:34
+msgid "Edit domain"
+msgstr "Upraviť doménu"
+
+#: domains/menu.py:39
+msgid "Migrate domain"
+msgstr "Migrovať doménu"
+
+#: domains/menu.py:44
+msgid "Remove domain"
+msgstr "Odstrániť doménu"
+
+#: domains/menu.py:51
+#: nodes/menu.py:54
 msgid "Permissions"
 msgstr "Práva"
 
-#: nodes/forms.py:10 nodes/models.py:38 templates/nodes/node/select.html:25
-msgid "Node Name"
-msgstr "Názov uzla"
-
-#: nodes/forms.py:30 templates/nodes/node/select.html:69
-msgid "Select node"
-msgstr "Výber uzlu"
-
-#: nodes/forms.py:40 nodes/views/node.py:132
-msgid "A node with that name does not exist."
-msgstr "Uzol s týmto menom neexistuje."
-
-#: nodes/menu.py:18
-msgid "List nodes"
-msgstr "Zoznam uzlov"
-
-#: nodes/menu.py:36 templates/nodes/acl/user.html:4
+#: domains/menu.py:55
+#: nodes/menu.py:58
+#: templates/domains/acl/user.html:4
+#: templates/domains/acl/user.html.py:7
+#: templates/nodes/acl/user.html:4
 #: templates/nodes/acl/user.html.py:7
 msgid "User ACL"
 msgstr "ACL užívateľov"
 
-#: nodes/menu.py:42 templates/nodes/acl/group.html:4
+#: domains/menu.py:61
+#: nodes/menu.py:64
+#: templates/domains/acl/group.html:4
+#: templates/domains/acl/group.html.py:7
+#: templates/nodes/acl/group.html:4
 #: templates/nodes/acl/group.html.py:7
 msgid "Group ACL"
 msgstr "ACL skupín"
+
+#: domains/models.py:11
+msgid "Hardware Virtual Machine (Fully Virtualized)"
+msgstr ""
+
+#: domains/models.py:12
+msgid "Xen PV (Paravirtualized)"
+msgstr ""
+
+#: domains/models.py:13
+msgid "QEMU / KVM PV (Paravirtualized)"
+msgstr ""
+
+#: domains/models.py:19
+msgid "Destroy"
+msgstr "Zrušiť"
+
+#: domains/models.py:20
+msgid "Restart"
+msgstr "Reštartovať"
+
+#: domains/models.py:21
+msgid "Preserve"
+msgstr "Zachovať"
+
+#: domains/models.py:22
+msgid "Rename-Restart"
+msgstr "Prementovať po reštarte"
+
+#: domains/models.py:26
+msgid "Minimum match"
+msgstr "Minimálna zhoda"
+
+#: domains/models.py:27
+msgid "Exact match"
+msgstr "Presná zhoda"
+
+#: domains/models.py:28
+msgid "Strict match"
+msgstr "Prísna zhoda"
+
+#: domains/models.py:47
+msgid "UTC"
+msgstr "UTC"
+
+#: domains/models.py:48
+msgid "Localtime"
+msgstr "Lokálny čas"
+
+#: domains/models.py:49
+msgid "Timezone"
+msgstr "Časová zóna"
+
+#: domains/models.py:57
+msgid "Current ID on node"
+msgstr "Aktuálne ID uzla."
+
+#: domains/models.py:59
+msgid "Hypervisor Driver Type"
+msgstr "Typ hypervízora"
+
+#: domains/models.py:60
+#: templates/domains/domain/select.html:31
+msgid "Domain Name"
+msgstr "Názov domény"
+
+#: domains/models.py:61
+#: templates/domains/domain/detail.html:74
+msgid "UUID"
+msgstr "UUID"
+
+#: domains/models.py:62
+#: templates/accounts/permissions/group.html:39
+#: templates/accounts/permissions/user.html:39
+#: templates/domains/acl/group.html:35
+#: templates/domains/acl/user.html:35
+#: templates/domains/domain/detail.html:82
+#: templates/nodes/acl/group.html:35
+#: templates/nodes/acl/user.html:35
+msgid "Description"
+msgstr "Popis"
+
+#: domains/models.py:63
+msgid "Human readable description of the virtual machine"
+msgstr "Popis virtuálneho stroja"
+
+#: domains/models.py:68
+#: templates/domains/domain/add_backup.html:81
+msgid "Bootloader"
+msgstr ""
+
+#: domains/models.py:70
+msgid "Bootloader Args"
+msgstr "Argumenty pre bootloader"
+
+#: domains/models.py:74
+msgid "Type of virtualization"
+msgstr "Typ virtualizácie"
+
+#: domains/models.py:76
+msgid "Firmware blob which assist the domain creation process"
+msgstr ""
+
+#: domains/models.py:78
+msgid "CPU architecture"
+msgstr "CPU architektúra"
+
+#: domains/models.py:80
+msgid "Machine Type"
+msgstr "Typ stroja"
+
+#: domains/models.py:82
+msgid "Path to kernel image in the host OS"
+msgstr "Cesta ku obrazu jadra v hostiteľskom OS"
+
+#: domains/models.py:84
+msgid "Path to (optional) ramdisk image in the host OS"
+msgstr "Cesta k (voliteľnému) ramdisku v hostiteľskom OS"
+
+#: domains/models.py:86
+msgid "Arguments passed to the kernel at boottime"
+msgstr "Argumenty predávané jadru v čase bootovania"
+
+#: domains/models.py:88
+msgid "Boot devices priority"
+msgstr "Priorita bootovacích zariadení"
+
+#: domains/models.py:91
+msgid "Maximum memory allocation (KB)"
+msgstr "Maximálna pamäť (KB)"
+
+#: domains/models.py:93
+msgid "Actual memory allocation"
+msgstr "Aktuálne alokovaná pamäť"
+
+#: domains/models.py:94
+msgid "Number of virtual CPUs"
+msgstr "Počet virtuálnych CPU"
+
+#: domains/models.py:98
+msgid "How strictly has the virtual CPU provided to guest match requirements"
+msgstr "Ako presne sa musí virtuálny procesor hosťujúceho stroja zhodovať"
+
+#: domains/models.py:100
+msgid "CPU model requested by guest"
+msgstr "Model CPU požadovaný hosťujúcim systémom"
+
+#: domains/models.py:102
+msgid "Topology of virtual CPU"
+msgstr "Topológia virtuálneho procesora"
+
+#: domains/models.py:104
+msgid "CPU features"
+msgstr "Znaky CPU"
+
+#: domains/models.py:106
+msgid "CPU features policies"
+msgstr ""
+
+#: domains/models.py:110
+msgid "Action when guest requests a poweroff"
+msgstr "Akcia, ktorá sa vykoná v prípade vypnutia stroja"
+
+#: domains/models.py:112
+msgid "Action when guest requests a reboot"
+msgstr "Akcia, ktorá sa vykoná v prípade reštartu stroja"
+
+#: domains/models.py:114
+msgid "Action when guest crashes"
+msgstr "Akcia, ktorá sa vykoná v prípade zhavarovania stroja"
+
+#: domains/models.py:118
+msgid "Physical address extension mode"
+msgstr "Mód rozšírenia fyzickej adresy"
+
+#: domains/models.py:120
+msgid "ACPI for power management"
+msgstr ""
+
+#: domains/models.py:126
+msgid "Host time synchronization"
+msgstr "Synchronizácia času"
+
+#: domains/models.py:131
+msgid "Path to device model emulator"
+msgstr "Cesta k emulátoru zariadení"
+
+#: domains/models.py:239
+#: domains/models.py:531
+msgid "File"
+msgstr "Súbor"
+
+#: domains/models.py:240
+msgid "Block"
+msgstr "Blok"
+
+#: domains/models.py:243
+msgid "Floppy"
+msgstr "Disketa"
+
+#: domains/models.py:244
+msgid "Disk"
+msgstr "Disk"
+
+#: domains/models.py:245
+msgid "CDROM"
+msgstr "CDROM"
+
+#: domains/models.py:248
+msgid "IDE"
+msgstr ""
+
+#: domains/models.py:249
+msgid "SCSI"
+msgstr ""
+
+#: domains/models.py:250
+msgid "Virtio"
+msgstr ""
+
+#: domains/models.py:251
+#: domains/models.py:416
+#: domains/models.py:490
+#: nodes/models.py:19
+msgid "Xen"
+msgstr ""
+
+#: domains/models.py:252
+#: domains/models.py:418
+msgid "USB"
+msgstr ""
+
+#: domains/models.py:256
+#: domains/models.py:263
+msgid "Default"
+msgstr "Implicitne"
+
+#: domains/models.py:257
+msgid "None"
+msgstr "Žiadny"
+
+#: domains/models.py:258
+msgid "Write-through"
+msgstr ""
+
+#: domains/models.py:259
+msgid "Write-back"
+msgstr ""
+
+#: domains/models.py:264
+msgid "QCOW / QCOW2"
+msgstr ""
+
+#: domains/models.py:270
+msgid "Underlying source for the disk"
+msgstr "Zdroj disku"
+
+#: domains/models.py:272
+msgid "Indicates how is disk exposed to the guest OS"
+msgstr "Nastavenie ako je disk zobrazovaní v hosťovanom systéme"
+
+#: domains/models.py:276
+msgid "Path to file or block device"
+msgstr "Cesta k súboru alebo blokovému zariadeniu"
+
+#: domains/models.py:278
+msgid "\"Logical\" device name"
+msgstr "Názov \"logického\" zariadenia"
+
+#: domains/models.py:280
+msgid "Type of disk device to emulate"
+msgstr "Typ emulovaného diskového zariadenia"
+
+#: domains/models.py:284
+msgid "Backend driver name"
+msgstr ""
+
+#: domains/models.py:286
+msgid "Subtype"
+msgstr "Podtyp"
+
+#: domains/models.py:288
+msgid "Cache mechanism"
+msgstr "Mechanizmus cacheovania"
+
+#: domains/models.py:292
+msgid "Encryption format"
+msgstr "Formát šifrovania"
+
+#: domains/models.py:295
+msgid "Secret"
+msgstr "Tajný klúč"
+
+#: domains/models.py:307
+#: domains/models.py:327
+msgid "USB Device"
+msgstr "USB zariadenie"
+
+#: domains/models.py:308
+msgid "PCI Device"
+msgstr "PCI zariadenie"
+
+#: domains/models.py:314
+msgid "Type of device"
+msgstr "Typ zariadenia"
+
+#: domains/models.py:317
+msgid "Vendor ID"
+msgstr ""
+
+#: domains/models.py:319
+msgid "Product ID"
+msgstr ""
+
+#: domains/models.py:323
+msgid "Address Bus"
+msgstr ""
+
+#: domains/models.py:331
+msgid "PCI Slot"
+msgstr ""
+
+#: domains/models.py:333
+msgid "PCI Function"
+msgstr ""
+
+#: domains/models.py:342
+msgid "Bridge"
+msgstr ""
+
+#: domains/models.py:343
+msgid "Network"
+msgstr "Sieť"
+
+#: domains/models.py:344
+msgid "User"
+msgstr "Užívateľ"
+
+#: domains/models.py:345
+msgid "Ethernet"
+msgstr "Ethernet"
+
+#: domains/models.py:346
+msgid "Direct"
+msgstr ""
+
+#: domains/models.py:347
+msgid "Multicast"
+msgstr ""
+
+#: domains/models.py:348
+msgid "Server"
+msgstr "Server"
+
+#: domains/models.py:349
+msgid "Client"
+msgstr ""
+
+#: domains/models.py:353
+msgid "ne2k_isa"
+msgstr ""
+
+#: domains/models.py:354
+msgid "ne2k_pci"
+msgstr ""
+
+#: domains/models.py:355
+msgid "i82551"
+msgstr ""
+
+#: domains/models.py:356
+msgid "i82557b"
+msgstr ""
+
+#: domains/models.py:357
+msgid "i82559er"
+msgstr ""
+
+#: domains/models.py:358
+msgid "pcnet"
+msgstr ""
+
+#: domains/models.py:359
+msgid "rtl8139"
+msgstr ""
+
+#: domains/models.py:360
+msgid "e1000"
+msgstr ""
+
+#: domains/models.py:361
+msgid "virtio"
+msgstr ""
+
+#: domains/models.py:365
+msgid "vepa"
+msgstr ""
+
+#: domains/models.py:366
+msgid "bridge"
+msgstr ""
+
+#: domains/models.py:367
+msgid "private"
+msgstr ""
+
+#: domains/models.py:373
+msgid "Type of interface"
+msgstr "Typ rozhrania"
+
+#: domains/models.py:375
+msgid "Model"
+msgstr "Model"
+
+#: domains/models.py:378
+msgid "MAC Address"
+msgstr "MAC adresa"
+
+#: domains/models.py:382
+msgid "Source Bridge"
+msgstr "Zdroj mostu"
+
+#: domains/models.py:385
+msgid "Source Network"
+msgstr "Zdroj siete"
+
+#: domains/models.py:387
+msgid "Source Device"
+msgstr "Zdrojové zariadenie"
+
+#: domains/models.py:389
+#: domains/models.py:560
+msgid "Source Mode"
+msgstr "Mód zdroja"
+
+#: domains/models.py:391
+msgid "Source IP Address"
+msgstr "Zdrojová IP adresa"
+
+#: domains/models.py:393
+msgid "Source Port"
+msgstr "Zdrojový port"
+
+#: domains/models.py:397
+msgid "Target Device"
+msgstr "Cieľové zariadenie"
+
+#: domains/models.py:401
+msgid "Script"
+msgstr "Skript"
+
+#: domains/models.py:411
+msgid "Mouse"
+msgstr "Myš"
+
+#: domains/models.py:412
+msgid "Tablet"
+msgstr ""
+
+#: domains/models.py:417
+msgid "PS2"
+msgstr ""
+
+#: domains/models.py:424
+msgid "Input Device Type"
+msgstr "Typ vstupného zariadenia"
+
+#: domains/models.py:426
+msgid "Input Device Bus"
+msgstr "Zbernica vstupného zariadenia"
+
+#: domains/models.py:437
+msgid "SDL"
+msgstr ""
+
+#: domains/models.py:438
+msgid "VNC"
+msgstr ""
+
+#: domains/models.py:439
+msgid "RDP"
+msgstr ""
+
+#: domains/models.py:440
+msgid "Desktop"
+msgstr ""
+
+#: domains/models.py:446
+msgid "Graphics Type"
+msgstr "Typ grafiky"
+
+#: domains/models.py:450
+msgid "Display"
+msgstr "Displej"
+
+#: domains/models.py:452
+msgid "Fullscreen"
+msgstr "Celá obrazovka"
+
+#: domains/models.py:456
+msgid "Authentication Identifier"
+msgstr "Autentizačný indentifikátor"
+
+#: domains/models.py:460
+msgid "TCP Port"
+msgstr "TCP port"
+
+#: domains/models.py:462
+msgid "Autoallocation of port"
+msgstr "Autoalokovanie portu"
+
+#: domains/models.py:466
+msgid "IP Address for server to listen on"
+msgstr "IP adresa, na ktorej bude server počúvač"
+
+#: domains/models.py:470
+msgid "Keymap"
+msgstr "Rozloženie klávesnice"
+
+#: domains/models.py:474
+msgid "Support multiple connection?"
+msgstr "Popdpora viacerých pripojení?"
+
+#: domains/models.py:476
+msgid "Replace existing connection?"
+msgstr "Zmeniť existujúce pripojenie?"
+
+#: domains/models.py:487
+msgid "VGA"
+msgstr ""
+
+#: domains/models.py:488
+msgid "Cirrus"
+msgstr ""
+
+#: domains/models.py:489
+msgid "VMVGA"
+msgstr ""
+
+#: domains/models.py:491
+msgid "VBox"
+msgstr ""
+
+#: domains/models.py:497
+msgid "Video Type"
+msgstr "Typ grafickej karty"
+
+#: domains/models.py:499
+msgid "Video Memory (KB)"
+msgstr "Veľkosť pamäte (KB)"
+
+#: domains/models.py:501
+msgid "Number of screen"
+msgstr "Počet obrazoviek"
+
+#: domains/models.py:504
+msgid "3D Acceleration"
+msgstr "3D akcelerácia"
+
+#: domains/models.py:506
+msgid "2D Acceleration"
+msgstr "2D akcelerácia"
+
+#: domains/models.py:516
+msgid "Parallel"
+msgstr "paralelný"
+
+#: domains/models.py:517
+msgid "Serial"
+msgstr "sériový"
+
+#: domains/models.py:518
+msgid "Console"
+msgstr "konzolový"
+
+#: domains/models.py:519
+msgid "Channel"
+msgstr "kanálový"
+
+#: domains/models.py:523
+msgid "pty"
+msgstr ""
+
+#: domains/models.py:524
+msgid "Unix"
+msgstr ""
+
+#: domains/models.py:525
+msgid "TCP"
+msgstr ""
+
+#: domains/models.py:526
+msgid "UDP"
+msgstr ""
+
+#: domains/models.py:527
+msgid "Pipe"
+msgstr ""
+
+#: domains/models.py:528
+msgid "dev"
+msgstr ""
+
+#: domains/models.py:529
+msgid "null"
+msgstr ""
+
+#: domains/models.py:530
+msgid "VC"
+msgstr ""
+
+#: domains/models.py:532
+msgid "stdio"
+msgstr ""
+
+#: domains/models.py:536
+msgid "bind"
+msgstr ""
+
+#: domains/models.py:537
+msgid "connect"
+msgstr "pripojiť"
+
+#: domains/models.py:541
+msgid "Guest Forward"
+msgstr ""
+
+#: domains/models.py:545
+msgid "Raw"
+msgstr ""
+
+#: domains/models.py:546
+msgid "Telnet"
+msgstr ""
+
+#: domains/models.py:552
+msgid "Console, serial, parallel or channel"
+msgstr ""
+
+#: domains/models.py:554
+msgid "Port Type"
+msgstr "Typ portu"
+
+#: domains/models.py:558
+msgid "Source Path"
+msgstr "Zdrojová cesta"
+
+#: domains/models.py:564
+msgid "Target Port"
+msgstr "Cieľová cesta"
+
+#: domains/models.py:566
+msgid "Target Type"
+msgstr "Typ cieľa"
+
+#: domains/models.py:568
+msgid "Targe Address"
+msgstr "Adresa cieľa"
+
+#: domains/models.py:571
+msgid "Protocol"
+msgstr "Protokol"
+
+#: domains/models.py:582
+msgid "es1370"
+msgstr ""
+
+#: domains/models.py:583
+msgid "sb16"
+msgstr ""
+
+#: domains/models.py:584
+msgid "ac97"
+msgstr ""
+
+#: domains/models.py:590
+msgid "Sound Device Model"
+msgstr ""
+
+#: domains/models.py:600
+msgid "PCI Intel 6300ESB"
+msgstr ""
+
+#: domains/models.py:601
+msgid "ISA iBase IB700"
+msgstr ""
+
+#: domains/models.py:605
+#: templates/accounts/user/add.html:57
+msgid "Reset"
+msgstr "Resetovať"
+
+#: domains/models.py:606
+#: domains/views/domain.py:298
+#: templates/domains/domain/detail.html:33
+msgid "Shutdown"
+msgstr "Vypnúť"
+
+#: domains/models.py:607
+msgid "Poweroff"
+msgstr "Vypnutý"
+
+#: domains/models.py:608
+msgid "Pause"
+msgstr "Pauza"
+
+#: domains/models.py:609
+msgid "Do nothing"
+msgstr "Nevykonaj nič"
+
+#: domains/models.py:615
+msgid "Watchdog Device Model"
+msgstr ""
+
+#: domains/models.py:617
+msgid "Watchdog Action"
+msgstr ""
+
+#: domains/models.py:630
+#: nodes/models.py:131
+msgid "Change ACL"
+msgstr "Zmeniť ACL"
+
+#: domains/models.py:631
+msgid "User can change ACL for the domain"
+msgstr "Užívateľ môže zmeniť ACL práva domény"
+
+#: domains/models.py:633
+msgid "View Domain"
+msgstr "Prezerať doménu"
+
+#: domains/models.py:634
+msgid "User can view the domain in the administration and check detail information"
+msgstr "Užívateľovi sa zobrazí doména v administrácii a môže vidieť detaily domény"
+
+#: domains/models.py:635
+msgid "Change Domain"
+msgstr "Zmeniť doménu"
+
+#: domains/models.py:636
+msgid "User can change domain"
+msgstr "Užívateľ môže zmeniť doménu"
+
+#: domains/models.py:637
+msgid "Delete Domain"
+msgstr "Zmazať doménu"
+
+#: domains/models.py:638
+msgid "User can delete the domain"
+msgstr "Užívateľ môže zmazať doménu"
+
+#: domains/models.py:640
+#: templates/domains/domain/migrate.html:4
+msgid "Migrate Domain"
+msgstr "Migrovať doménu"
+
+#: domains/models.py:641
+msgid "User can migrate the domain"
+msgstr "Užívateľ môže migrovať doménu"
+
+#: domains/models.py:643
+msgid "Reboot Domain"
+msgstr "Reštartovať doménu"
+
+#: domains/models.py:644
+msgid "User can reboot the domain"
+msgstr "Užívateľ môže reštartovať doménu"
+
+#: domains/models.py:645
+msgid "Resume Domain"
+msgstr "Obnoviť doménu"
+
+#: domains/models.py:646
+msgid "User can resume the domain"
+msgstr "Užívateľ môže obnoviť chod domény"
+
+#: domains/models.py:647
+msgid "Suspend Domain"
+msgstr "Pozastaviť doménu"
+
+#: domains/models.py:648
+msgid "User can suspend the domain"
+msgstr "Užívateľ môže pozastaviť doménu"
+
+#: domains/models.py:649
+msgid "Shutdown Domain"
+msgstr "Vypnúť doménu"
+
+#: domains/models.py:650
+msgid "User can shutdown the domain"
+msgstr "Užívateľ môže vypnúť doménu"
+
+#: domains/models.py:651
+msgid "Save Domain"
+msgstr "Uložiť doménu"
+
+#: domains/models.py:652
+msgid "User can save the domain to disk"
+msgstr "Užívateľ môže uložiť aktuálny stav domény na disk"
+
+#: domains/models.py:653
+msgid "Restore Domain"
+msgstr "Obnoviť doménu"
+
+#: domains/models.py:654
+msgid "User can restore the domain from disk"
+msgstr "Užívateľ môže obnoviť stav domény z disku"
+
+#: domains/views/domain.py:87
+#: domains/views/domain.py:105
+#: domains/views/domain.py:284
+#: domains/views/domain.py:333
+#: domains/views/domain.py:396
+#: domains/views/domain.py:533
+#: domains/views/wizard.py:46
+msgid "OK"
+msgstr "OK"
+
+#: domains/views/domain.py:175
+msgid "Please choose which domain you want from list."
+msgstr "Vyberte doménu zo zoznamu."
+
+#: domains/views/domain.py:297
+msgid "No state"
+msgstr "Bez stavu"
+
+#: domains/views/domain.py:297
+msgid "Running"
+msgstr "Bežiaci"
+
+#: domains/views/domain.py:297
+msgid "Idle"
+msgstr "Nečinný"
+
+#: domains/views/domain.py:298
+msgid "Paused"
+msgstr "Pozastavený"
+
+#: domains/views/domain.py:298
+msgid "Shutoff"
+msgstr "Vypnutý"
+
+#: domains/views/domain.py:298
+msgid "Crashed"
+msgstr "Zrútený"
+
+#: domains/views/domain.py:344
+msgid "You don't have permission to do this."
+msgstr "Nemáte opravánenia na túto operáciu."
+
+#: domains/views/domain.py:368
+msgid "Currently unsupported by Libvirt."
+msgstr "Aktuálne nepodporované Libvirtom."
+
+#: domains/views/domain.py:402
+msgid "Monitor is not running"
+msgstr "Monitorovací program nie je spustený."
+
+#: domains/views/domain.py:435
+msgid "Unsupported visualization"
+msgstr "Nepodporovaná vizualizácia"
+
+#: domains/views/domain.py:549
+msgid "Parameter not found!"
+msgstr "Parameter nenájdený!"
+
+#: domains/views/wizard.py:301
+msgid "Action not found!"
+msgstr "Akcia nenájdená!"
+
+#: monitor/models.py:17
+msgid "Time when the monitor started"
+msgstr "Čas spustenia monitoru"
+
+#: monitor/models.py:21
+msgid "Time when the monitor will end"
+msgstr "Čas, kedy sa monitor ukončí."
+
+#: monitor/models.py:24
+msgid "Time when the monitor make last update"
+msgstr "Čas poslednej aktualizácie dát"
+
+#: monitor/models.py:27
+msgid "Config flags"
+msgstr "Parametre"
+
+#: monitor/models.py:30
+msgid "Sampling interval (in secs)"
+msgstr "Čas vzorkovania (v sekundách)"
+
+#: monitor/models.py:38
+msgid "Statictics time"
+msgstr "Čas štatistiky"
+
+#: monitor/models.py:41
+msgid "State of the domain"
+msgstr "Stav domény"
+
+#: monitor/models.py:42
+msgid "Maximum memory allowed"
+msgstr "Maximum pamäte"
+
+#: monitor/models.py:43
+msgid "Memory used by the domain"
+msgstr "Pamäť využitá doménou"
+
+#: monitor/models.py:44
+msgid "Number of virtual CPUs for the domain"
+msgstr "Počet virtuálnych procesorov domény"
+
+#: monitor/models.py:45
+msgid "CPU time of the domain processor"
+msgstr "Procesorový čas domény"
+
+#: monitor/models.py:48
+msgid "Current running ID"
+msgstr "Aktuálne ID domény"
+
+#: monitor/models.py:50
+msgid "CPU usage in \"%\""
+msgstr "Vyťaženie procesora (%)"
+
+#: monitor/models.py:51
+msgid "Memory usage in \"%\""
+msgstr "Vyťaženie pamäte (%)"
+
+#: nodes/forms.py:10
+#: nodes/models.py:38
+#: templates/domains/domain/select.html:32
+#: templates/nodes/node/list.html:32
+#: templates/nodes/node/select.html:25
+msgid "Node Name"
+msgstr "Názov uzla"
+
+#: nodes/forms.py:12
+msgid "This value must contain only letters, numbers, dots and underscores."
+msgstr "Toto pole môže obsahovať iba písmená, číslice, bodky a podtržítka."
+
+#: nodes/forms.py:28
+msgid "A node with that name already exists."
+msgstr "Uloz s týmto menom už existuje."
+
+#: nodes/forms.py:45
+#: templates/nodes/node/select.html:69
+msgid "Select node"
+msgstr "Výber uzlu"
+
+#: nodes/forms.py:55
+#: nodes/views/node.py:176
+msgid "A node with that name does not exist."
+msgstr "Uzol s týmto menom neexistuje."
+
+#: nodes/menu.py:22
+msgid "List nodes"
+msgstr "Zoznam uzlov"
+
+#: nodes/menu.py:34
+msgid "Edit node"
+msgstr "Editovať uzol"
+
+#: nodes/menu.py:40
+msgid "Autoimport domains"
+msgstr "Automatické importovanie domén"
+
+#: nodes/menu.py:46
+msgid "Remove node"
+msgstr "Odstrániť uzol"
+
+#: nodes/models.py:20
+msgid "QEMU / KVM"
+msgstr ""
+
+#: nodes/models.py:21
+msgid "Linux Containers (LXC)"
+msgstr ""
+
+#: nodes/models.py:22
+msgid "Test \"mock\""
+msgstr ""
+
+#: nodes/models.py:23
+msgid "OpenVZ"
+msgstr ""
+
+#: nodes/models.py:24
+msgid "User Mode Linux"
+msgstr ""
+
+#: nodes/models.py:25
+msgid "VirtualBox"
+msgstr ""
+
+#: nodes/models.py:26
+msgid "Open Nebula"
+msgstr ""
+
+#: nodes/models.py:27
+msgid "VMware ESX"
+msgstr ""
+
+#: nodes/models.py:28
+msgid "VMware GSX"
+msgstr ""
+
+#: nodes/models.py:31
+msgid "TLS 1.0 (SSL 3.1)"
+msgstr ""
+
+#: nodes/models.py:32
+msgid "Unix domain socket"
+msgstr ""
+
+#: nodes/models.py:33
+msgid "SSH tunneled"
+msgstr ""
+
+#: nodes/models.py:34
+msgid "External program"
+msgstr ""
+
+#: nodes/models.py:35
+msgid "Unencrypted TCP/IP socket"
+msgstr ""
 
 #: nodes/models.py:43
 msgid "Hypervisor Driver"
@@ -252,7 +1327,7 @@ msgstr ""
 
 #: nodes/models.py:45
 msgid "Hostname / IP Address"
-msgstr ""
+msgstr "Hostname / IP adresa"
 
 #: nodes/models.py:46
 msgid "Port"
@@ -269,10 +1344,6 @@ msgstr "Cesta"
 #: nodes/models.py:53
 msgid "Extra Parameters"
 msgstr "Extra parametre"
-
-#: nodes/models.py:131
-msgid "Change ACL"
-msgstr "Zmeniť ACL"
 
 #: nodes/models.py:132
 msgid "User can change ACL for the node"
@@ -310,7 +1381,13 @@ msgstr "Zmazať uzol"
 msgid "User can delete the node"
 msgstr "Užívateľ môže zmazať uzol"
 
-#: templates/403.html:4 templates/403.html.py:16
+#: nodes/views/node.py:342
+#, python-format
+msgid "Node `%(nodeUri)s` cannot autoimport domains."
+msgstr "Nie je možné automaticky importovať domény uzla `%(nodeUri)s`."
+
+#: templates/403.html:4
+#: templates/403.html.py:16
 msgid "Forbidden"
 msgstr "Zakázané"
 
@@ -318,7 +1395,8 @@ msgstr "Zakázané"
 msgid "You don't have permissions for this."
 msgstr "Nemáte opravánenia na túto operáciu"
 
-#: templates/404.html:4 templates/404.html.py:16
+#: templates/404.html:4
+#: templates/404.html.py:16
 msgid "Page not found"
 msgstr "Stránka nenájdená"
 
@@ -342,7 +1420,8 @@ msgstr "Vytvoril Martin Jantošovič"
 msgid "Welcome to webPyVirt Administration"
 msgstr "Vitajte vo webPyVirt Administrácii"
 
-#: templates/login.html:4 templates/login.html.py:45
+#: templates/login.html:4
+#: templates/login.html.py:45
 msgid "Log in"
 msgstr "Prihlásenie"
 
@@ -351,14 +1430,11 @@ msgid "webPyVirt Administration"
 msgstr "webPyVirt Administrácia"
 
 #: templates/login.html:29
-msgid ""
-"Please enter a correct username and password. Note that both fields are case-"
-"sensitive."
-msgstr ""
-"Prosím, zadajte správne používateľské meno a heslo. Rešpektujte malé a veľké "
-"písmená."
+msgid "Please enter a correct username and password. Note that both fields are case-sensitive."
+msgstr "Prosím, zadajte správne používateľské meno a heslo. Rešpektujte malé a veľké písmená."
 
-#: templates/accounts/group/add.html:4 templates/accounts/group/add.html:7
+#: templates/accounts/group/add.html:4
+#: templates/accounts/group/add.html:7
 msgid "Add Group"
 msgstr "Pridať skupinu"
 
@@ -377,9 +1453,17 @@ msgstr ""
 #: templates/accounts/group/select.html:52
 #: templates/accounts/permissions/group.html:27
 #: templates/accounts/permissions/user.html:27
-#: templates/accounts/user/add.html:23 templates/accounts/user/manage.html:23
-#: templates/accounts/user/select.html:52 templates/nodes/acl/group.html:23
-#: templates/nodes/acl/user.html:23 templates/nodes/node/add.html:32
+#: templates/accounts/user/add.html:23
+#: templates/accounts/user/manage.html:23
+#: templates/accounts/user/select.html:52
+#: templates/domains/acl/group.html:23
+#: templates/domains/acl/user.html:23
+#: templates/domains/domain/add_backup.html:33
+#: templates/domains/domain/select.html:63
+#: templates/nodes/acl/group.html:23
+#: templates/nodes/acl/user.html:23
+#: templates/nodes/node/add.html:33
+#: templates/nodes/node/edit.html:33
 #: templates/nodes/node/select.html:52
 msgid "There are errors in the form."
 msgstr "Vo formulári sa nachádzajú chyby."
@@ -426,7 +1510,11 @@ msgstr "Pridať užívateľa do skupiny"
 #: templates/accounts/permissions/group.html:56
 #: templates/accounts/permissions/user.html:56
 #: templates/accounts/user/manage.html:97
-#: templates/accounts/user/manage.html:134 templates/nodes/acl/group.html:52
+#: templates/accounts/user/manage.html:134
+#: templates/domains/acl/group.html:52
+#: templates/domains/acl/user.html:63
+#: templates/domains/domain/detail.html:38
+#: templates/nodes/acl/group.html:52
 #: templates/nodes/acl/user.html:63
 msgid "Save"
 msgstr "Uložiť"
@@ -437,7 +1525,7 @@ msgid "Remove Group"
 msgstr "Odstrániť skupinu"
 
 #: templates/accounts/group/remove.html:10
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "        This group has only one member.\n"
@@ -470,12 +1558,20 @@ msgstr ""
 "        "
 
 #: templates/accounts/group/remove.html:31
-#: templates/accounts/user/remove.html:38 templates/nodes/acl/user.html:43
+#: templates/accounts/user/remove.html:38
+#: templates/domains/acl/user.html:43
+#: templates/domains/domain/remove.html:33
+#: templates/nodes/acl/user.html:43
+#: templates/nodes/node/remove.html:34
 msgid "Yes"
 msgstr "Áno"
 
 #: templates/accounts/group/remove.html:32
-#: templates/accounts/user/remove.html:39 templates/nodes/acl/user.html:45
+#: templates/accounts/user/remove.html:39
+#: templates/domains/acl/user.html:45
+#: templates/domains/domain/remove.html:34
+#: templates/nodes/acl/user.html:45
+#: templates/nodes/node/remove.html:35
 msgid "No"
 msgstr "Nie"
 
@@ -506,40 +1602,30 @@ msgstr "Práva skupiny"
 #: templates/accounts/permissions/group.html:10
 msgid ""
 "\n"
-"        Set global permissions to group. All these permissions are per "
-"table, not per object.\n"
-"        If you want to set permissions per object, select in main menu "
-"object class\n"
-"        and the in left menu subsection \"Permissions\". (For example: if we "
-"want to\n"
-"        set permissions for a Node with name \"node1\", go to \"Node\" main "
-"menu, \"Group permission\"\n"
+"        Set global permissions to group. All these permissions are per table, not per object.\n"
+"        If you want to set permissions per object, select in main menu object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main menu, \"Group permission\"\n"
 "        in the left menu and select Node \"node1\".)\n"
 "        "
 msgstr ""
 "\n"
-"        Nastavte globálne práva skupiny. Všetky tieto práva sú na tabuľku, "
-"nie na objekt.\n"
-"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ "
-"objektu\n"
+"        Nastavte globálne práva skupiny. Všetky tieto práva sú na tabuľku, nie na objekt.\n"
+"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ objektu\n"
 "        a v ľavom menu vyberte sekciu \"Práva\". (Napríklad: ak chcete \n"
-"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v "
-"hlavnom menu, \"Práva skupiny\"\n"
+"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v hlavnom menu, \"Práva skupiny\"\n"
 "        v ľavom menu a vyberte uzol \"node1\".)\n"
 "        "
 
 #: templates/accounts/permissions/group.html:38
 #: templates/accounts/permissions/show.html:24
 #: templates/accounts/permissions/user.html:38
-#: templates/nodes/acl/group.html:34 templates/nodes/acl/user.html:34
+#: templates/domains/acl/group.html:34
+#: templates/domains/acl/user.html:34
+#: templates/nodes/acl/group.html:34
+#: templates/nodes/acl/user.html:34
 msgid "Permission"
 msgstr "Právo"
-
-#: templates/accounts/permissions/group.html:39
-#: templates/accounts/permissions/user.html:39
-#: templates/nodes/acl/group.html:35 templates/nodes/acl/user.html:35
-msgid "Description"
-msgstr "Popis"
 
 #: templates/accounts/permissions/show.html:4
 #: templates/accounts/permissions/show.html:7
@@ -549,17 +1635,13 @@ msgstr "Zobraziť práva"
 #: templates/accounts/permissions/show.html:10
 msgid ""
 "\n"
-"        This table shows wich permissions user have through user permissions "
-"or\n"
-"        group permissions. Also display which groups give this permission to "
-"user.\n"
+"        This table shows wich permissions user have through user permissions or\n"
+"        group permissions. Also display which groups give this permission to user.\n"
 "        "
 msgstr ""
 "\n"
-"        Táto tabuľka zobrazuje, ktoré oprávnenia užívateľ má. Zároveň "
-"zobrazuje, či\n"
-"        toto právo má z užívateľských práv alebo ho zdedil z nejakej "
-"skupiny. Názvy týchto skupín vypíše.\n"
+"        Táto tabuľka zobrazuje, ktoré oprávnenia užívateľ má. Zároveň zobrazuje, či\n"
+"        toto právo má z užívateľských práv alebo ho zdedil z nejakej skupiny. Názvy týchto skupín vypíše.\n"
 "        "
 
 #: templates/accounts/permissions/show.html:25
@@ -584,29 +1666,23 @@ msgstr "Práva užívateľa"
 #: templates/accounts/permissions/user.html:10
 msgid ""
 "\n"
-"        Set global permissions to user. All these permissions are per table, "
-"not per object.\n"
-"        If you want to set permissions per object, select in main menu "
-"object class\n"
-"        and the in left menu subsection \"Permissions\". (For example: if we "
-"want to\n"
-"        set permissions for a Node with name \"node1\", go to \"Node\" main "
-"menu, \"User permission\"\n"
+"        Set global permissions to user. All these permissions are per table, not per object.\n"
+"        If you want to set permissions per object, select in main menu object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main menu, \"User permission\"\n"
 "        in the left menu and select Node \"node1\".)\n"
 "        "
 msgstr ""
 "\n"
-"        Nastavte globálne práva užívateľa. Všetky tieto práva sú na tabuľku, "
-"nie na objekt.\n"
-"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ "
-"objektu\n"
+"        Nastavte globálne práva užívateľa. Všetky tieto práva sú na tabuľku, nie na objekt.\n"
+"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ objektu\n"
 "        a v ľavom menu vyberte sekciu \"Práva\". (Napríklad: ak chcete \n"
-"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v "
-"hlavnom menu, \"Práva skupiny\"\n"
+"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v hlavnom menu, \"Práva skupiny\"\n"
 "        v ľavom menu a vyberte uzol \"node1\".)\n"
 "        "
 
-#: templates/accounts/user/add.html:4 templates/accounts/user/add.html.py:7
+#: templates/accounts/user/add.html:4
+#: templates/accounts/user/add.html.py:7
 msgid "Add User"
 msgstr "Pridať užívateľa"
 
@@ -624,11 +1700,8 @@ msgstr ""
 msgid "only letters, digits and underscores"
 msgstr "iba písmená, číslice a podtržítka"
 
-#: templates/accounts/user/add.html:57 templates/nodes/node/add.html:99
-msgid "Reset"
-msgstr "Resetovať"
-
-#: templates/accounts/user/manage.html:4 templates/accounts/user/manage.html:7
+#: templates/accounts/user/manage.html:4
+#: templates/accounts/user/manage.html:7
 msgid "Manage Users"
 msgstr "Správa užívateľov"
 
@@ -647,12 +1720,8 @@ msgid "Overview"
 msgstr "Prehľad"
 
 #: templates/accounts/user/manage.html:40
-msgid ""
-"30 characters or fewer. Alphanumeric characters only (letters, digits and "
-"underscores)."
-msgstr ""
-"30 alebo menej znakov. Iba alfanumerické znaky (písmená, číslice a "
-"podtržítka)."
+msgid "30 characters or fewer. Alphanumeric characters only (letters, digits and underscores)."
+msgstr "30 alebo menej znakov. Iba alfanumerické znaky (písmená, číslice a podtržítka)."
 
 #: templates/accounts/user/manage.html:50
 msgid "Unselect this instead of deleting accounts."
@@ -674,12 +1743,14 @@ msgstr "Skupina"
 msgid "User is not member of any group."
 msgstr "Užívateľ nie je členom žiadnej skupiny."
 
-#: templates/accounts/user/remove.html:4 templates/accounts/user/remove.html:7
+#: templates/accounts/user/remove.html:4
+#: templates/accounts/user/remove.html:7
 msgid "Remove User"
 msgstr "Odstrániť užívateľa"
 
 #: templates/accounts/user/remove.html:10
-#, python-format
+#: templates/nodes/node/remove.html:12
+#, fuzzy, python-format
 msgid ""
 "\n"
 "        This user is member of one group.\n"
@@ -704,13 +1775,11 @@ msgstr[2] ""
 #: templates/accounts/user/remove.html:19
 msgid ""
 "\n"
-"        This user is superuser. You cannot remove him if you are not "
-"superuser too!\n"
+"        This user is superuser. You cannot remove him if you are not superuser too!\n"
 "        "
 msgstr ""
 "\n"
-"        Tento užívateľ je superužívateľ. Nemôžete odstrániť tohto užívateľa, "
-"pretože nie ste superužívateľom!\n"
+"        Tento užívateľ je superužívateľ. Nemôžete odstrániť tohto užívateľa, pretože nie ste superužívateľom!\n"
 "        "
 
 #: templates/accounts/user/remove.html:25
@@ -723,7 +1792,8 @@ msgstr ""
 "        Naozaj chcete odstrániť tohto užívateľa?\n"
 "        "
 
-#: templates/accounts/user/select.html:4 templates/accounts/user/select.html:7
+#: templates/accounts/user/select.html:4
+#: templates/accounts/user/select.html:7
 msgid "Select User"
 msgstr "Výber užívateľa"
 
@@ -745,6 +1815,259 @@ msgstr "Aktívny"
 msgid "There is no users."
 msgstr "Neexistujú žiadny užívatelia."
 
+#: templates/domains/acl/group.html:10
+msgid ""
+"\n"
+"        Group permissions for domain.\n"
+"        "
+msgstr ""
+"\n"
+"        Práva skupiny pracovať s doménou.\n"
+"        "
+
+#: templates/domains/acl/user.html:10
+msgid ""
+"\n"
+"        User permissions for domain.\n"
+"        "
+msgstr ""
+"\n"
+"        Práva užívateľa pracovať s doménou.\n"
+"        "
+
+#: templates/domains/acl/user.html:39
+#: templates/nodes/acl/user.html:39
+msgid "Is Onwer"
+msgstr "Vlastník"
+
+#: templates/domains/acl/user.html:40
+msgid "The user is owner of the domain."
+msgstr "Užívateľ je vlastníkom domény."
+
+#: templates/domains/domain/add.html:4
+#: templates/domains/domain/add.html:19
+#: templates/domains/domain/add_backup.html:4
+#: templates/domains/domain/add_backup.html:16
+msgid "Create Domain"
+msgstr "Vytvoriť doménu"
+
+#: templates/domains/domain/add.html:22
+#: templates/domains/domain/add_backup.html:19
+#: templates/domains/domain/detail.html:19
+#: templates/domains/domain/migrate.html:22
+msgid ""
+"\n"
+"        "
+msgstr ""
+
+#: templates/domains/domain/add.html:36
+msgid "If you want to create new domain, please click on the 'Create Domain Wizard' button. It will guide you throught whole process."
+msgstr "Ak chcete vytvoriť novú doménu, kliknite na tlačítko 'Sprievodca vytvorením domény', ktorý Vás prevedie celým procesom."
+
+#: templates/domains/domain/add.html:39
+msgid "Create Domain Wizard"
+msgstr "Sprievodca vytvorením domény"
+
+#: templates/domains/domain/add_backup.html:41
+msgid "Metadata"
+msgstr "Metainformácie"
+
+#: templates/domains/domain/add_backup.html:65
+msgid "Resources"
+msgstr "Zdroje"
+
+#: templates/domains/domain/add_backup.html:98
+msgid "Operating system"
+msgstr "Operačný systém"
+
+#: templates/domains/domain/add_backup.html:139
+msgid "Lifecycle control"
+msgstr "Riadenie životného cyklu"
+
+#: templates/domains/domain/detail.html:4
+#: templates/domains/domain/detail.html:16
+msgid "Domain Detail"
+msgstr "Detail domény"
+
+#: templates/domains/domain/detail.html:28
+msgid "Screenshot"
+msgstr "Obrazok obrazovky"
+
+#: templates/domains/domain/detail.html:43
+msgid "Reboot"
+msgstr "Reštartovať"
+
+#: templates/domains/domain/detail.html:48
+msgid "Suspend"
+msgstr "Pozastaviť"
+
+#: templates/domains/domain/detail.html:53
+msgid "Run or resume"
+msgstr "Spustiť alebo obnoviť"
+
+#: templates/domains/domain/detail.html:62
+msgid "Domain Information"
+msgstr "Informácie o doméne"
+
+#: templates/domains/domain/detail.html:66
+msgid "ID"
+msgstr "ID"
+
+#: templates/domains/domain/detail.html:70
+msgid "Name"
+msgstr "Názov"
+
+#: templates/domains/domain/detail.html:78
+msgid "Type"
+msgstr "Typ"
+
+#: templates/domains/domain/detail.html:83
+msgid "N/A"
+msgstr ""
+
+#: templates/domains/domain/detail.html:86
+msgid "Memory"
+msgstr "Pamäť"
+
+#: templates/domains/domain/detail.html:90
+msgid "vCPU"
+msgstr ""
+
+#: templates/domains/domain/detail.html:94
+#: templates/domains/domain/select.html:33
+#: templates/nodes/node/list.html:34
+msgid "Status"
+msgstr "Status"
+
+#: templates/domains/domain/detail.html:104
+msgid "Additional Information"
+msgstr "Doplňujúce informácie"
+
+#: templates/domains/domain/detail.html:108
+msgid "On poweroff"
+msgstr "Pri vypnutí"
+
+#: templates/domains/domain/detail.html:112
+msgid "On reboot"
+msgstr "Pri reštarte"
+
+#: templates/domains/domain/detail.html:116
+msgid "On crash"
+msgstr "Pri havárii"
+
+#: templates/domains/domain/detail.html:125
+msgid "Statistics"
+msgstr "Štatistiky"
+
+#: templates/domains/domain/detail.html:130
+msgid "CPU Usage"
+msgstr "Vyťaženie procesora"
+
+#: templates/domains/domain/detail.html:137
+msgid "Memory Usage"
+msgstr "Vyťaženie pamäte"
+
+#: templates/domains/domain/edit.html:4
+#: templates/domains/domain/edit.html:18
+msgid "Edit Domain"
+msgstr "Upraviť doménu"
+
+#: templates/domains/domain/edit.html:21
+msgid ""
+"\n"
+"        You can change some parameters of the domain dynamically. \n"
+"        "
+msgstr ""
+"\n"
+"        Niektoré parametre domény môžete zmeniť dynamicky.\n"
+"        "
+
+#: templates/domains/domain/edit.html:38
+msgid "Parameter"
+msgstr "Parameter"
+
+#: templates/domains/domain/edit.html:39
+msgid "Actual value"
+msgstr "Aktuálna hodnota"
+
+#: templates/domains/domain/edit.html:40
+msgid "New value"
+msgstr "Nová hodnota"
+
+#: templates/domains/domain/edit.html:45
+msgid "Virtual CPUs"
+msgstr "Virtuálne CPU"
+
+#: templates/domains/domain/edit.html:50
+#: templates/domains/domain/edit.html:58
+#: templates/domains/domain/edit.html:66
+msgid "Set"
+msgstr "Nastaviť"
+
+#: templates/domains/domain/edit.html:53
+msgid "Maximum Memory (in KB)"
+msgstr "Maximálna pamäť (KB)"
+
+#: templates/domains/domain/edit.html:61
+msgid "Memory (in KB)"
+msgstr "Veľkosť pamäte (KB)"
+
+#: templates/domains/domain/migrate.html:19
+msgid "Migrate"
+msgstr "Migrovať"
+
+#: templates/domains/domain/migrate.html:36
+msgid "If you want to migrate domain, please click on the 'Migrate Domain Wizard' button. It will guide you throught whole process."
+msgstr "Ak chcete premigrovať doménu, kliknite na tlačítko 'Sprievodca premigrovaním domény', ktorý Vás prevedie celým procesom."
+
+#: templates/domains/domain/migrate.html:39
+msgid "Migrate Domain Wizard"
+msgstr "Sprievodca migráciou domény"
+
+#: templates/domains/domain/remove.html:4
+#: templates/domains/domain/remove.html:12
+msgid "Remove Domain"
+msgstr "Odstrániť doménu"
+
+#: templates/domains/domain/remove.html:15
+msgid ""
+"\n"
+"        Do you really want to remove this domain? If you click on \"Yes\" domain\n"
+"        will be removed from database, but it still exists on the node, so\n"
+"        if you want to also destroy domain, click on \"First destroy\" and\n"
+"        then to \"Yes\" button.\n"
+"        "
+msgstr ""
+"\n"
+"        Naozaj chcete odstrániť túto doménu? Ak kliknete na tlačítko \"Áno\" doména\n"
+"        bude odstránená z databázy, ale stále bude existovať na uzle.\n"
+"        Ak chcete doménu zároveň odstrániť, kliknite najskôr na tlačítko \"Najskôr zrušiť\" a\n"
+"        až potom na tlačítko \"Áno\".\n"
+"        "
+
+#: templates/domains/domain/remove.html:32
+msgid "First destroy"
+msgstr "Najskôr zrušiť"
+
+#: templates/domains/domain/select.html:4
+#: templates/domains/domain/select.html:12
+msgid "Select Domain"
+msgstr "Výber domény"
+
+#: templates/domains/domain/select.html:15
+msgid ""
+"\n"
+"        Select a domain from list or type name.\n"
+"        "
+msgstr ""
+"\n"
+"        Vyberte doménu zo zoznamu alebo napíšte jej meno.\n"
+"        "
+
+#: templates/domains/domain/select.html:46
+msgid "There is no domains."
+msgstr "Neexistujú žiadne domény."
+
 #: templates/includes/left_menu.html:3
 msgid "Logged in as:"
 msgstr "Prihlásený ako:"
@@ -759,8 +2082,7 @@ msgid ""
 "        A <b>node</b> is a single physical machine.\n"
 "        <!-- \n"
 "        An <b>hypervisor</b> \n"
-"        is a layer of software allowing to virtualize a node in a set of "
-"virtual machines with possibly\n"
+"        is a layer of software allowing to virtualize a node in a set of virtual machines with possibly\n"
 "        different configurations than the node itself.\n"
 "        -->\n"
 "        "
@@ -769,26 +2091,10 @@ msgstr ""
 "        <b>Uzol</b> je fyzický stroj.\n"
 "        <!-- \n"
 "        An <b>hypervisor</b> \n"
-"        is a layer of software allowing to virtualize a node in a set of "
-"virtual machines with possibly\n"
+"        is a layer of software allowing to virtualize a node in a set of virtual machines with possibly\n"
 "        different configurations than the node itself.\n"
 "        -->\n"
 "        "
-
-#: templates/nodes/listNodes.html:4 templates/nodes/node/add.html:4
-#: templates/nodes/node/add.html.py:11
-msgid "Add Node"
-msgstr "Pridať uzol"
-
-#: templates/nodes/listNodes.html:11
-msgid "List Nodes"
-msgstr "Zoznam uzlov"
-
-#: templates/nodes/listNodes.html:14
-msgid ""
-"\n"
-"        "
-msgstr ""
 
 #: templates/nodes/acl/group.html:10
 msgid ""
@@ -810,43 +2116,127 @@ msgstr ""
 "        Práva užívateľa pracovať s uzlom.\n"
 "        "
 
-#: templates/nodes/acl/user.html:39
-msgid "Is Onwer"
-msgstr "Vlastník"
-
 #: templates/nodes/acl/user.html:40
 msgid "The user is owner of the node."
 msgstr "Užívateľ je vlastníkom uzla."
 
-#: templates/nodes/node/add.html:14
+#: templates/nodes/node/add.html:4
+#: templates/nodes/node/add.html.py:12
+msgid "Add Node"
+msgstr "Pridať uzol"
+
+#: templates/nodes/node/add.html:15
+#: templates/nodes/node/edit.html:15
 msgid ""
 "\n"
-"        Before you can administrate a node, you need connect to it first. "
-"Libvirt remote URI general form\n"
-"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
-"\">detail information</a>):\n"
+"        Before you can administrate a node, you need connect to it first. Libvirt remote URI general form\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference\">detail information</a>):\n"
 "        "
 msgstr ""
 "\n"
-"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním "
-"najskôr pripojiť. Libvirt obecný tvar URI\n"
-"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
-"\">podrobné informácie</a>):\n"
+"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním najskôr pripojiť. Libvirt obecný tvar URI\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference\">podrobné informácie</a>):\n"
 "        "
 
-#: templates/nodes/node/add.html:43
+#: templates/nodes/node/add.html:44
+#: templates/nodes/node/edit.html:44
 msgid "only for better identification"
 msgstr "kvôli lepšej identifikácii"
 
-#: templates/nodes/node/add.html:77
+#: templates/nodes/node/add.html:49
+#: templates/nodes/node/edit.html:49
+msgid "Remote URI"
+msgstr "Vzdialená URI adresa"
+
+#: templates/nodes/node/add.html:78
+#: templates/nodes/node/edit.html:78
 msgid "if different from default"
 msgstr "ak sa líši od pôvodného"
 
-#: templates/nodes/node/add.html:97
+#: templates/nodes/node/add.html:98
+#: templates/nodes/node/edit.html:98
 msgid "Test connection"
 msgstr "Otestovať spojenie"
 
-#: templates/nodes/node/select.html:4 templates/nodes/node/select.html.py:7
+#: templates/nodes/node/autoimport.html:4
+msgid "Autoimport Domains of Node"
+msgstr "Automatické importovanie domén uzla"
+
+#: templates/nodes/node/autoimport.html:12
+msgid "Autoimport Domains"
+msgstr "Automatické importovanie domén"
+
+#: templates/nodes/node/autoimport.html:15
+msgid ""
+"\n"
+"        Autoimport of existing domains from node. This process will compare\n"
+"        database information with actual domains on the node. If on the node is\n"
+"        domain which doesn't have record in the database, all data will be added.\n"
+"        On the other hand if in the database is domain which doesn't exist\n"
+"        on the node, it can recreated with stored data or it can be removed.\n"
+"        "
+msgstr ""
+"\n"
+"        Automatické importovanie existujúcich domén na uzle. Tento proces porovná domény v databáze a na uzle.\n"
+"        Ak je na uzle doména, ktorá nemá záznam v databáze, všetky jej dáta budú pridané.\n"
+"        Ak existuje v databáze doména, ktorá neexistuje na uzle, je možné ju znova vytvoriť na základe uložených informácií\n"
+"        alebo ju odstrániť úplne.\n"
+"        "
+
+#: templates/nodes/node/autoimport.html:29
+msgid "Loading ..."
+msgstr "Načítavanie..."
+
+#: templates/nodes/node/edit.html:4
+#: templates/nodes/node/edit.html.py:12
+msgid "Edit Node"
+msgstr "Upraviť uzol"
+
+#: templates/nodes/node/edit.html:99
+msgid "Save node"
+msgstr "Uložiť uzol"
+
+#: templates/nodes/node/list.html:4
+#: templates/nodes/node/list.html.py:12
+msgid "List Nodes"
+msgstr "Zoznam uzlov"
+
+#: templates/nodes/node/list.html:15
+msgid ""
+"\n"
+"        List of available nodes.\n"
+"        "
+msgstr ""
+"\n"
+"        Zoznam dostupných uzlov.\n"
+"        "
+
+#: templates/nodes/node/list.html:47
+msgid "Recheck"
+msgstr "Skontrolovať"
+
+#: templates/nodes/node/list.html:53
+#: templates/nodes/node/select.html:35
+msgid "There is no nodes."
+msgstr "Neexistujú žiadne uzle."
+
+#: templates/nodes/node/remove.html:4
+#: templates/nodes/node/remove.html.py:7
+msgid "Remove Node"
+msgstr "Odstrániť uzol"
+
+#: templates/nodes/node/remove.html:21
+msgid ""
+"\n"
+"        Do you really want to remove this node and all its domains?\n"
+"        "
+msgstr ""
+"\n"
+"        Naozaj chcete odstrániť tento uzol a všetky jeho domény?\n"
+"        "
+
+#: templates/nodes/node/select.html:4
+#: templates/nodes/node/select.html.py:7
 msgid "Select Node"
 msgstr "Výber uzla"
 
@@ -860,6 +2250,8 @@ msgstr ""
 "        Vyberte uzol zo zoznamu alebo napíšte jeho meno.\n"
 "        "
 
-#: templates/nodes/node/select.html:35
-msgid "There is no nodes."
-msgstr "Neexistujú žiadne uzle."
+#~ msgid "Edit user"
+#~ msgstr "Upraviť užívateľa"
+#~ msgid "Delete user"
+#~ msgstr "Zmazať užívateľa"
+

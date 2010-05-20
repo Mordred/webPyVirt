@@ -3,22 +3,550 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-02-08 20:40+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2010-05-20 13:17+0200\n"
+"PO-Revision-Date: 2010-05-20 13:17+0100\n"
+"Last-Translator: Martin Jantošovič <jantosovic.martin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: static/js/domain_detail.js:6
+#: static/js/domain_detail.js.py:14
+msgid "CPU"
+msgstr "CPU"
+
+#: static/js/domain_detail.js:15
+#: static/js/domain_detail.js.py:36
+msgid "%"
+msgstr "%"
+
+#: static/js/domain_detail.js:27
+#: static/js/domain_detail.js.py:35
+#: static/js/plugins/jq.autoimport_domains.js:178
+#: static/js/plugins/jq.domain_wizard.js:69
+#: static/js/plugins/jq.domain_wizard.js:486
+msgid "Memory"
+msgstr "Pamäť"
+
+#: static/js/domain_remove.js:15
+#: static/js/plugins/jq.autoimport_domains.js:25
+#: static/js/plugins/jq.domain_buttons.js:93
+#: static/js/plugins/jq.domain_migrate_wizard.js:219
+#: static/js/plugins/jq.domain_set.js:22
+#: static/js/plugins/jq.domain_wizard.js:964
+#: static/js/plugins/jq.test_connection.js:129
+msgid "Close"
+msgstr "Zavrieť"
+
+#: static/js/domain_remove.js:33
+#: static/js/plugins/jq.autoimport_domains.js:48
+#: static/js/plugins/jq.domain_buttons.js:135
+#: static/js/plugins/jq.domain_set.js:41
 #: static/js/plugins/jq.test_connection.js:47
 msgid "OK"
 msgstr "OK"
+
+#: static/js/domain_remove.js:46
+msgid "Destroy domain"
+msgstr "Zrušiť doménu"
+
+#: static/js/domain_remove.js:55
+#: static/js/plugins/jq.domain_buttons.js:163
+#, perl-format
+msgid "Trying to %s domain..."
+msgstr "Pokús o %s domény..."
+
+#: static/js/plugins/jq.autoimport_domains.js:44
+msgid "Imported"
+msgstr "Importované"
+
+#: static/js/plugins/jq.autoimport_domains.js:60
+#: static/js/plugins/jq.test_connection.js:75
+msgid "Failed"
+msgstr "Zlyhalo"
+
+#: static/js/plugins/jq.autoimport_domains.js:68
+#: static/js/plugins/jq.autoimport_domains.js:137
+msgid "Import"
+msgstr "Importovať"
+
+#: static/js/plugins/jq.autoimport_domains.js:78
+msgid "Import All Domains"
+msgstr "Importovať všetky domény"
+
+#: static/js/plugins/jq.autoimport_domains.js:91
+#, perl-format
+msgid "Trying to import domain '<i>%s</i>'..."
+msgstr "Pokus o importovanie domény '<i>%s</i>'..."
+
+#: static/js/plugins/jq.autoimport_domains.js:126
+msgid "Recreate"
+msgstr "Znovu vytvoriť"
+
+#: static/js/plugins/jq.autoimport_domains.js:129
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: static/js/plugins/jq.autoimport_domains.js:152
+msgid "Import All"
+msgstr "Importovať všetky"
+
+#: static/js/plugins/jq.autoimport_domains.js:160
+msgid "Recreate All"
+msgstr "Znovu vytvoriť všetky"
+
+#: static/js/plugins/jq.autoimport_domains.js:163
+msgid "Remove All"
+msgstr "Odstrániť všetky"
+
+#: static/js/plugins/jq.autoimport_domains.js:175
+#: static/js/plugins/jq.domain_wizard.js:67
+#: static/js/plugins/jq.domain_wizard.js:509
+msgid "Domain Name"
+msgstr "Názov domény"
+
+#: static/js/plugins/jq.autoimport_domains.js:176
+#: static/js/plugins/jq.domain_wizard.js:68
+#: static/js/plugins/jq.domain_wizard.js:510
+msgid "UUID"
+msgstr "UUID"
+
+#: static/js/plugins/jq.autoimport_domains.js:177
+msgid "vCPU"
+msgstr "vCPU"
+
+#: static/js/plugins/jq.autoimport_domains.js:179
+msgid "Action"
+msgstr "Akcia"
+
+#: static/js/plugins/jq.autoimport_domains.js:186
+msgid "Nothing to import or remove!"
+msgstr "Žiadne domény na importovanie!"
+
+#: static/js/plugins/jq.autoimport_domains.js:210
+#: static/js/plugins/jq.domain_migrate_wizard.js:172
+#: static/js/plugins/jq.domain_wizard.js:671
+msgid "Error"
+msgstr "Chyba"
+
+#: static/js/plugins/jq.autoimport_domains.js:216
+msgid "Status"
+msgstr "Status"
+
+#: static/js/plugins/jq.check_status.js:20
+msgid "running"
+msgstr "bežiaci"
+
+#: static/js/plugins/jq.check_status.js:22
+msgid "cannot connect"
+msgstr "nedá sa pripojiť"
+
+#: static/js/plugins/jq.domain_buttons.js:115
+msgid "Suspend"
+msgstr "Pozastaviť"
+
+#: static/js/plugins/jq.domain_buttons.js:117
+msgid "Reboot"
+msgstr "Reštartovať"
+
+#: static/js/plugins/jq.domain_buttons.js:120
+msgid "Resume"
+msgstr "Obnoviť"
+
+#: static/js/plugins/jq.domain_buttons.js:122
+msgid "Start"
+msgstr "Štart"
+
+#: static/js/plugins/jq.domain_buttons.js:125
+msgid "Shutdown"
+msgstr "Vypnúť"
+
+#: static/js/plugins/jq.domain_buttons.js:127
+msgid "Save"
+msgstr "Uložiť"
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:163
+#: static/js/plugins/jq.domain_wizard.js:662
+msgid "Loading, please wait..."
+msgstr "Načítavanie, prosím čakajte..."
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:197
+#: static/js/plugins/jq.domain_migrate_wizard.js:224
+#: static/js/plugins/jq.domain_wizard.js:942
+#: static/js/plugins/jq.domain_wizard.js:969
+msgid "Next"
+msgstr "Ďalej"
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:201
+#: static/js/plugins/jq.domain_wizard.js:946
+msgid "Introduction"
+msgstr "Úvod"
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:226
+#: static/js/plugins/jq.domain_wizard.js:971
+msgid "Previous"
+msgstr "Späť"
+
+#: static/js/plugins/jq.domain_set.js:63
+msgid "Virtual CPUs"
+msgstr "Virtuálne CPU"
+
+#: static/js/plugins/jq.domain_set.js:64
+msgid "Maximum Memory"
+msgstr "Maximálna pamäť"
+
+#: static/js/plugins/jq.domain_set.js:65
+msgid "Current Memory"
+msgstr "Alokovaná pamäť"
+
+#: static/js/plugins/jq.domain_set.js:68
+msgid "Set parameter"
+msgstr "Nastaviť parameter"
+
+#: static/js/plugins/jq.domain_set.js:77
+#, perl-format
+msgid "Trying to set parameter \"%s\" to value \"%s\"..."
+msgstr "Pokus nastaviť parameter \"%s\" na hodnotu \"%s\"..."
+
+#: static/js/plugins/jq.domain_wizard.js:27
+#: static/js/plugins/jq.domain_wizard.js:134
+#: static/js/plugins/jq.domain_wizard.js:173
+msgid "Result: "
+msgstr "Výsledok: "
+
+#: static/js/plugins/jq.domain_wizard.js:40
+msgid "Domain created and started successfully."
+msgstr "Doména bola úspešne vytvorená a spustená."
+
+#: static/js/plugins/jq.domain_wizard.js:48
+msgid "Go to domain details"
+msgstr "Ísť na detail domény"
+
+#: static/js/plugins/jq.domain_wizard.js:51
+msgid "Create Domain"
+msgstr "Vytvoriť doménu"
+
+#: static/js/plugins/jq.domain_wizard.js:62
+msgid "Ready to create domain: "
+msgstr "Pripravené na vytvorenie domény: "
+
+#: static/js/plugins/jq.domain_wizard.js:72
+msgid "Storage"
+msgstr "Úložisko"
+
+#: static/js/plugins/jq.domain_wizard.js:76
+#: static/js/plugins/jq.domain_wizard.js:123
+msgid "Network"
+msgstr "Sieť"
+
+#: static/js/plugins/jq.domain_wizard.js:77
+msgid "Target Network Device"
+msgstr "Cieľové sieťové zariadenie"
+
+#: static/js/plugins/jq.domain_wizard.js:78
+#: static/js/plugins/jq.domain_wizard.js:108
+msgid "MAC Address"
+msgstr "MAC Adresa"
+
+#: static/js/plugins/jq.domain_wizard.js:86
+msgid "Create"
+msgstr "Vytvoriť"
+
+#: static/js/plugins/jq.domain_wizard.js:89
+msgid "Review"
+msgstr "Prehľad"
+
+#: static/js/plugins/jq.domain_wizard.js:100
+msgid "Please specify network settings (Currently only DHCP is supported): "
+msgstr "Prosím nastavte sieťové rozhranie (Aktuálne je podporované iba DHCP): "
+
+#: static/js/plugins/jq.domain_wizard.js:104
+msgid "Target Device Name"
+msgstr "Názov cieľového zariadenia"
+
+#: static/js/plugins/jq.domain_wizard.js:105
+msgid "(e.g. \"vnet2\")"
+msgstr "(napr. \"vnet2\")"
+
+#: static/js/plugins/jq.domain_wizard.js:107
+msgid "Defined Networks"
+msgstr "Definované siete"
+
+#: static/js/plugins/jq.domain_wizard.js:109
+msgid "(e.g. 00:11:22:33:44:55)"
+msgstr "(napr. 00:11:22:33:44:55)"
+
+#: static/js/plugins/jq.domain_wizard.js:142
+msgid "Storage volume created."
+msgstr "Dátová oblasť bola vytvorená."
+
+#: static/js/plugins/jq.domain_wizard.js:148
+#, perl-format
+msgid "During process there was an error, so the volume is not created. (error = %s)"
+msgstr "Počas procesu sa vyskytla chyba, takže disková oblasť nebola vytvorená. (chyba = %s)"
+
+#: static/js/plugins/jq.domain_wizard.js:162
+msgid "New Storage Volume"
+msgstr "Nová dátová oblasť"
+
+#: static/js/plugins/jq.domain_wizard.js:189
+#, perl-format
+msgid "Storage pool created and has %s GB of free space. (logical size = %s GB, current allocation = %s GB)"
+msgstr "Úložisko bolo vytvorená a má %s GB volného miesta. (logická veľkosť = %s GB, aktuálne obsadené = %s GB)"
+
+#: static/js/plugins/jq.domain_wizard.js:196
+#, perl-format
+msgid "During process there was an error, so the pool is not created. (error = %s)"
+msgstr "Počas procesu sa vyskytla chyba, takže úložisko nebolo vytvorené. (error = %s)"
+
+#: static/js/plugins/jq.domain_wizard.js:210
+#: static/js/plugins/jq.domain_wizard.js:282
+msgid "New Storage Pool"
+msgstr "Nové dátové úložisko"
+
+#: static/js/plugins/jq.domain_wizard.js:221
+msgid "Specify a storage location to be later split into virtual machine storage: "
+msgstr "Špecifikujte úložisko, ktoré sa neskôr rozdelí na dátové oblasti: "
+
+#: static/js/plugins/jq.domain_wizard.js:226
+msgid "Target Path"
+msgstr "Cieľová cesta"
+
+#: static/js/plugins/jq.domain_wizard.js:240
+#: static/js/plugins/jq.domain_wizard.js:411
+msgid "Format"
+msgstr "Formát"
+
+#: static/js/plugins/jq.domain_wizard.js:241
+msgid "Host Name"
+msgstr "Hostname"
+
+#: static/js/plugins/jq.domain_wizard.js:242
+msgid "Source Path"
+msgstr "Zdrojová cesta"
+
+#: static/js/plugins/jq.domain_wizard.js:252
+msgid "Directory to use for the storage pool."
+msgstr "Adresár, ktorý sa použije ako dátové úložisko."
+
+#: static/js/plugins/jq.domain_wizard.js:254
+#: static/js/plugins/jq.domain_wizard.js:262
+#: static/js/plugins/jq.domain_wizard.js:274
+msgid "Root location for identifying new storage volumes."
+msgstr "Koreňová cesta indentifikujúca nové dátové oblasti."
+
+#: static/js/plugins/jq.domain_wizard.js:255
+msgid "Format of the source device's partition table."
+msgstr "Formát tabuľky partícií zdrojového zariadenia."
+
+#: static/js/plugins/jq.domain_wizard.js:256
+msgid "Path to the existing disk device."
+msgstr "Cesta k existujúcemu zariadeniu."
+
+#: static/js/plugins/jq.domain_wizard.js:258
+#: static/js/plugins/jq.domain_wizard.js:269
+msgid "Location to mount the source device."
+msgstr "Cesta kam sa pripojí zdrojové zariadenie."
+
+#: static/js/plugins/jq.domain_wizard.js:259
+msgid "Filesystem type of the source device."
+msgstr "Typ filesystému zdrojového zariadenia."
+
+#: static/js/plugins/jq.domain_wizard.js:260
+msgid "The existing device to mount for the pool."
+msgstr "Existujúce zariadenie, ktoré sa má pripojiť."
+
+#: static/js/plugins/jq.domain_wizard.js:263
+#: static/js/plugins/jq.domain_wizard.js:271
+msgid "Name of the host sharing the storage."
+msgstr "Názov hostiteľa zdieľaného úložiska."
+
+#: static/js/plugins/jq.domain_wizard.js:264
+#: static/js/plugins/jq.domain_wizard.js:272
+msgid "Path on the host that is being shared."
+msgstr "Cesta na servery, ktorá má byť zdieľaná."
+
+#: static/js/plugins/jq.domain_wizard.js:266
+msgid "Location of the existing LVM volume group."
+msgstr "Cesta k existujúcej skupine LVM."
+
+#: static/js/plugins/jq.domain_wizard.js:267
+msgid "Optional device to build new LVM volume on."
+msgstr "Voliteľné zariadenie, na ktorom sa vytvorí nová LVM oblasť."
+
+#: static/js/plugins/jq.domain_wizard.js:270
+msgid "Type of the network filesystem."
+msgstr "Typ sieťového filesystému."
+
+#: static/js/plugins/jq.domain_wizard.js:275
+msgid "Name of the SCSI adapter (ex. host2)."
+msgstr "Názov SCSI adaptéra (napr. host2)."
+
+#: static/js/plugins/jq.domain_wizard.js:306
+msgid "Select storage pool where disk for this virtual machine will be saved: "
+msgstr "Vyberte úložisko, kde bude úložený obraz virtuálneho disku domény: "
+
+#: static/js/plugins/jq.domain_wizard.js:315
+msgid "Create a new storage pool.<br />"
+msgstr "Vytvoriť nové dátové úložisko.<br />"
+
+#: static/js/plugins/jq.domain_wizard.js:318
+msgid "Storage Pool Name"
+msgstr "Názov dátového úložiska"
+
+#: static/js/plugins/jq.domain_wizard.js:320
+msgid "Filesystem Directory"
+msgstr "Adresár vo filesystéme"
+
+#: static/js/plugins/jq.domain_wizard.js:321
+msgid "Physical Disk Device"
+msgstr "Fyzické diskové zariadenie"
+
+#: static/js/plugins/jq.domain_wizard.js:322
+msgid "Pre-Formatted Block Device"
+msgstr "Predformátované blokové zariadenie"
+
+#: static/js/plugins/jq.domain_wizard.js:323
+msgid "iSCSI Target"
+msgstr "Cieľ iSCSI"
+
+#: static/js/plugins/jq.domain_wizard.js:324
+msgid "LVM Volume Group"
+msgstr "LVM oblasť"
+
+#: static/js/plugins/jq.domain_wizard.js:325
+msgid "Network Exported Directory"
+msgstr "Sieťový exportovaný adresár"
+
+#: static/js/plugins/jq.domain_wizard.js:326
+msgid "SCSI Host Adapter"
+msgstr "SCSI adaptér"
+
+#: static/js/plugins/jq.domain_wizard.js:327
+msgid "Storage Pool Type"
+msgstr "Typ dátového úložiska"
+
+#: static/js/plugins/jq.domain_wizard.js:350
+msgid "Select existing storage pool.<br />"
+msgstr "Vyberte existujúce dátové úložisko.<br />"
+
+#: static/js/plugins/jq.domain_wizard.js:353
+msgid "Existing pools"
+msgstr "Existujúce úložiská"
+
+#: static/js/plugins/jq.domain_wizard.js:365
+msgid "Storage Pool"
+msgstr "Dátové úložisko"
+
+#: static/js/plugins/jq.domain_wizard.js:383
+msgid "Select storage for this virtual machine: "
+msgstr "Vyberte úložisko pre túto doménu: "
+
+#: static/js/plugins/jq.domain_wizard.js:391
+#: static/js/plugins/jq.domain_wizard.js:453
+msgid "Volumes"
+msgstr "Oblasti"
+
+#: static/js/plugins/jq.domain_wizard.js:400
+msgid "Create a disk image on the computer's hard drive.<br />"
+msgstr "Vytvoriť obraz disku na hardisku počítača.<br />"
+
+#: static/js/plugins/jq.domain_wizard.js:405
+msgid "Volume Name"
+msgstr "Názov oblasti"
+
+#: static/js/plugins/jq.domain_wizard.js:417
+msgid "Size of the volume"
+msgstr "Veľkosť oblasti"
+
+#: static/js/plugins/jq.domain_wizard.js:434
+msgid "Select managed or other existing storage.<br />"
+msgstr "Vyberte spravované úložisko.<br />"
+
+#: static/js/plugins/jq.domain_wizard.js:437
+msgid "Existing volumes"
+msgstr "Existujúce oblasti"
+
+#: static/js/plugins/jq.domain_wizard.js:471
+msgid "Choose memory and CPU settings: "
+msgstr "Nastavte veľkosť pamäte a počet procesorov: "
+
+#: static/js/plugins/jq.domain_wizard.js:477
+msgid "Memory (RAM)"
+msgstr "Pamäť (RAM)"
+
+#: static/js/plugins/jq.domain_wizard.js:502
+msgid "First we need some basic data: "
+msgstr "Zadajte základné údaje o doméne: "
+
+#: static/js/plugins/jq.domain_wizard.js:511
+msgid "Description"
+msgstr "Popis"
+
+#: static/js/plugins/jq.domain_wizard.js:515
+msgid "Metadata"
+msgstr "Metainformácie"
+
+#: static/js/plugins/jq.domain_wizard.js:684
+#, perl-format
+msgid "Node \"%s\" with URI: \"%s\" is currently unavailable. Try it again later or check status of the node."
+msgstr "Uzol \"%s\" s adresou \"%s\" je aktuálne nedostupný. Skúste to neskôr alebo skontrolujte stav uzla."
+
+#: static/js/plugins/jq.domain_wizard.js:689
+msgid "Node Status"
+msgstr "Status uzla"
+
+#: static/js/plugins/jq.domain_wizard.js:726
+#: static/js/plugins/jq.domain_wizard.js:829
+#: static/js/plugins/jq.domain_wizard.js:883
+msgid "Name is required!"
+msgstr "Názov je povinný!"
+
+#: static/js/plugins/jq.domain_wizard.js:742
+msgid "This operation can take more time depending on the volume size."
+msgstr "Táto operácia môže trvať dlhšie. Záleží od veľkosti vytváranej oblasti."
+
+#: static/js/plugins/jq.domain_wizard.js:763
+msgid "MAC Address is invalid!"
+msgstr "MAC adresa nie je platná!"
+
+#: static/js/plugins/jq.domain_wizard.js:790
+msgid "Target Path is required!"
+msgstr "Cieľová cesta je povinná!"
+
+#: static/js/plugins/jq.domain_wizard.js:892
+msgid "UUID is invalid!"
+msgstr "UUID nie je platné!"
+
+#: static/js/plugins/jq.domain_wizard.js:941
+#, perl-format
+msgid "This is domain creation wizard which will help you set necessary data so you will not have to fill everything alone. If you are ready click on \"%s\" button."
+msgstr "Toto je sprievodca vytvorením domény, ktorý Vám pomôže nastaviť všetky potrebné dáta. Ak ste pripravený, kliknite na tlačítko \"%s\"."
+
+#: static/js/plugins/jq.google_visualization.js:40
+#: static/js/plugins/jq.google_visualization.js:65
+msgid "Label"
+msgstr "Názov"
+
+#: static/js/plugins/jq.google_visualization.js:41
+#: static/js/plugins/jq.google_visualization.js:66
+msgid "Value"
+msgstr "Hodnota"
+
+#: static/js/plugins/jq.google_visualization.js:137
+#: static/js/plugins/jq.google_visualization.js:159
+msgid "Time"
+msgstr "Čas"
+
+#: static/js/plugins/jq.google_visualization.js:138
+#: static/js/plugins/jq.google_visualization.js:160
+msgid "Usage"
+msgstr "Vyťaženie"
 
 #: static/js/plugins/jq.test_connection.js:50
 msgid "CPU Model"
@@ -52,10 +580,6 @@ msgstr "Jadier na uzol"
 msgid "Threads per core"
 msgstr "Vlakien na uzol"
 
-#: static/js/plugins/jq.test_connection.js:75
-msgid "Failed"
-msgstr "Zlyhalo"
-
 #: static/js/plugins/jq.test_connection.js:78
 msgid "Error message: "
 msgstr "Chybová správa: "
@@ -65,10 +589,14 @@ msgstr "Chybová správa: "
 msgid "Connecting to '<i>%s</i>'..."
 msgstr "Pripájam k '<i>%s</i>'..."
 
-#: static/js/plugins/jq.test_connection.js:129
-msgid "Close"
-msgstr "Zavrieť"
-
 #: static/js/plugins/jq.test_connection.js:135
 msgid "Connection Test"
 msgstr "Test pripojenia"
+
+#~ msgid ""
+#~ "Node \"%s\" with URI: \"%s\" is currently unavailable. You can continue, "
+#~ "but all data will be saved only to database and the domain will not be "
+#~ "created. You can create it later from record in database if you decide to "
+#~ "continue."
+#~ msgstr "Uzol \"%s\" s URI \"%s\" je aktuálne nedostupný."
+
