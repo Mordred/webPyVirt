@@ -293,6 +293,7 @@ def wizard(request):
                 data['error'] = unicode(e)
             else:
                 data['created'] = True
+                data['id'] = domModel.id
             #endtry
         #endtry
     else:

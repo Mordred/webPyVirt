@@ -68,6 +68,21 @@ urlpatterns = patterns("webPyVirt.domains",
     ),
     url(
         r"^domain/edit/(?P<domainId>\d+)/$",
+        "views.domain.migrate",
+        name="domain_migrate"
+    ),
+    url(
+        r"^domain/migrate/$",
+        "views.domain.select",
+        {
+            "next":         "domains:domain_migrate",
+            "domainFilter": "migrate_domain",
+            "permission":   canMigrateDomains
+        },
+        name="domain_migrate__select_domain"
+    ),
+    url(
+        r"^domain/edit/(?P<domainId>\d+)/$",
         "views.domain.edit",
         name="domain_edit"
     ),

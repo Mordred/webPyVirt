@@ -1,0 +1,42 @@
+{% extends "base_administration.html" %}
+{% load i18n %}
+
+{% block subtitle %}{% trans "Migrate Domain" %}{% endblock subtitle %}
+
+{% block custom_js %}
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.validation.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/plugins/jq.domain_migrate_wizard.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $("#startWizard").click(function() {
+                    $("#migrateDomainWizard").domainMigrateWizard();
+                });
+            });
+        </script>
+{% endblock custom_js %}
+
+{% block content_body %}
+    <h1 class="center">{% trans "Migrate" %} :: {{ domain.name }}</h1>
+
+    <p class="indent">
+        {% blocktrans %}
+        {% endblocktrans %}
+    </p>
+
+    <div id="migrateDomainWizard"></div>
+    <input type="hidden" name="secret" id="secret" value="{{ hash }}" />
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="center">
+        {% trans "If you want to migrate domain, please click on the 'Migrate Domain Wizard' button. It will guide you throught whole process." %}
+        <br />
+        <br />
+        <button id="startWizard">{% trans "Migrate Domain Wizard" %}</button>
+    </div>
+
+{% endblock content_body %}

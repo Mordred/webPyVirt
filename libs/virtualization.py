@@ -332,6 +332,7 @@ class virNode(object):
         try:
             connection = self.getConnection()
             domain = connection.defineXML(xml)
+            domain.setAutostart(1)
             domain.create()
             virdomain = virDomain(node = self, connection = domain)
             return virdomain
@@ -549,7 +550,11 @@ class virDomain(object):
         con = self.getConnection()
 
         try:
-            con.destroy()
+            status = self.getState()
+            if status == DOMAIN_STATE_RUNNING:
+                con.destroy()
+            #endif
+            con.undefine()
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))

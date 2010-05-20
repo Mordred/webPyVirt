@@ -21,6 +21,10 @@ def canRemoveDomains(request, *args, **kwargs):
     return bool(getDomains(request, "delete_domain").count() != 0)
 #enddef
 
+def canMigrateDomains(request, *args, **kwargs):
+    return bool(getDomains(request, "migrate_domain").count() != 0)
+#enddef
+
 def isAllowedTo(request, domain, acl):
     if not domain: return False
 

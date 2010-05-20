@@ -35,15 +35,18 @@
                         .html(data['error']));
                 }
 
+                var redir = null;
                 if (data['created']) {
                     content.append($("<p />").css("text-indent", "25px")
                         .html(gettext("Domain created and started successfully."))
                     );
+                    redir = function() { window.location = "/domains/domain/detail/" + data['id'] + "/" };
                 }
 
                 var buttons = getButtons(
-                    null,
-                    loadReview
+                    redir,
+                    loadReview,
+                    gettext("Go to domain details")
                 );
 
                 setContent(content, gettext("Create Domain"), buttons);

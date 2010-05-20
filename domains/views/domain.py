@@ -555,3 +555,35 @@ def edit_ajax(request):
 
     return HttpResponse(simplejson.dumps(data))
 #enddef
+
+@secure
+def migrate(request, domainId):
+    domain = get_object_or_404(Domain, id=domainId)
+
+    if not isAllowedTo(request, domain, "migrate_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    permis = request.session.get("domains.domain.migrate", {})
+    permisHash = sha.sha(request.user.username.upper() + ":" + str(time.time())).hexdigest()
+    permis[permisHash] = (time.time(), { "domain": domain })
+
+    # Session cleanup
+    hashes = permis.keys()
+    for per in hashes:
+        if (time.time() - permis[per][0]) > 3600:
+            del permis[per]
+        #endif
+    #endfor
+
+    request.session['domains.domain.migrate'] = permis
+
+    return render_to_response(
+        "domains/domain/migrate.html",
+        {
+            "domain":    domain,
+            "secret":    permisHash
+        },
+        context_instance=RequestContext(request)
+    )
+#enddef

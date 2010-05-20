@@ -12,6 +12,7 @@ def MENU(request):
     removeDomains = canRemoveDomains(request)
     editDomains = canEditDomains(request)
     addDomains = canAddDomains(request)
+    migrateDomains = canMigrateDomains(request)
 
     return [
         {   # Section domain
@@ -32,6 +33,11 @@ def MENU(request):
                     "hide":     not editDomains,
                     "label":    _("Edit domain"),
                     "url":      "domain_edit__select_domain"
+                },
+                {   # Edit domain
+                    "hide":     not migrateDomains,
+                    "label":    _("Migrate domain"),
+                    "url":      "domain_migrate__select_domain"
                 },
                 {   # Remove domain
                     "hide":     not removeDomains,
