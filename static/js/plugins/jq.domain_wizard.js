@@ -64,7 +64,7 @@
 
                 block.append(createInfo(gettext("Domain Name"), data['name']));
                 block.append(createInfo(gettext("UUID"), data['uuid']));
-                block.append(createInfo(gettext("Memory"), data['memory'] + " MB"));
+                block.append(createInfo(gettext("Memory"), (data['memory'] / 1024) + " MB"));
                 block.append(createInfo(gettext("CPUs"), data['vcpu']));
                 var capacity = Math.ceil((data['volume']['capacity'] / (1024 * 1024 * 1024) * 100)) / 100;
                 var storage = createInfo(gettext("Storage"), capacity + " GB")

@@ -333,6 +333,8 @@ class virNode(object):
             connection = self.getConnection()
             domain = connection.defineXML(xml)
             domain.create()
+            virdomain = virDomain(node = self, connection = domain)
+            return virdomain
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))
@@ -483,6 +485,19 @@ class virDomain(object):
 
         try:
             con.suspend()
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
+    def run(self):
+        con = self.getConnection()
+
+        try:
+            con.create()
         except libvirt.libvirtError, e:
             logging.error("libvirt: %s" % unicode(e))
             raise ErrorException(unicode(e))

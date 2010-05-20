@@ -106,8 +106,14 @@ def wizard(request):
             data['volume'] = domainData['volume']
         #endif
     elif action == "saveVolumes":
-        domainData['volume'] = request.POST['volume']
-        volumeAction = int(request.POST['volumeAction'])
+        if "volume" in request.POST:
+            domainData['volume'] = request.POST['volume']
+        #endif
+        if "volumeAction" not in request.POST:
+            volumeAction = int(request.POST['volumeAction'])
+        else:
+            volumeAction = None
+        #endif
         if volumeAction == 0:
             volSize = float(request.POST['size'])
             format = request.POST['format']
@@ -268,7 +274,21 @@ def wizard(request):
 
                 newDomain = toxml.newDomainXML(domain, disk, interface, inputDev)
                 data['xml'] = newDomain
-                virNode.createDomain(newDomain)
+                domainCon = virNode.createDomain(newDomain)
+                domModel = domainCon.getModel()
+                domDevices = domainCon.getDevices()
+
+                # Save to database
+                domModel.owner = request.user
+                domModel.node = node
+                domModel.save()
+                for devType, devs in domDevices.items():
+                    for device in devs:
+                        device.domain = domModel
+                        device.save()
+                    #endfor
+                #endfor
+
             except virtualization.ErrorException, e:
                 data['error'] = unicode(e)
             else:

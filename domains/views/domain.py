@@ -347,8 +347,13 @@ def command(request):
     try:
         virDomain = virtualization.virDomain(domain)
         if command == "run":
+            status = virDomain.getState()
             # TODO: If domain is shutoff --> start it (or recreate)
-            virDomain.resume()
+            if status == virtualization.DOMAIN_STATE_PAUSED:
+                virDomain.resume()
+            elif status == virtualization.DOMAIN_STATE_SHUTOFF:
+                virDomain.run()
+            #endif
         elif command == "shutdown":
             virDomain.shutdown()
         elif command == "suspend":
@@ -359,7 +364,8 @@ def command(request):
             # TODO: Generate some name for the file
             # where the domain will be saved
             # Not Implemented
-            pass
+            data['status'] = 501
+            data['status'] = _("Currently unsupported by Libvirt.")
         elif command == "destroy":
             virDomain.destroy()
         #endif
