@@ -18,10 +18,11 @@ class Monitor(object):
     Process which will run threads for monitoring remote domains
     """
 
-    def __init__(self, daemon = True, lifetime = None):
+    def __init__(self, daemon = True, interval = 3, lifetime = None):
         self.daemon = daemon
         self.lifetime = lifetime
         self.startTime = datetime.datetime.now()
+        self.interval = interval
 
         # Internal variables
         self._monitors = {}
@@ -230,6 +231,13 @@ class Monitor(object):
                         config.flags &= ~MonitorConfig.FLAG_NO_PING
                     #endif
 
+                    config.save()
+                    transaction.commit()
+                #endif
+
+                # Set sample interval
+                if config.sample_interval != self.interval:
+                    config.sample_interval = self.interval
                     config.save()
                     transaction.commit()
                 #endif

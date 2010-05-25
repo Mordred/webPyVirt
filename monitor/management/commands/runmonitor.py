@@ -12,15 +12,21 @@ class Command(NoArgsCommand):
             default=True,
             help="Do not daemonize the monitor."),
     )
+    option_list = NoArgsCommand.option_list + (
+        make_option("--sample-interval", "-i", dest="interval",
+            default=3,
+            help="Set interval (in secs) between samples (default = 3)."),
+    )
     help = "Runs webPyVirt monitor which collect data from domains and store it in database."
 
     requires_model_validation = False
 
     def handle_noargs(self, **options):
         daemon = options.get("daemon", True)
+        interval = options.get("interval", 3)
 
         try:
-            monitor = Monitor(daemon)
+            monitor = Monitor(daemon, interval)
             monitor.run()
         except Exception, e:
             import traceback
