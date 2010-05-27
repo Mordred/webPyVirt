@@ -17,7 +17,95 @@
         var nodeInfo = null;
         var loading = false;
 
+        var migrateResult = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Result: ")
+                );
+
+                content.append(text);
+
+                if (typeof data['error'] != "undefined") {
+                    content.append($("<p />").addClass("error").css("text-indent", "25px")
+                        .html(data['error']));
+                }
+
+                var redir = null;
+                if (data['migrated']) {
+                    content.append($("<p />").css("text-indent", "25px")
+                        .html(gettext("Domain migrated successfully."))
+                    );
+                    redir = function() { window.location = "/domains/domain/detail/" + data['id'] + "/" };
+                }
+
+                var buttons = getButtons(
+                    redir,
+                    sendNodeList,
+                    gettext("Go to domain details")
+                );
+
+                setContent(content, gettext("Migrate Domain"), buttons);
+            } else {
+                showError(data, loadVolumes);
+            }
+        }
+
+        var sendMigrate = function() {
+            var data = {
+                "action":       "migrate",
+                "node":         $("#id_node").val()
+            }
+
+            send(data, migrateResult,
+                gettext("This operation can take more time. Please be patent and do not close this window.")
+            );
+        }
+
+        var nodeList = function(data) {
+            if (data['status'] == 200) {
+                var content = $("<div />");
+                var text = $("<div />").addClass("align-justify").html(
+                    gettext("Please select node from list: ")
+                );
+
+                var form = createForm("id_frmNode");
+
+                var nextOperation = null;
+
+                if (data['nodes'].length != 0) {
+                    var selNetwork = createSelect("node", data['nodes'], gettext("Available nodes"));
+                    form.append(selNetwork);
+                    nextOperation = sendMigrate;
+                } else {
+                    form.append($("<p />").addClass("error").css("text-indent", "25px")
+                        .html(
+                            gettext("There is no node to which you can migrate.")
+                        )
+                    );
+                }
+
+                content.append(text);
+                content.append(form);
+
+                var buttons = getButtons(
+                    nextOperation,
+                    introduction,
+                    gettext("Migrate")
+                );
+
+                setContent(content, gettext("Select Node"), buttons);
+
+            } else {
+                showError(data, loadVolumes);
+            }
+        }
+
         var sendNodeList = function() {
+            var data = {
+                "action":       "nodeList"
+            }
+            send(data, nodeList);
         }
 
         var addDescription = function(field, description) {
@@ -192,9 +280,7 @@
             var buttons = getButtons(sendNodeList, null);
             var content = $("<div />").addClass("align-justify").html(
                 interpolate(
-                    "This is domain migration wizard which will help you set necessary"
-                    + " data so you will not have to fill everything alone."
-                    + " If you are ready click on \"%s\" button.",
+                    gettext("This is domain migration wizard which will help you set necessary data so you will not have to fill everything alone. If you are ready click on \"%s\" button."),
                     [ gettext("Next") ]
                 )
             );

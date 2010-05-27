@@ -378,7 +378,7 @@
             if (data['status'] == 200) {
                 var buttons = getButtons(
                     function() { saveVolumes(createNewVolume ? null : loadNetwork); },
-                    function() { saveVolumes(loadStoragePools); }
+                    function() { saveVolumes(loadStoragePools, 1); }
                 );
 
                 var content = $("<div />");
@@ -458,7 +458,12 @@
                 setContent(content, gettext("Volumes"), buttons);
 
                 // Select second option on start
-                selectStorage.attr("checked", "checked").change();
+                if (data['volumes'].length != 0) {
+                    selectStorage.attr("checked", "checked").change();
+                } else {
+                    selectStorage.attr("disabled", "disabled");
+                    createStorage.attr("checked", "checked").change();
+                }
             } else {
                 showError(data, loadStoragePools);
             }
@@ -512,7 +517,8 @@
                 content.append(text);
 
                 var form = createForm("id_frmMetadata");
-                form.append(createInput("input", "name", data['name'], gettext("Domain Name"), [ "required" ]));
+                form.append(createInput("input", "name", data['name'], "<b>" + gettext("Domain Name") + "</b>",
+                    [ "required" ]));
                 form.append(createInput("input", "uuid", data['uuid'], gettext("UUID"), [ "uuid" ]));
                 form.append(createInput("textarea", "description", data['description'], gettext("Description")));
 
@@ -706,7 +712,7 @@
             send(data, createDomainResult);
         };
 
-        var saveVolumes = function(callback) {
+        var saveVolumes = function(callback, back) {
             var formData = $("#id_frmVolumes").serializeArray();
             var volumeAction = null;
 
@@ -717,6 +723,8 @@
                 }
             }
 
+            if (typeof(back) == "undefined") back = 0;
+
             createNewVolume = (volumeAction == 0);
 
             var data = {
@@ -724,7 +732,7 @@
                 "volumeAction": volumeAction
             };
 
-            if (volumeAction == 0) {
+            if (volumeAction == 0 && back != 1) {
                 var inpName = $("#id_name");
                 var volName = inpName.val();
 
@@ -742,12 +750,9 @@
                 data['volume'] = $("#id_volume").val();
             }
 
-            if (volumeAction == 0) {
+            if (volumeAction == 0 && back != 1) {
                 send(data, newStorageVolumeResult, 
-                    gettext(
-                        "This operation can take more time depending on the volume size."
-                        + " Please be patent and do not close this window."
-                    )
+                    gettext("This operation can take more time depending on the volume size. Please be patent and do not close this window.")
                 );
             } else {
                 send(data, callback);

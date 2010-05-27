@@ -631,4 +631,20 @@ class virDomain(object):
         raise NotImplementedError
     #enddef
 
+    def migrate(self, node):
+        con = self.getConnection()
+
+        node = virNode(node)
+
+        try:
+            con.migrate(node.getConnection(), libvirt.VIR_MIGRATE_PERSIST_DEST | libvirt.VIR_MIGRATE_PERSIST_DEST \
+                | libvirt.VIR_MIGRATE_PEER2PEER | libvirt.VIR_MIGRATE_LIVE, None, None, 0)
+        except libvirt.libvirtError, e:
+            logging.error("libvirt: %s" % unicode(e))
+            raise ErrorException(unicode(e))
+        #endtry
+
+        return True
+    #enddef
+
 #endclass

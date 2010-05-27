@@ -18,9 +18,10 @@ from webPyVirt.domains.permissions  import isAllowedTo
 
 from webPyVirt.nodes.permissions    import isAllowedTo as nodeIsAllowedTo
 from webPyVirt.nodes.models         import Node
+from webPyVirt.nodes.misc           import getNodes
 
 @transaction.commit_on_success
-def wizard(request):
+def add(request):
     if request.method != "POST" or "secret" not in request.POST or "action" not in request.POST:
         return HttpResponseRedirect("%s" % (reverse("403")))
     #endif
@@ -109,7 +110,7 @@ def wizard(request):
         if "volume" in request.POST:
             domainData['volume'] = request.POST['volume']
         #endif
-        if "volumeAction" not in request.POST:
+        if "volumeAction" in request.POST:
             volumeAction = int(request.POST['volumeAction'])
         else:
             volumeAction = None
@@ -304,6 +305,81 @@ def wizard(request):
     domainData['domain'] = domain
     permis[secret] = (time.time(), domainData)
     request.session['domains.domain.add'] = permis
+
+    return HttpResponse(simplejson.dumps(data))
+#enddef
+
+@transaction.commit_on_success
+def migrate(request):
+    if request.method != "POST" or "secret" not in request.POST or "action" not in request.POST:
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    secret = request.POST['secret']
+    action = request.POST['action']
+
+    permis = request.session.get("domains.domain.migrate", {})
+    if secret not in permis:
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    domainData = permis[secret][1]
+    domain = domainData['domain']
+
+    if not isAllowedTo(request, domain, "migrate_domain"):
+        return HttpResponseRedirect("%s" % (reverse("403")))
+    #endif
+
+    data = {
+        "status":           200,
+        "statusMessage":    _("OK")
+    }
+
+    if action == "nodeList":
+        # Ziskaj zoznam uzlov, na ktore mas pravo "add_domain"
+        nodes = getNodes(request, "add_domain")
+        # Filtruj iba uzle, ktore maju rovnaky hypervizor
+        nodes = nodes.filter(driver=domain.node.driver).exclude(name=domain.node.name)
+        # Vsetky otestuje na status
+        availNodes = []
+        for node in nodes:
+            try:
+                virNode = virtualization.virNode(node)
+                result = virNode.getInfo()
+            except:
+                continue
+            finally:
+                availNodes.append(node)
+            #endtry
+        #endfor
+
+        data['nodes'] = [ {
+            "label": node.name,
+            "value": node.id
+        } for node in availNodes ]
+    elif action == "migrate":
+        # Premigruje sa domena a v DB sa zmeni odkaz na node
+        nodeId = int(request.POST['node'])
+        node = get_object_or_404(Node, id=nodeId)
+        try:
+            virDomain = virtualization.virDomain(domain)
+            virDomain.migrate(node)
+        except virtualization.ErrorException, e:
+            data['error'] = unicode(e)
+        else:
+            domain.node = node
+            data['migrated'] = True
+            data['id'] = domain.id
+        #endtry
+    else:
+        data['status'] = 404
+        data['statusMessage'] = _("Action not found!")
+    #endif
+
+
+    domainData['domain'] = domain
+    permis[secret] = (time.time(), domainData)
+    request.session['domains.domain.migrate'] = permis
 
     return HttpResponse(simplejson.dumps(data))
 #enddef

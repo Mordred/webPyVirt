@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-20 14:12+0200\n"
+"POT-Creation-Date: 2010-05-27 14:25+0200\n"
 "PO-Revision-Date: 2010-05-20 14:22+0100\n"
 "Last-Translator: Martin Jantošovič <jantosovic.martin@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,9 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: menu.py:13
-#: templates/403.html:23
-#: templates/404.html:23
+#: menu.py:13 templates/403.html:23 templates/404.html:23
 #: templates/home.html:4
 msgid "Home"
 msgstr "Domov"
@@ -30,16 +28,12 @@ msgstr "Rýchly prístup"
 msgid "Users & Groups"
 msgstr "Užívatelia & Skupiny"
 
-#: menu.py:36
-#: nodes/menu.py:18
-#: templates/nodes/index.html:4
+#: menu.py:36 nodes/menu.py:18 templates/nodes/index.html:4
 #: templates/nodes/index.html.py:7
 msgid "Nodes"
 msgstr "Uzly"
 
-#: menu.py:44
-#: domains/menu.py:20
-#: templates/nodes/node/list.html:33
+#: menu.py:44 domains/menu.py:20 templates/nodes/node/list.html:33
 #: templates/nodes/node/select.html:26
 msgid "Domains"
 msgstr "Domény"
@@ -52,27 +46,18 @@ msgstr "Slovensky"
 msgid "English"
 msgstr "Anglicky"
 
-#: accounts/forms.py:9
-#: templates/accounts/user/select.html:69
+#: accounts/forms.py:9 templates/accounts/user/select.html:69
 msgid "Select user"
 msgstr "Výber užívateľa"
 
-#: accounts/forms.py:10
-#: accounts/forms.py:29
-#: accounts/forms.py:78
-#: accounts/forms.py:102
-#: domains/forms.py:12
-#: nodes/forms.py:11
+#: accounts/forms.py:10 accounts/forms.py:29 accounts/forms.py:78
+#: accounts/forms.py:102 domains/forms.py:12 nodes/forms.py:11
 #: nodes/forms.py:46
 msgid "Only letters, digits and underscores"
 msgstr "Iba písmená, číslice a podtržítka"
 
-#: accounts/forms.py:11
-#: accounts/forms.py:30
-#: accounts/forms.py:79
-#: accounts/forms.py:103
-#: domains/forms.py:13
-#: nodes/forms.py:47
+#: accounts/forms.py:11 accounts/forms.py:30 accounts/forms.py:79
+#: accounts/forms.py:103 domains/forms.py:13 nodes/forms.py:47
 msgid "This value must contain only letters, numbers and underscores."
 msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
 
@@ -80,14 +65,12 @@ msgstr "Toto pole môže obsahovať iba písmená, číslice a podtržítka."
 msgid "A user with that username does not exist."
 msgstr "Užívateľ s týmto menom neexistuje."
 
-#: accounts/forms.py:28
-#: nodes/models.py:50
+#: accounts/forms.py:28 nodes/models.py:50
 #: templates/accounts/user/select.html:25
 msgid "Username"
 msgstr "Užívateľské meno"
 
-#: accounts/forms.py:31
-#: domains/models.py:468
+#: accounts/forms.py:31 domains/models.py:468
 msgid "Password"
 msgstr "Heslo"
 
@@ -103,8 +86,7 @@ msgstr "Užívateľ s týmto menom už existuje."
 msgid "The two password fields didn't match."
 msgstr "Heslá sa nezhodujú."
 
-#: accounts/forms.py:77
-#: templates/accounts/group/select.html:25
+#: accounts/forms.py:77 templates/accounts/group/select.html:25
 msgid "Group name"
 msgstr "Názov skupiny"
 
@@ -112,8 +94,7 @@ msgstr "Názov skupiny"
 msgid "A group with that name already exists."
 msgstr "Skupina s týmto menom už existuje."
 
-#: accounts/forms.py:101
-#: templates/accounts/group/select.html:69
+#: accounts/forms.py:101 templates/accounts/group/select.html:69
 msgid "Select group"
 msgstr "Výber skupiny"
 
@@ -137,8 +118,7 @@ msgstr "Zmeniť oprávnenia"
 msgid "User can change global permissions of another users"
 msgstr "Užívateľ môže zmeniť globálne práva iného užívateľa"
 
-#: accounts/forms.py:126
-#: accounts/menu.py:14
+#: accounts/forms.py:126 accounts/menu.py:14
 #: templates/accounts/user/add.html:56
 msgid "Add user"
 msgstr "Pridať užívateľa"
@@ -155,8 +135,7 @@ msgstr "Zmeniť užívateľa"
 msgid "User can change information about users"
 msgstr "Užívateľ môže zmeniť informácie o užívateľoch"
 
-#: accounts/forms.py:130
-#: accounts/menu.py:26
+#: accounts/forms.py:130 accounts/menu.py:26
 msgid "Remove user"
 msgstr "Odstrániť užívateľa"
 
@@ -164,8 +143,7 @@ msgstr "Odstrániť užívateľa"
 msgid "User can remove users"
 msgstr "Užívateľ môže odstrániť užívateľov"
 
-#: accounts/forms.py:133
-#: accounts/menu.py:38
+#: accounts/forms.py:133 accounts/menu.py:38
 #: templates/accounts/group/add.html:39
 msgid "Add group"
 msgstr "Pridať skupinu"
@@ -182,8 +160,7 @@ msgstr "Zmeniť skupinu"
 msgid "User can change group members"
 msgstr "Užívateľ môže zmeniť členov skupiny"
 
-#: accounts/forms.py:137
-#: accounts/menu.py:50
+#: accounts/forms.py:137 accounts/menu.py:50
 msgid "Remove group"
 msgstr "Odstrániť skupinu"
 
@@ -191,9 +168,7 @@ msgstr "Odstrániť skupinu"
 msgid "User can remove groups"
 msgstr "Užívateľ môže odstrániť skupinu"
 
-#: accounts/forms.py:140
-#: nodes/menu.py:28
-#: templates/nodes/node/add.html:99
+#: accounts/forms.py:140 nodes/menu.py:28 templates/nodes/node/add.html:99
 msgid "Add node"
 msgstr "Pridať uzol"
 
@@ -209,8 +184,7 @@ msgstr "Užívatelia"
 msgid "Manage users"
 msgstr "Správa užívateľov"
 
-#: accounts/menu.py:34
-#: templates/accounts/permissions/show.html:27
+#: accounts/menu.py:34 templates/accounts/permissions/show.html:27
 #: templates/accounts/user/manage.html:103
 msgid "Groups"
 msgstr "Skupiny"
@@ -235,8 +209,7 @@ msgstr "Práva skupiny"
 msgid "Show permissions"
 msgstr "Zobraziť práva"
 
-#: domains/forms.py:11
-#: templates/domains/domain/select.html:81
+#: domains/forms.py:11 templates/domains/domain/select.html:81
 msgid "Select domain"
 msgstr "Výber domény"
 
@@ -248,14 +221,11 @@ msgstr "ID domény"
 msgid "Used if 2 domains have the same name (e.g. Domain-0)"
 msgstr "Použité ak 2 domény majú rovnaký názov. (napr. Domain-0)"
 
-#: domains/forms.py:24
-#: domains/forms.py:37
-#: domains/views/domain.py:172
+#: domains/forms.py:24 domains/forms.py:37 domains/views/domain.py:172
 msgid "A domain with that name does not exist."
 msgstr "Doména s týmto menom neexistuje."
 
-#: domains/menu.py:24
-#: templates/domains/domain/add_backup.html:167
+#: domains/menu.py:24 templates/domains/domain/add_backup.html:167
 msgid "Add domain"
 msgstr "Vytvoriť doménu"
 
@@ -275,25 +245,18 @@ msgstr "Migrovať doménu"
 msgid "Remove domain"
 msgstr "Odstrániť doménu"
 
-#: domains/menu.py:51
-#: nodes/menu.py:54
+#: domains/menu.py:51 nodes/menu.py:54
 msgid "Permissions"
 msgstr "Práva"
 
-#: domains/menu.py:55
-#: nodes/menu.py:58
-#: templates/domains/acl/user.html:4
-#: templates/domains/acl/user.html.py:7
-#: templates/nodes/acl/user.html:4
+#: domains/menu.py:55 nodes/menu.py:58 templates/domains/acl/user.html:4
+#: templates/domains/acl/user.html.py:7 templates/nodes/acl/user.html:4
 #: templates/nodes/acl/user.html.py:7
 msgid "User ACL"
 msgstr "ACL užívateľov"
 
-#: domains/menu.py:61
-#: nodes/menu.py:64
-#: templates/domains/acl/group.html:4
-#: templates/domains/acl/group.html.py:7
-#: templates/nodes/acl/group.html:4
+#: domains/menu.py:61 nodes/menu.py:64 templates/domains/acl/group.html:4
+#: templates/domains/acl/group.html.py:7 templates/nodes/acl/group.html:4
 #: templates/nodes/acl/group.html.py:7
 msgid "Group ACL"
 msgstr "ACL skupín"
@@ -358,23 +321,18 @@ msgstr "Aktuálne ID uzla."
 msgid "Hypervisor Driver Type"
 msgstr "Typ hypervízora"
 
-#: domains/models.py:60
-#: templates/domains/domain/select.html:31
+#: domains/models.py:60 templates/domains/domain/select.html:31
 msgid "Domain Name"
 msgstr "Názov domény"
 
-#: domains/models.py:61
-#: templates/domains/domain/detail.html:74
+#: domains/models.py:61 templates/domains/domain/detail.html:74
 msgid "UUID"
 msgstr "UUID"
 
-#: domains/models.py:62
-#: templates/accounts/permissions/group.html:39
+#: domains/models.py:62 templates/accounts/permissions/group.html:39
 #: templates/accounts/permissions/user.html:39
-#: templates/domains/acl/group.html:35
-#: templates/domains/acl/user.html:35
-#: templates/domains/domain/detail.html:82
-#: templates/nodes/acl/group.html:35
+#: templates/domains/acl/group.html:35 templates/domains/acl/user.html:35
+#: templates/domains/domain/detail.html:82 templates/nodes/acl/group.html:35
 #: templates/nodes/acl/user.html:35
 msgid "Description"
 msgstr "Popis"
@@ -383,8 +341,7 @@ msgstr "Popis"
 msgid "Human readable description of the virtual machine"
 msgstr "Popis virtuálneho stroja"
 
-#: domains/models.py:68
-#: templates/domains/domain/add_backup.html:81
+#: domains/models.py:68 templates/domains/domain/add_backup.html:81
 msgid "Bootloader"
 msgstr ""
 
@@ -484,8 +441,7 @@ msgstr "Synchronizácia času"
 msgid "Path to device model emulator"
 msgstr "Cesta k emulátoru zariadení"
 
-#: domains/models.py:239
-#: domains/models.py:531
+#: domains/models.py:239 domains/models.py:531
 msgid "File"
 msgstr "Súbor"
 
@@ -517,20 +473,16 @@ msgstr ""
 msgid "Virtio"
 msgstr ""
 
-#: domains/models.py:251
-#: domains/models.py:416
-#: domains/models.py:490
+#: domains/models.py:251 domains/models.py:416 domains/models.py:490
 #: nodes/models.py:19
 msgid "Xen"
 msgstr ""
 
-#: domains/models.py:252
-#: domains/models.py:418
+#: domains/models.py:252 domains/models.py:418
 msgid "USB"
 msgstr ""
 
-#: domains/models.py:256
-#: domains/models.py:263
+#: domains/models.py:256 domains/models.py:263
 msgid "Default"
 msgstr "Implicitne"
 
@@ -590,8 +542,7 @@ msgstr "Formát šifrovania"
 msgid "Secret"
 msgstr "Tajný klúč"
 
-#: domains/models.py:307
-#: domains/models.py:327
+#: domains/models.py:307 domains/models.py:327
 msgid "USB Device"
 msgstr "USB zariadenie"
 
@@ -727,8 +678,7 @@ msgstr "Zdroj siete"
 msgid "Source Device"
 msgstr "Zdrojové zariadenie"
 
-#: domains/models.py:389
-#: domains/models.py:560
+#: domains/models.py:389 domains/models.py:560
 msgid "Source Mode"
 msgstr "Mód zdroja"
 
@@ -984,13 +934,11 @@ msgstr ""
 msgid "ISA iBase IB700"
 msgstr ""
 
-#: domains/models.py:605
-#: templates/accounts/user/add.html:57
+#: domains/models.py:605 templates/accounts/user/add.html:57
 msgid "Reset"
 msgstr "Resetovať"
 
-#: domains/models.py:606
-#: domains/views/domain.py:298
+#: domains/models.py:606 domains/views/domain.py:298
 #: templates/domains/domain/detail.html:33
 msgid "Shutdown"
 msgstr "Vypnúť"
@@ -1015,8 +963,7 @@ msgstr ""
 msgid "Watchdog Action"
 msgstr ""
 
-#: domains/models.py:630
-#: nodes/models.py:131
+#: domains/models.py:630 nodes/models.py:131
 msgid "Change ACL"
 msgstr "Zmeniť ACL"
 
@@ -1029,8 +976,10 @@ msgid "View Domain"
 msgstr "Prezerať doménu"
 
 #: domains/models.py:634
-msgid "User can view the domain in the administration and check detail information"
-msgstr "Užívateľovi sa zobrazí doména v administrácii a môže vidieť detaily domény"
+msgid ""
+"User can view the domain in the administration and check detail information"
+msgstr ""
+"Užívateľovi sa zobrazí doména v administrácii a môže vidieť detaily domény"
 
 #: domains/models.py:635
 msgid "Change Domain"
@@ -1048,8 +997,7 @@ msgstr "Zmazať doménu"
 msgid "User can delete the domain"
 msgstr "Užívateľ môže zmazať doménu"
 
-#: domains/models.py:640
-#: templates/domains/domain/migrate.html:4
+#: domains/models.py:640 templates/domains/domain/migrate.html:4
 msgid "Migrate Domain"
 msgstr "Migrovať doménu"
 
@@ -1105,13 +1053,10 @@ msgstr "Obnoviť doménu"
 msgid "User can restore the domain from disk"
 msgstr "Užívateľ môže obnoviť stav domény z disku"
 
-#: domains/views/domain.py:87
-#: domains/views/domain.py:105
-#: domains/views/domain.py:284
-#: domains/views/domain.py:333
-#: domains/views/domain.py:396
-#: domains/views/domain.py:533
-#: domains/views/wizard.py:46
+#: domains/views/domain.py:87 domains/views/domain.py:105
+#: domains/views/domain.py:284 domains/views/domain.py:333
+#: domains/views/domain.py:396 domains/views/domain.py:533
+#: domains/views/wizard.py:47 domains/views/wizard.py:335
 msgid "OK"
 msgstr "OK"
 
@@ -1163,7 +1108,7 @@ msgstr "Nepodporovaná vizualizácia"
 msgid "Parameter not found!"
 msgstr "Parameter nenájdený!"
 
-#: domains/views/wizard.py:301
+#: domains/views/wizard.py:302 domains/views/wizard.py:376
 msgid "Action not found!"
 msgstr "Akcia nenájdená!"
 
@@ -1223,10 +1168,8 @@ msgstr "Vyťaženie procesora (%)"
 msgid "Memory usage in \"%\""
 msgstr "Vyťaženie pamäte (%)"
 
-#: nodes/forms.py:10
-#: nodes/models.py:38
-#: templates/domains/domain/select.html:32
-#: templates/nodes/node/list.html:32
+#: nodes/forms.py:10 nodes/models.py:38
+#: templates/domains/domain/select.html:32 templates/nodes/node/list.html:32
 #: templates/nodes/node/select.html:25
 msgid "Node Name"
 msgstr "Názov uzla"
@@ -1239,13 +1182,11 @@ msgstr "Toto pole môže obsahovať iba písmená, číslice, bodky a podtržít
 msgid "A node with that name already exists."
 msgstr "Uloz s týmto menom už existuje."
 
-#: nodes/forms.py:45
-#: templates/nodes/node/select.html:69
+#: nodes/forms.py:45 templates/nodes/node/select.html:69
 msgid "Select node"
 msgstr "Výber uzlu"
 
-#: nodes/forms.py:55
-#: nodes/views/node.py:176
+#: nodes/forms.py:55 nodes/views/node.py:176
 msgid "A node with that name does not exist."
 msgstr "Uzol s týmto menom neexistuje."
 
@@ -1386,8 +1327,7 @@ msgstr "Užívateľ môže zmazať uzol"
 msgid "Node `%(nodeUri)s` cannot autoimport domains."
 msgstr "Nie je možné automaticky importovať domény uzla `%(nodeUri)s`."
 
-#: templates/403.html:4
-#: templates/403.html.py:16
+#: templates/403.html:4 templates/403.html.py:16
 msgid "Forbidden"
 msgstr "Zakázané"
 
@@ -1395,8 +1335,7 @@ msgstr "Zakázané"
 msgid "You don't have permissions for this."
 msgstr "Nemáte opravánenia na túto operáciu"
 
-#: templates/404.html:4
-#: templates/404.html.py:16
+#: templates/404.html:4 templates/404.html.py:16
 msgid "Page not found"
 msgstr "Stránka nenájdená"
 
@@ -1420,8 +1359,7 @@ msgstr "Vytvoril Martin Jantošovič"
 msgid "Welcome to webPyVirt Administration"
 msgstr "Vitajte vo webPyVirt Administrácii"
 
-#: templates/login.html:4
-#: templates/login.html.py:45
+#: templates/login.html:4 templates/login.html.py:45
 msgid "Log in"
 msgstr "Prihlásenie"
 
@@ -1430,11 +1368,14 @@ msgid "webPyVirt Administration"
 msgstr "webPyVirt Administrácia"
 
 #: templates/login.html:29
-msgid "Please enter a correct username and password. Note that both fields are case-sensitive."
-msgstr "Prosím, zadajte správne používateľské meno a heslo. Rešpektujte malé a veľké písmená."
+msgid ""
+"Please enter a correct username and password. Note that both fields are case-"
+"sensitive."
+msgstr ""
+"Prosím, zadajte správne používateľské meno a heslo. Rešpektujte malé a veľké "
+"písmená."
 
-#: templates/accounts/group/add.html:4
-#: templates/accounts/group/add.html:7
+#: templates/accounts/group/add.html:4 templates/accounts/group/add.html:7
 msgid "Add Group"
 msgstr "Pridať skupinu"
 
@@ -1453,18 +1394,13 @@ msgstr ""
 #: templates/accounts/group/select.html:52
 #: templates/accounts/permissions/group.html:27
 #: templates/accounts/permissions/user.html:27
-#: templates/accounts/user/add.html:23
-#: templates/accounts/user/manage.html:23
-#: templates/accounts/user/select.html:52
-#: templates/domains/acl/group.html:23
+#: templates/accounts/user/add.html:23 templates/accounts/user/manage.html:23
+#: templates/accounts/user/select.html:52 templates/domains/acl/group.html:23
 #: templates/domains/acl/user.html:23
 #: templates/domains/domain/add_backup.html:33
-#: templates/domains/domain/select.html:63
-#: templates/nodes/acl/group.html:23
-#: templates/nodes/acl/user.html:23
-#: templates/nodes/node/add.html:33
-#: templates/nodes/node/edit.html:33
-#: templates/nodes/node/select.html:52
+#: templates/domains/domain/select.html:63 templates/nodes/acl/group.html:23
+#: templates/nodes/acl/user.html:23 templates/nodes/node/add.html:33
+#: templates/nodes/node/edit.html:33 templates/nodes/node/select.html:52
 msgid "There are errors in the form."
 msgstr "Vo formulári sa nachádzajú chyby."
 
@@ -1510,12 +1446,9 @@ msgstr "Pridať užívateľa do skupiny"
 #: templates/accounts/permissions/group.html:56
 #: templates/accounts/permissions/user.html:56
 #: templates/accounts/user/manage.html:97
-#: templates/accounts/user/manage.html:134
-#: templates/domains/acl/group.html:52
-#: templates/domains/acl/user.html:63
-#: templates/domains/domain/detail.html:38
-#: templates/nodes/acl/group.html:52
-#: templates/nodes/acl/user.html:63
+#: templates/accounts/user/manage.html:134 templates/domains/acl/group.html:52
+#: templates/domains/acl/user.html:63 templates/domains/domain/detail.html:38
+#: templates/nodes/acl/group.html:52 templates/nodes/acl/user.html:63
 msgid "Save"
 msgstr "Uložiť"
 
@@ -1558,20 +1491,16 @@ msgstr ""
 "        "
 
 #: templates/accounts/group/remove.html:31
-#: templates/accounts/user/remove.html:38
-#: templates/domains/acl/user.html:43
-#: templates/domains/domain/remove.html:33
-#: templates/nodes/acl/user.html:43
-#: templates/nodes/node/remove.html:34
+#: templates/accounts/user/remove.html:38 templates/domains/acl/user.html:43
+#: templates/domains/domain/remove.html:33 templates/nodes/acl/user.html:43
+#: templates/nodes/node/remove.html:31
 msgid "Yes"
 msgstr "Áno"
 
 #: templates/accounts/group/remove.html:32
-#: templates/accounts/user/remove.html:39
-#: templates/domains/acl/user.html:45
-#: templates/domains/domain/remove.html:34
-#: templates/nodes/acl/user.html:45
-#: templates/nodes/node/remove.html:35
+#: templates/accounts/user/remove.html:39 templates/domains/acl/user.html:45
+#: templates/domains/domain/remove.html:34 templates/nodes/acl/user.html:45
+#: templates/nodes/node/remove.html:32
 msgid "No"
 msgstr "Nie"
 
@@ -1602,28 +1531,33 @@ msgstr "Práva skupiny"
 #: templates/accounts/permissions/group.html:10
 msgid ""
 "\n"
-"        Set global permissions to group. All these permissions are per table, not per object.\n"
-"        If you want to set permissions per object, select in main menu object class\n"
-"        and the in left menu subsection \"Permissions\". (For example: if we want to\n"
-"        set permissions for a Node with name \"node1\", go to \"Node\" main menu, \"Group permission\"\n"
+"        Set global permissions to group. All these permissions are per "
+"table, not per object.\n"
+"        If you want to set permissions per object, select in main menu "
+"object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we "
+"want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main "
+"menu, \"Group permission\"\n"
 "        in the left menu and select Node \"node1\".)\n"
 "        "
 msgstr ""
 "\n"
-"        Nastavte globálne práva skupiny. Všetky tieto práva sú na tabuľku, nie na objekt.\n"
-"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ objektu\n"
+"        Nastavte globálne práva skupiny. Všetky tieto práva sú na tabuľku, "
+"nie na objekt.\n"
+"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ "
+"objektu\n"
 "        a v ľavom menu vyberte sekciu \"Práva\". (Napríklad: ak chcete \n"
-"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v hlavnom menu, \"Práva skupiny\"\n"
+"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v "
+"hlavnom menu, \"Práva skupiny\"\n"
 "        v ľavom menu a vyberte uzol \"node1\".)\n"
 "        "
 
 #: templates/accounts/permissions/group.html:38
 #: templates/accounts/permissions/show.html:24
 #: templates/accounts/permissions/user.html:38
-#: templates/domains/acl/group.html:34
-#: templates/domains/acl/user.html:34
-#: templates/nodes/acl/group.html:34
-#: templates/nodes/acl/user.html:34
+#: templates/domains/acl/group.html:34 templates/domains/acl/user.html:34
+#: templates/nodes/acl/group.html:34 templates/nodes/acl/user.html:34
 msgid "Permission"
 msgstr "Právo"
 
@@ -1635,13 +1569,17 @@ msgstr "Zobraziť práva"
 #: templates/accounts/permissions/show.html:10
 msgid ""
 "\n"
-"        This table shows wich permissions user have through user permissions or\n"
-"        group permissions. Also display which groups give this permission to user.\n"
+"        This table shows wich permissions user have through user permissions "
+"or\n"
+"        group permissions. Also display which groups give this permission to "
+"user.\n"
 "        "
 msgstr ""
 "\n"
-"        Táto tabuľka zobrazuje, ktoré oprávnenia užívateľ má. Zároveň zobrazuje, či\n"
-"        toto právo má z užívateľských práv alebo ho zdedil z nejakej skupiny. Názvy týchto skupín vypíše.\n"
+"        Táto tabuľka zobrazuje, ktoré oprávnenia užívateľ má. Zároveň "
+"zobrazuje, či\n"
+"        toto právo má z užívateľských práv alebo ho zdedil z nejakej "
+"skupiny. Názvy týchto skupín vypíše.\n"
 "        "
 
 #: templates/accounts/permissions/show.html:25
@@ -1666,23 +1604,29 @@ msgstr "Práva užívateľa"
 #: templates/accounts/permissions/user.html:10
 msgid ""
 "\n"
-"        Set global permissions to user. All these permissions are per table, not per object.\n"
-"        If you want to set permissions per object, select in main menu object class\n"
-"        and the in left menu subsection \"Permissions\". (For example: if we want to\n"
-"        set permissions for a Node with name \"node1\", go to \"Node\" main menu, \"User permission\"\n"
+"        Set global permissions to user. All these permissions are per table, "
+"not per object.\n"
+"        If you want to set permissions per object, select in main menu "
+"object class\n"
+"        and the in left menu subsection \"Permissions\". (For example: if we "
+"want to\n"
+"        set permissions for a Node with name \"node1\", go to \"Node\" main "
+"menu, \"User permission\"\n"
 "        in the left menu and select Node \"node1\".)\n"
 "        "
 msgstr ""
 "\n"
-"        Nastavte globálne práva užívateľa. Všetky tieto práva sú na tabuľku, nie na objekt.\n"
-"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ objektu\n"
+"        Nastavte globálne práva užívateľa. Všetky tieto práva sú na tabuľku, "
+"nie na objekt.\n"
+"        Ak chcete nastaviť práva na objekt, vyberte v hlavnom menu typ "
+"objektu\n"
 "        a v ľavom menu vyberte sekciu \"Práva\". (Napríklad: ak chcete \n"
-"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v hlavnom menu, \"Práva skupiny\"\n"
+"        nastaviť práva pre uzol s názvom \"node1\", vyberte \"Uzly\" v "
+"hlavnom menu, \"Práva skupiny\"\n"
 "        v ľavom menu a vyberte uzol \"node1\".)\n"
 "        "
 
-#: templates/accounts/user/add.html:4
-#: templates/accounts/user/add.html.py:7
+#: templates/accounts/user/add.html:4 templates/accounts/user/add.html.py:7
 msgid "Add User"
 msgstr "Pridať užívateľa"
 
@@ -1700,8 +1644,7 @@ msgstr ""
 msgid "only letters, digits and underscores"
 msgstr "iba písmená, číslice a podtržítka"
 
-#: templates/accounts/user/manage.html:4
-#: templates/accounts/user/manage.html:7
+#: templates/accounts/user/manage.html:4 templates/accounts/user/manage.html:7
 msgid "Manage Users"
 msgstr "Správa užívateľov"
 
@@ -1720,8 +1663,12 @@ msgid "Overview"
 msgstr "Prehľad"
 
 #: templates/accounts/user/manage.html:40
-msgid "30 characters or fewer. Alphanumeric characters only (letters, digits and underscores)."
-msgstr "30 alebo menej znakov. Iba alfanumerické znaky (písmená, číslice a podtržítka)."
+msgid ""
+"30 characters or fewer. Alphanumeric characters only (letters, digits and "
+"underscores)."
+msgstr ""
+"30 alebo menej znakov. Iba alfanumerické znaky (písmená, číslice a "
+"podtržítka)."
 
 #: templates/accounts/user/manage.html:50
 msgid "Unselect this instead of deleting accounts."
@@ -1743,13 +1690,11 @@ msgstr "Skupina"
 msgid "User is not member of any group."
 msgstr "Užívateľ nie je členom žiadnej skupiny."
 
-#: templates/accounts/user/remove.html:4
-#: templates/accounts/user/remove.html:7
+#: templates/accounts/user/remove.html:4 templates/accounts/user/remove.html:7
 msgid "Remove User"
 msgstr "Odstrániť užívateľa"
 
 #: templates/accounts/user/remove.html:10
-#: templates/nodes/node/remove.html:12
 #, fuzzy, python-format
 msgid ""
 "\n"
@@ -1775,11 +1720,13 @@ msgstr[2] ""
 #: templates/accounts/user/remove.html:19
 msgid ""
 "\n"
-"        This user is superuser. You cannot remove him if you are not superuser too!\n"
+"        This user is superuser. You cannot remove him if you are not "
+"superuser too!\n"
 "        "
 msgstr ""
 "\n"
-"        Tento užívateľ je superužívateľ. Nemôžete odstrániť tohto užívateľa, pretože nie ste superužívateľom!\n"
+"        Tento užívateľ je superužívateľ. Nemôžete odstrániť tohto užívateľa, "
+"pretože nie ste superužívateľom!\n"
 "        "
 
 #: templates/accounts/user/remove.html:25
@@ -1792,8 +1739,7 @@ msgstr ""
 "        Naozaj chcete odstrániť tohto užívateľa?\n"
 "        "
 
-#: templates/accounts/user/select.html:4
-#: templates/accounts/user/select.html:7
+#: templates/accounts/user/select.html:4 templates/accounts/user/select.html:7
 msgid "Select User"
 msgstr "Výber užívateľa"
 
@@ -1835,8 +1781,7 @@ msgstr ""
 "        Práva užívateľa pracovať s doménou.\n"
 "        "
 
-#: templates/domains/acl/user.html:39
-#: templates/nodes/acl/user.html:39
+#: templates/domains/acl/user.html:39 templates/nodes/acl/user.html:39
 msgid "Is Onwer"
 msgstr "Vlastník"
 
@@ -1844,8 +1789,7 @@ msgstr "Vlastník"
 msgid "The user is owner of the domain."
 msgstr "Užívateľ je vlastníkom domény."
 
-#: templates/domains/domain/add.html:4
-#: templates/domains/domain/add.html:19
+#: templates/domains/domain/add.html:4 templates/domains/domain/add.html:19
 #: templates/domains/domain/add_backup.html:4
 #: templates/domains/domain/add_backup.html:16
 msgid "Create Domain"
@@ -1861,8 +1805,12 @@ msgid ""
 msgstr ""
 
 #: templates/domains/domain/add.html:36
-msgid "If you want to create new domain, please click on the 'Create Domain Wizard' button. It will guide you throught whole process."
-msgstr "Ak chcete vytvoriť novú doménu, kliknite na tlačítko 'Sprievodca vytvorením domény', ktorý Vás prevedie celým procesom."
+msgid ""
+"If you want to create new domain, please click on the 'Create Domain Wizard' "
+"button. It will guide you throught whole process."
+msgstr ""
+"Ak chcete vytvoriť novú doménu, kliknite na tlačítko 'Sprievodca vytvorením "
+"domény', ktorý Vás prevedie celým procesom."
 
 #: templates/domains/domain/add.html:39
 msgid "Create Domain Wizard"
@@ -1934,8 +1882,7 @@ msgid "vCPU"
 msgstr ""
 
 #: templates/domains/domain/detail.html:94
-#: templates/domains/domain/select.html:33
-#: templates/nodes/node/list.html:34
+#: templates/domains/domain/select.html:33 templates/nodes/node/list.html:34
 msgid "Status"
 msgstr "Status"
 
@@ -1967,8 +1914,7 @@ msgstr "Vyťaženie procesora"
 msgid "Memory Usage"
 msgstr "Vyťaženie pamäte"
 
-#: templates/domains/domain/edit.html:4
-#: templates/domains/domain/edit.html:18
+#: templates/domains/domain/edit.html:4 templates/domains/domain/edit.html:18
 msgid "Edit Domain"
 msgstr "Upraviť doménu"
 
@@ -1998,8 +1944,7 @@ msgstr "Nová hodnota"
 msgid "Virtual CPUs"
 msgstr "Virtuálne CPU"
 
-#: templates/domains/domain/edit.html:50
-#: templates/domains/domain/edit.html:58
+#: templates/domains/domain/edit.html:50 templates/domains/domain/edit.html:58
 #: templates/domains/domain/edit.html:66
 msgid "Set"
 msgstr "Nastaviť"
@@ -2017,8 +1962,12 @@ msgid "Migrate"
 msgstr "Migrovať"
 
 #: templates/domains/domain/migrate.html:36
-msgid "If you want to migrate domain, please click on the 'Migrate Domain Wizard' button. It will guide you throught whole process."
-msgstr "Ak chcete premigrovať doménu, kliknite na tlačítko 'Sprievodca premigrovaním domény', ktorý Vás prevedie celým procesom."
+msgid ""
+"If you want to migrate domain, please click on the 'Migrate Domain Wizard' "
+"button. It will guide you throught whole process."
+msgstr ""
+"Ak chcete premigrovať doménu, kliknite na tlačítko 'Sprievodca premigrovaním "
+"domény', ktorý Vás prevedie celým procesom."
 
 #: templates/domains/domain/migrate.html:39
 msgid "Migrate Domain Wizard"
@@ -2032,16 +1981,19 @@ msgstr "Odstrániť doménu"
 #: templates/domains/domain/remove.html:15
 msgid ""
 "\n"
-"        Do you really want to remove this domain? If you click on \"Yes\" domain\n"
+"        Do you really want to remove this domain? If you click on \"Yes\" "
+"domain\n"
 "        will be removed from database, but it still exists on the node, so\n"
 "        if you want to also destroy domain, click on \"First destroy\" and\n"
 "        then to \"Yes\" button.\n"
 "        "
 msgstr ""
 "\n"
-"        Naozaj chcete odstrániť túto doménu? Ak kliknete na tlačítko \"Áno\" doména\n"
+"        Naozaj chcete odstrániť túto doménu? Ak kliknete na tlačítko \"Áno\" "
+"doména\n"
 "        bude odstránená z databázy, ale stále bude existovať na uzle.\n"
-"        Ak chcete doménu zároveň odstrániť, kliknite najskôr na tlačítko \"Najskôr zrušiť\" a\n"
+"        Ak chcete doménu zároveň odstrániť, kliknite najskôr na tlačítko "
+"\"Najskôr zrušiť\" a\n"
 "        až potom na tlačítko \"Áno\".\n"
 "        "
 
@@ -2082,7 +2034,8 @@ msgid ""
 "        A <b>node</b> is a single physical machine.\n"
 "        <!-- \n"
 "        An <b>hypervisor</b> \n"
-"        is a layer of software allowing to virtualize a node in a set of virtual machines with possibly\n"
+"        is a layer of software allowing to virtualize a node in a set of "
+"virtual machines with possibly\n"
 "        different configurations than the node itself.\n"
 "        -->\n"
 "        "
@@ -2091,7 +2044,8 @@ msgstr ""
 "        <b>Uzol</b> je fyzický stroj.\n"
 "        <!-- \n"
 "        An <b>hypervisor</b> \n"
-"        is a layer of software allowing to virtualize a node in a set of virtual machines with possibly\n"
+"        is a layer of software allowing to virtualize a node in a set of "
+"virtual machines with possibly\n"
 "        different configurations than the node itself.\n"
 "        -->\n"
 "        "
@@ -2120,41 +2074,39 @@ msgstr ""
 msgid "The user is owner of the node."
 msgstr "Užívateľ je vlastníkom uzla."
 
-#: templates/nodes/node/add.html:4
-#: templates/nodes/node/add.html.py:12
+#: templates/nodes/node/add.html:4 templates/nodes/node/add.html.py:12
 msgid "Add Node"
 msgstr "Pridať uzol"
 
-#: templates/nodes/node/add.html:15
-#: templates/nodes/node/edit.html:15
+#: templates/nodes/node/add.html:15 templates/nodes/node/edit.html:15
 msgid ""
 "\n"
-"        Before you can administrate a node, you need connect to it first. Libvirt remote URI general form\n"
-"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference\">detail information</a>):\n"
+"        Before you can administrate a node, you need connect to it first. "
+"Libvirt remote URI general form\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
+"\">detail information</a>):\n"
 "        "
 msgstr ""
 "\n"
-"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním najskôr pripojiť. Libvirt obecný tvar URI\n"
-"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference\">podrobné informácie</a>):\n"
+"        Predtým ako môžete začať spravovať vzdialené uzly, musíte sa k ním "
+"najskôr pripojiť. Libvirt obecný tvar URI\n"
+"        (<a href=\"http://libvirt.org/remote.html#Remote_URI_reference"
+"\">podrobné informácie</a>):\n"
 "        "
 
-#: templates/nodes/node/add.html:44
-#: templates/nodes/node/edit.html:44
+#: templates/nodes/node/add.html:44 templates/nodes/node/edit.html:44
 msgid "only for better identification"
 msgstr "kvôli lepšej identifikácii"
 
-#: templates/nodes/node/add.html:49
-#: templates/nodes/node/edit.html:49
+#: templates/nodes/node/add.html:49 templates/nodes/node/edit.html:49
 msgid "Remote URI"
 msgstr "Vzdialená URI adresa"
 
-#: templates/nodes/node/add.html:78
-#: templates/nodes/node/edit.html:78
+#: templates/nodes/node/add.html:78 templates/nodes/node/edit.html:78
 msgid "if different from default"
 msgstr "ak sa líši od pôvodného"
 
-#: templates/nodes/node/add.html:98
-#: templates/nodes/node/edit.html:98
+#: templates/nodes/node/add.html:98 templates/nodes/node/edit.html:98
 msgid "Test connection"
 msgstr "Otestovať spojenie"
 
@@ -2170,16 +2122,22 @@ msgstr "Automatické importovanie domén"
 msgid ""
 "\n"
 "        Autoimport of existing domains from node. This process will compare\n"
-"        database information with actual domains on the node. If on the node is\n"
-"        domain which doesn't have record in the database, all data will be added.\n"
+"        database information with actual domains on the node. If on the node "
+"is\n"
+"        domain which doesn't have record in the database, all data will be "
+"added.\n"
 "        On the other hand if in the database is domain which doesn't exist\n"
-"        on the node, it can recreated with stored data or it can be removed.\n"
+"        on the node, it can recreated with stored data or it can be "
+"removed.\n"
 "        "
 msgstr ""
 "\n"
-"        Automatické importovanie existujúcich domén na uzle. Tento proces porovná domény v databáze a na uzle.\n"
-"        Ak je na uzle doména, ktorá nemá záznam v databáze, všetky jej dáta budú pridané.\n"
-"        Ak existuje v databáze doména, ktorá neexistuje na uzle, je možné ju znova vytvoriť na základe uložených informácií\n"
+"        Automatické importovanie existujúcich domén na uzle. Tento proces "
+"porovná domény v databáze a na uzle.\n"
+"        Ak je na uzle doména, ktorá nemá záznam v databáze, všetky jej dáta "
+"budú pridané.\n"
+"        Ak existuje v databáze doména, ktorá neexistuje na uzle, je možné ju "
+"znova vytvoriť na základe uložených informácií\n"
 "        alebo ju odstrániť úplne.\n"
 "        "
 
@@ -2187,8 +2145,7 @@ msgstr ""
 msgid "Loading ..."
 msgstr "Načítavanie..."
 
-#: templates/nodes/node/edit.html:4
-#: templates/nodes/node/edit.html.py:12
+#: templates/nodes/node/edit.html:4 templates/nodes/node/edit.html.py:12
 msgid "Edit Node"
 msgstr "Upraviť uzol"
 
@@ -2196,8 +2153,7 @@ msgstr "Upraviť uzol"
 msgid "Save node"
 msgstr "Uložiť uzol"
 
-#: templates/nodes/node/list.html:4
-#: templates/nodes/node/list.html.py:12
+#: templates/nodes/node/list.html:4 templates/nodes/node/list.html.py:12
 msgid "List Nodes"
 msgstr "Zoznam uzlov"
 
@@ -2215,17 +2171,49 @@ msgstr ""
 msgid "Recheck"
 msgstr "Skontrolovať"
 
-#: templates/nodes/node/list.html:53
-#: templates/nodes/node/select.html:35
+#: templates/nodes/node/list.html:53 templates/nodes/node/select.html:35
 msgid "There is no nodes."
 msgstr "Neexistujú žiadne uzle."
 
-#: templates/nodes/node/remove.html:4
-#: templates/nodes/node/remove.html.py:7
+#: templates/nodes/node/remove.html:4 templates/nodes/node/remove.html.py:7
 msgid "Remove Node"
 msgstr "Odstrániť uzol"
 
-#: templates/nodes/node/remove.html:21
+#: templates/nodes/node/remove.html:10
+msgid ""
+"\n"
+"        This node has one domain.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This node has %(counter)s domains.\n"
+"        "
+msgstr[0] ""
+"\n"
+"        Tento uzol nemá žiadne domény uložené v systéme.\n"
+"        "
+msgstr[1] ""
+"\n"
+"        Tento uzol má jednu doménu uloženú v systéme.\n"
+"        "
+msgstr[2] ""
+"\n"
+"        Tento uzol má %(counter)s domény uložené v systéme.\n"
+"        "
+msgstr[3] ""
+"\n"
+"        Tento uzol má %(counter)s domény uložené v systéme.\n"
+"        "
+msgstr[4] ""
+"\n"
+"        Tento uzol má %(counter)s domény uložené v systéme.\n"
+"        "
+msgstr[5] ""
+"\n"
+"        Tento uzol má %(counter)s domén uložených v systéme.\n"
+"        "
+
+#: templates/nodes/node/remove.html:18
 msgid ""
 "\n"
 "        Do you really want to remove this node and all its domains?\n"
@@ -2235,8 +2223,7 @@ msgstr ""
 "        Naozaj chcete odstrániť tento uzol a všetky jeho domény?\n"
 "        "
 
-#: templates/nodes/node/select.html:4
-#: templates/nodes/node/select.html.py:7
+#: templates/nodes/node/select.html:4 templates/nodes/node/select.html.py:7
 msgid "Select Node"
 msgstr "Výber uzla"
 
@@ -2252,6 +2239,6 @@ msgstr ""
 
 #~ msgid "Edit user"
 #~ msgstr "Upraviť užívateľa"
+
 #~ msgid "Delete user"
 #~ msgstr "Zmazať užívateľa"
-

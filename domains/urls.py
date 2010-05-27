@@ -33,7 +33,7 @@ urlpatterns = patterns("webPyVirt.domains",
     ),
     url(
         r"^domain/add/wizard/$",
-        "views.wizard.wizard",
+        "views.wizard.add",
         name="domain_wizard"
     ),
     url(
@@ -85,6 +85,11 @@ urlpatterns = patterns("webPyVirt.domains",
         r"^domain/migrate/(?P<domainId>\d+)/$",
         "views.domain.migrate",
         name="domain_migrate"
+    ),
+    url(
+        r"^domain/migrate/wizard/$",
+        "views.wizard.migrate",
+        name="domain_migrate_wizard"
     ),
     url(
         r"^domain/select/autocomplete/(?P<permission>[\dabcdef]+)/$",

@@ -7,14 +7,11 @@
     <h1 class="center">{% trans "Remove Node" %} :: {{ managedNode.name }}</h1>
 
     <p class="indent">
-        !!! Napis sem kolko ma node domen. !!!
-        {% comment %}
-        {% blocktrans count managedUser.groups.count as counter %}
-        This user is member of one group.
+        {% blocktrans count managedNode.domain_set.count as counter %}
+        This node has one domain.
         {% plural %}
-        This user is member of {{ counter }} groups.
+        This node has {{ counter }} domains.
         {% endblocktrans %}
-        {% endcomment %}
     </p>
 
     <p class="indent">

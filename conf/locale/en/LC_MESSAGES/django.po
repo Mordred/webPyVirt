@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-20 14:12+0200\n"
+"POT-Creation-Date: 2010-05-27 14:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1056,7 +1056,7 @@ msgstr ""
 #: domains/views/domain.py:87 domains/views/domain.py:105
 #: domains/views/domain.py:284 domains/views/domain.py:333
 #: domains/views/domain.py:396 domains/views/domain.py:533
-#: domains/views/wizard.py:46
+#: domains/views/wizard.py:47 domains/views/wizard.py:335
 msgid "OK"
 msgstr ""
 
@@ -1108,7 +1108,7 @@ msgstr ""
 msgid "Parameter not found!"
 msgstr ""
 
-#: domains/views/wizard.py:301
+#: domains/views/wizard.py:302 domains/views/wizard.py:376
 msgid "Action not found!"
 msgstr ""
 
@@ -1472,14 +1472,14 @@ msgstr ""
 #: templates/accounts/group/remove.html:31
 #: templates/accounts/user/remove.html:38 templates/domains/acl/user.html:43
 #: templates/domains/domain/remove.html:33 templates/nodes/acl/user.html:43
-#: templates/nodes/node/remove.html:34
+#: templates/nodes/node/remove.html:31
 msgid "Yes"
 msgstr ""
 
 #: templates/accounts/group/remove.html:32
 #: templates/accounts/user/remove.html:39 templates/domains/acl/user.html:45
 #: templates/domains/domain/remove.html:34 templates/nodes/acl/user.html:45
-#: templates/nodes/node/remove.html:35
+#: templates/nodes/node/remove.html:32
 msgid "No"
 msgstr ""
 
@@ -1636,7 +1636,7 @@ msgstr ""
 msgid "Remove User"
 msgstr ""
 
-#: templates/accounts/user/remove.html:10 templates/nodes/node/remove.html:12
+#: templates/accounts/user/remove.html:10
 #, python-format
 msgid ""
 "\n"
@@ -2045,7 +2045,20 @@ msgstr ""
 msgid "Remove Node"
 msgstr ""
 
-#: templates/nodes/node/remove.html:21
+#: templates/nodes/node/remove.html:10
+#, python-format
+msgid ""
+"\n"
+"        This node has one domain.\n"
+"        "
+msgid_plural ""
+"\n"
+"        This node has %(counter)s domains.\n"
+"        "
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/nodes/node/remove.html:18
 msgid ""
 "\n"
 "        Do you really want to remove this node and all its domains?\n"

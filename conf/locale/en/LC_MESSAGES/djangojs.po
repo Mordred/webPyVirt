@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-05-20 13:17+0200\n"
+"POT-Creation-Date: 2010-05-27 14:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,15 +27,15 @@ msgstr ""
 #: static/js/domain_detail.js:27 static/js/domain_detail.js.py:35
 #: static/js/plugins/jq.autoimport_domains.js:178
 #: static/js/plugins/jq.domain_wizard.js:69
-#: static/js/plugins/jq.domain_wizard.js:486
+#: static/js/plugins/jq.domain_wizard.js:491
 msgid "Memory"
 msgstr ""
 
 #: static/js/domain_remove.js:15 static/js/plugins/jq.autoimport_domains.js:25
 #: static/js/plugins/jq.domain_buttons.js:93
-#: static/js/plugins/jq.domain_migrate_wizard.js:219
+#: static/js/plugins/jq.domain_migrate_wizard.js:305
 #: static/js/plugins/jq.domain_set.js:22
-#: static/js/plugins/jq.domain_wizard.js:964
+#: static/js/plugins/jq.domain_wizard.js:969
 #: static/js/plugins/jq.test_connection.js:129
 msgid "Close"
 msgstr ""
@@ -101,13 +101,13 @@ msgstr ""
 
 #: static/js/plugins/jq.autoimport_domains.js:175
 #: static/js/plugins/jq.domain_wizard.js:67
-#: static/js/plugins/jq.domain_wizard.js:509
+#: static/js/plugins/jq.domain_wizard.js:514
 msgid "Domain Name"
 msgstr ""
 
 #: static/js/plugins/jq.autoimport_domains.js:176
 #: static/js/plugins/jq.domain_wizard.js:68
-#: static/js/plugins/jq.domain_wizard.js:510
+#: static/js/plugins/jq.domain_wizard.js:516
 msgid "UUID"
 msgstr ""
 
@@ -124,8 +124,8 @@ msgid "Nothing to import or remove!"
 msgstr ""
 
 #: static/js/plugins/jq.autoimport_domains.js:210
-#: static/js/plugins/jq.domain_migrate_wizard.js:172
-#: static/js/plugins/jq.domain_wizard.js:671
+#: static/js/plugins/jq.domain_migrate_wizard.js:260
+#: static/js/plugins/jq.domain_wizard.js:677
 msgid "Error"
 msgstr ""
 
@@ -165,25 +165,79 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: static/js/plugins/jq.domain_migrate_wizard.js:163
-#: static/js/plugins/jq.domain_wizard.js:662
+#: static/js/plugins/jq.domain_migrate_wizard.js:23
+#: static/js/plugins/jq.domain_wizard.js:27
+#: static/js/plugins/jq.domain_wizard.js:134
+#: static/js/plugins/jq.domain_wizard.js:173
+msgid "Result: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:36
+msgid "Domain migrated successfully."
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:44
+#: static/js/plugins/jq.domain_wizard.js:48
+msgid "Go to domain details"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:47
+msgid "Migrate Domain"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:60
+msgid ""
+"This operation can take more time. Please be patent and do not close this "
+"window."
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:68
+msgid "Please select node from list: "
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:76
+msgid "Available nodes"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:82
+msgid "There is no node to which you can migrate."
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:93
+msgid "Migrate"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:96
+msgid "Select Node"
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:251
+#: static/js/plugins/jq.domain_wizard.js:668
 msgid "Loading, please wait..."
 msgstr ""
 
-#: static/js/plugins/jq.domain_migrate_wizard.js:197
-#: static/js/plugins/jq.domain_migrate_wizard.js:224
-#: static/js/plugins/jq.domain_wizard.js:942
-#: static/js/plugins/jq.domain_wizard.js:969
+#: static/js/plugins/jq.domain_migrate_wizard.js:282
+#, perl-format
+msgid ""
+"This is domain migration wizard which will help you set necessary data so "
+"you will not have to fill everything alone. If you are ready click on \"%s\" "
+"button."
+msgstr ""
+
+#: static/js/plugins/jq.domain_migrate_wizard.js:283
+#: static/js/plugins/jq.domain_migrate_wizard.js:310
+#: static/js/plugins/jq.domain_wizard.js:947
+#: static/js/plugins/jq.domain_wizard.js:974
 msgid "Next"
 msgstr ""
 
-#: static/js/plugins/jq.domain_migrate_wizard.js:201
-#: static/js/plugins/jq.domain_wizard.js:946
+#: static/js/plugins/jq.domain_migrate_wizard.js:287
+#: static/js/plugins/jq.domain_wizard.js:951
 msgid "Introduction"
 msgstr ""
 
-#: static/js/plugins/jq.domain_migrate_wizard.js:226
-#: static/js/plugins/jq.domain_wizard.js:971
+#: static/js/plugins/jq.domain_migrate_wizard.js:312
+#: static/js/plugins/jq.domain_wizard.js:976
 msgid "Previous"
 msgstr ""
 
@@ -208,18 +262,8 @@ msgstr ""
 msgid "Trying to set parameter \"%s\" to value \"%s\"..."
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:27
-#: static/js/plugins/jq.domain_wizard.js:134
-#: static/js/plugins/jq.domain_wizard.js:173
-msgid "Result: "
-msgstr ""
-
 #: static/js/plugins/jq.domain_wizard.js:40
 msgid "Domain created and started successfully."
-msgstr ""
-
-#: static/js/plugins/jq.domain_wizard.js:48
-msgid "Go to domain details"
 msgstr ""
 
 #: static/js/plugins/jq.domain_wizard.js:51
@@ -472,60 +516,62 @@ msgstr ""
 msgid "Existing volumes"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:471
+#: static/js/plugins/jq.domain_wizard.js:476
 msgid "Choose memory and CPU settings: "
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:477
+#: static/js/plugins/jq.domain_wizard.js:482
 msgid "Memory (RAM)"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:502
+#: static/js/plugins/jq.domain_wizard.js:507
 msgid "First we need some basic data: "
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:511
+#: static/js/plugins/jq.domain_wizard.js:517
 msgid "Description"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:515
+#: static/js/plugins/jq.domain_wizard.js:521
 msgid "Metadata"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:684
+#: static/js/plugins/jq.domain_wizard.js:690
 #, perl-format
 msgid ""
 "Node \"%s\" with URI: \"%s\" is currently unavailable. Try it again later or "
 "check status of the node."
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:689
+#: static/js/plugins/jq.domain_wizard.js:695
 msgid "Node Status"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:726
-#: static/js/plugins/jq.domain_wizard.js:829
-#: static/js/plugins/jq.domain_wizard.js:883
+#: static/js/plugins/jq.domain_wizard.js:734
+#: static/js/plugins/jq.domain_wizard.js:834
+#: static/js/plugins/jq.domain_wizard.js:888
 msgid "Name is required!"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:742
-msgid "This operation can take more time depending on the volume size."
+#: static/js/plugins/jq.domain_wizard.js:749
+msgid ""
+"This operation can take more time depending on the volume size. Please be "
+"patent and do not close this window."
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:763
+#: static/js/plugins/jq.domain_wizard.js:768
 msgid "MAC Address is invalid!"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:790
+#: static/js/plugins/jq.domain_wizard.js:795
 msgid "Target Path is required!"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:892
+#: static/js/plugins/jq.domain_wizard.js:897
 msgid "UUID is invalid!"
 msgstr ""
 
-#: static/js/plugins/jq.domain_wizard.js:941
+#: static/js/plugins/jq.domain_wizard.js:946
 #, perl-format
 msgid ""
 "This is domain creation wizard which will help you set necessary data so you "

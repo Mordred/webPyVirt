@@ -100,7 +100,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
-#    "django_extensions",
+    "django_extensions",
     "webPyVirt.accounts",
     "webPyVirt.domains",
     "webPyVirt.monitor",
